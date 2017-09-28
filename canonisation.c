@@ -24,6 +24,10 @@ char* canon(char *ligne) {
 	//printf("Code a canoniser: %s\n", ligne);
 
 	char n_ligne[256];
+	int k;
+	for (k = 0; k < strlen(n_ligne); k++) {
+		n_ligne[k] = ' ';
+	}
 
 	int j = 0; //compteur pour creer nouveau ligne
 

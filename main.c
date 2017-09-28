@@ -5,10 +5,20 @@
 #include "canonisation.h"
 
 int main () {
-	char* ligne = strdup("ADD $2,$3,$8ADD $2,$3,$8ADD $2,$3,$8ADD $2,$3,$8");
-	char* nova = strdup(canon(ligne));
+  FILE* file = fopen("ass.s", "r"); /* should check the result */
+  char ligne[256];
 
-	printf("\nMain reponse: %s\n", nova);
+  while (fgets(ligne, sizeof(ligne), file)) { // chaque ligne
+
+        printf("Ligne lit pour MAIN ==> %s\n", ligne);
+        char* n_ligne = strdup(canon(ligne));
+      	printf("Main reponse ==> %s\n\n", strdup(n_ligne));
+    }
+    /* may check feof here to make a difference between eof and io failure -- network
+       timeout for instance */
+       printf("FIN DU FICHIER\n");
+  fclose(file);
+
 
 	return 0;
 }

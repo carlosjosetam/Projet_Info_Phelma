@@ -21,13 +21,13 @@ bool isCS2(char c) {
 }
 
 char* canon(char *ligne) {
-	printf("Code a canoniser: %s\n", ligne);
+	//printf("Code a canoniser: %s\n", ligne);
 
 	char n_ligne[256];
 
 	int j = 0; //compteur pour creer nouveau ligne
 
-	printf("Ligne vide: %s\n", n_ligne);
+	//printf("Ligne vide: %s\n", n_ligne);
 
 	int i; // compteur pour ligne
 	for (i = 0; i < strlen(ligne); i++) {
@@ -74,9 +74,9 @@ char* canon(char *ligne) {
 		}
 	}
 
-	printf("Ligne canonisé: %s\n", n_ligne);
+	//printf("Ligne canonisé: %s\n", n_ligne);
 
 	char* resultat = strdup(n_ligne);
-	printf("resultat %s\n", resultat);
+	//printf("resultat %s\n", resultat);
 	return resultat;
 }

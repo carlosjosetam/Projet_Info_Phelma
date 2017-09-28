@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "canonisation.h"
+#include "aef.h"
 
 int main () {
   FILE* file = fopen("ass.s", "r"); /* should check the result */

@@ -82,5 +82,6 @@ char* canon(char *ligne) {
 
 	char* resultat = strdup(n_ligne);
 	//printf("resultat %s\n", resultat);
+	//bonjour
 	return resultat;
 }

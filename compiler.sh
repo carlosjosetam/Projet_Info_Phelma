@@ -1,2 +1,2 @@
-gcc main.c canonisation.c -o test -Wall
+gcc main.c canonisation.c aef.c -o test -Wall
 ./test

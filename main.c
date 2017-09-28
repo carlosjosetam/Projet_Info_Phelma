@@ -14,6 +14,7 @@ int main () {
         printf("Ligne lit pour MAIN ==> %s\n", ligne);
         char* n_ligne = strdup(canon(ligne));
       	printf("Main reponse ==> %s\n\n", strdup(n_ligne));
+	aef(n_ligne);
     }
     /* may check feof here to make a difference between eof and io failure -- network
        timeout for instance */

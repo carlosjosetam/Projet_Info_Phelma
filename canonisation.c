@@ -3,7 +3,16 @@
 #include <stdbool.h>
 
 bool isCS(char c) {
-	char *CS = ":,#.-()$ ";
+	char* CS = ":,#.-()$ ";
+	int i;
+	for (i = 0; i < strlen(CS); i++) {
+		if(c == CS[i]) return true;
+	}
+	return false;
+}
+
+bool isCS2(char c) {
+	char* CS = ":,-()";
 	int i;
 	for (i = 0; i < strlen(CS); i++) {
 		if(c == CS[i]) return true;
@@ -12,49 +21,62 @@ bool isCS(char c) {
 }
 
 char* canon(char *ligne) {
-	
-	char new_ligne[256];
+	printf("Code a canoniser: %s\n", ligne);
 
-	int i;
+	char n_ligne[256];
+
+	int j = 0; //compteur pour creer nouveau ligne
+
+	printf("Ligne vide: %s\n", n_ligne);
+
+	int i; // compteur pour ligne
 	for (i = 0; i < strlen(ligne); i++) {
-		printf("%d\n", i);
-		if(ligne[i] == '$') {
-			strcat(new_ligne, "$"); i++;
-			while(!(ligne[i] == '\0' || isCS(ligne[i]))) {
-				strcat(new_ligne, "e"); i++;
-			}
-			strcat(new_ligne, " "); i = i-1;
-		}
-		else if(ligne[i] == '.') {
-			strcat(new_ligne, "."); i++;
-			while(!(ligne[i] == '\0' || isCS(ligne[i]))) {
-				printf("dentro %d\n", i);
-				strcat(new_ligne, &ligne[i]); i++;
-			}
-			printf("out");
-			strcat(new_ligne, " "); i = i-1;
-		}
-		else if(ligne[i] == ',') {
-			strcat(new_ligne, &ligne[i]); i++;
-			strcat(new_ligne, " ");
-		}	
-	}		
+		//START
+		//printf("START: %d\n", i);
 
-	char *resultat = new_ligne;
+		if (ligne[i] == '$') { //DOLLAR
+			n_ligne[j] = ligne[i]; j++; i++;
+			//LOOP
+			while(!(ligne[i] == '\0' || isCS(ligne[i]))) {
+				n_ligne[j] = ligne[i]; j++; i++;
+			}
+			n_ligne[j] = ' '; j++; i--;
+		}
+
+		else if (ligne[i] == '.') { //POINT
+			n_ligne[j] = ligne[i]; j++; i++;
+			while (!(ligne[i] == '\0' || isCS(ligne[i]))) {
+				n_ligne[j] = ligne[i]; j++; i++;
+			}
+			n_ligne[j] = ' '; j++; i--;
+		}
+
+		else if (isCS2(ligne[i]) && !(ligne[i] == '\0')) { //CASE OF : , - ( )
+			n_ligne[j] = ligne[i]; j++;
+			n_ligne[j] = ' '; j++;
+		}
+
+		else if (ligne[i] == '#') { //COMENTAIRE
+			i++;
+			while (!(ligne[i] == '\0')) {
+				i++; //EFACER TOUT APRES
+			}
+		}
+		else if (! isCS(ligne[i])) { // CHAR NORMAL
+			n_ligne[j] = ligne[i]; j++; i++;
+			while (! (isCS(ligne[i])) || ligne[i] == '\0') {
+				n_ligne[j] = ligne[i]; j++; i++;
+			}
+			n_ligne[j] = ' '; j++; i--;
+		}
+		else if (ligne[i] == ' ') { // EVITER ESPACES MULTIPLES
+			//RIEN A FAIRE
+		}
+	}
+
+	printf("Ligne canonisé: %s\n", n_ligne);
+
+	char* resultat = strdup(n_ligne);
+	printf("resultat %s\n", resultat);
 	return resultat;
 }
-
-
-	
-
-int main () {
-	char *ligne = strdup("$7$2$4");
-	char *new_ligne = canon(ligne);
-
-	printf("\n%s\n", new_ligne);
-
-	return 0;
-}
-
-
-	

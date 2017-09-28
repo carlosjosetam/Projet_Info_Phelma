@@ -1,0 +1,1 @@
+char* canon(char *ligne);

@@ -2,15 +2,17 @@
 #include<stdio.h>
 #include<ctype.h>
 #include<string.h>
+#include <stdbool.h>
+#include "../structures/list_lexeme.h"
 
-enum{INIT, SYMBOLE, DECIMAL, DIRECTIVE, VIRGULE, ZERO, HEXA, OCTA, DOLLAR, REGISTRE, POINT, DEUX_POINTS, PARENTHESE, ERREUR};
+enum{INIT, SYMBOLE, DECIMAL, DIRECTIVE, VIRGULE, ZERO, HEXA, OCTA, DOLLAR, REGISTRE, POINT, DEUX_POINTS, PAR_GAU, PAR_DRO, ERREUR};
 
-void aef(char* text, int ligne)//, Lexeme_t * list)
+void aef(char* text, int ligne, Lexeme_t * list)
 	{
 	int c,i;
 	int S=INIT;
 	int longueur_phrase=strlen(text);
-	for(c=0,i=0;c<=longueur_phrase;c++,i++) 
+	for(c=0,i=0;c<=longueur_phrase;c++,i++)
 		{
 		switch(S)
 			{
@@ -18,21 +20,26 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 				i=0;
 				char mot[100]="";
 				if (isdigit(text[c]) && text[c]>'0')
-					{ 
+					{
 					mot[i]=text[c];
 					S=DECIMAL;
 					}
-				else if (text[c]=='(' || text[c]==')')
+				else if (text[c]=='(')
 					{
 					mot[i]=text[c];
-					S=PARENTHESE;
+					S=PAR_GAU;
+					}
+				else if (text[c]==')')
+					{
+					mot[i]=text[c];
+					S=PAR_DRO;
 					}
 				else if (text[c]==':')
 					{
 					mot[i]=text[c];
 					S=DEUX_POINTS;
 					}
-				else if (isalpha(text[c])) 
+				else if (isalpha(text[c]))
 					{
 					mot[i]=text[c];
 					S=SYMBOLE;
@@ -57,11 +64,11 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					mot[i]=text[c];
 					S=ZERO;
 					}
-				else if (isspace(text[c])) 
+				else if (isspace(text[c]))
 					{
 					S=INIT;
 					}
-				else if (text[c]=='\0') 
+				else if (text[c]=='\0')
 					{
 					printf("ligne %d \n",ligne);
 					}
@@ -74,11 +81,11 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					}
 				else if (isspace(text[c]))
 					{
-					//push(list,mot,S,ligne);
-					printf("%s ==> ERREUR \n",mot);
+					push(list,strdup(mot),S,ligne);
+					//printf("%s ==> ERREUR \n",mot);
 					S=INIT;
 					}
-				else 
+				else
 					{
 					mot[i]=text[c];
 					S=ERREUR;
@@ -92,8 +99,8 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					}
 				else if (isspace(text[c]))
 					{
-					//push(list,mot,S,ligne);
-					printf("%s ==> ERREUR \n",mot);
+					push(list,strdup(mot),S,ligne);
+					//printf("%s ==> ERREUR \n",mot);
 					S=INIT;
 					}
 				else
@@ -102,19 +109,24 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					S=ERREUR;
 					}
 				break;
-			case PARENTHESE:
-				//push(list,mot,S,ligne);
-				printf("%s ==> PARENTHESE \n",mot);
+			case PAR_GAU:
+				push(list,strdup(mot),S,ligne);
+				//printf("%s ==> PAR_GAU \n",mot);
+				S=INIT;
+				break;
+			case PAR_DRO:
+				push(list,strdup(mot),S,ligne);
+				//printf("%s ==> PAR_DRO \n",mot);
 				S=INIT;
 				break;
 			case DEUX_POINTS:
-				//push(list,mot,S,ligne);
-				printf("%s ==> DEUX_POINTS \n",mot);
+				push(list,strdup(mot),S,ligne);
+				//printf("%s ==> DEUX_POINTS \n",mot);
 				S=INIT;
 				break;
 			case VIRGULE:
-				//push(list,mot,S,ligne);
-				printf("%s ==> VIRGULE \n",mot);
+				push(list,strdup(mot),S,ligne);
+				//printf("%s ==> VIRGULE \n",mot);
 				S=INIT;
 				break;
 			case ZERO:
@@ -135,8 +147,8 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					}
 				else if (isspace(text[c]) || text[c]=='\0')
 					{
-					//push(list,mot,S,ligne);
-					printf("%s ==> ZERO \n",mot);
+					push(list,strdup(mot),S,ligne);
+					//printf("%s ==> ZERO \n",mot);
 					S=INIT;
 					}
 				break;
@@ -158,8 +170,8 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					}
 				else if (isspace(text[c]))
 					{
-					//push(list,mot,S,ligne);
-					printf("%s ==> HEXA \n",mot);
+					push(list,strdup(mot),S,ligne);
+					//printf("%s ==> HEXA \n",mot);
 					S=INIT;
 					}
 				break;
@@ -176,8 +188,8 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					}
 				else if (isspace(text[c]))
 					{
-					//push(list,mot,S,ligne);
-					printf("%s ==> OCTA \n",mot);
+					push(list,strdup(mot),S,ligne);
+					//printf("%s ==> OCTA \n",mot);
 					S=INIT;
 					}
 				break;
@@ -189,8 +201,8 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					}
 				else if (isspace(text[c]) || text[c]=='\0')
 					{
-					//push(list,mot,S,ligne);
-					printf("%s ==> REGISTRE \n",mot);
+					push(list,strdup(mot),S,ligne);
+					//printf("%s ==> REGISTRE \n",mot);
 					S=INIT;
 					}
 				break;
@@ -202,8 +214,8 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					}
 				else if	(isspace(text[c]) || text[c]=='\0')
 					{
-					//push(list,mot,S,ligne);
-					printf("%s ==> DIRECTIVE \n",mot);
+					push(list,strdup(mot),S,ligne);
+					//printf("%s ==> DIRECTIVE \n",mot);
 					S=INIT;
 					}
 				break;
@@ -218,36 +230,36 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					mot[i]=text[c];
 					S=ERREUR;
 					}
-				else if (isspace(text[c]) || text[c]=='\0') 
+				else if (isspace(text[c]) || text[c]=='\0')
 					{
-					//push(list,mot,S,ligne);
-					printf("%s ==> DECIMAL \n",mot);
+					push(list,strdup(mot),S,ligne);
+					//printf("%s ==> DECIMAL \n",mot);
 					S=INIT;
 					}
 				break;
 			case SYMBOLE:
-				if (isalpha(text[c])) 
+				if (isalpha(text[c]))
 					{
 					mot[i]=text[c];
 					S=SYMBOLE;
 					}
-				else if (isdigit(text[c])) 
+				else if (isdigit(text[c]))
 					{
 					mot[i]=text[c];
 					S=SYMBOLE;
 					}
-				else if (isspace(text[c]) || text[c]=='\0') 
+				else if (isspace(text[c]) || text[c]=='\0')
 					{
-					//push(list,mot,S,ligne);
-					printf("%s ==> SYMBOLE \n",mot);
+					push(list,strdup(mot),S,ligne);
+					//printf("%s ==> SYMBOLE \n",mot);
 					S=INIT;
 					}
 				break;
 			case ERREUR:
 				if (isspace(text[c]))
 					{
-					//push(list,mot,S,ligne);
-					printf("%s ==> ERREUR \n",mot);
+					push(list,strdup(mot),S,ligne);
+					//printf("%s ==> ERREUR \n",mot);
 					S=INIT;
 					}
 				else
@@ -257,5 +269,4 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					}
 			}
 		}
-	}	
-	
+	}

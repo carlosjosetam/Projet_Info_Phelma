@@ -16,5 +16,7 @@ int main () {
   //ANALYSE LEXICALE
   analyse_lexicale("tests/ass.s", list);
 
+  print_list(list);
+
 	return 0;
 }

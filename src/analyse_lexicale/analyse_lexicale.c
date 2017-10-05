@@ -17,7 +17,7 @@ void analyse_lexicale(char * path, Lexeme_t * list) {
     char* n_ligne = strdup(canon(ligne));
   	printf("Main reponse ==> %s\n\n", strdup(n_ligne));
     printf("Analyse Lexicale:\n");
-    aef(n_ligne, comp_ligne);
+    aef(n_ligne, comp_ligne, list);
 
     comp_ligne++;
   }

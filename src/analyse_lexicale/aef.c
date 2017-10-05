@@ -70,7 +70,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 					}
 				else if (text[c]=='\0')
 					{
-					printf("ligne %d \n",ligne);
+					//printf("ligne %d \n",ligne);
 					}
 				break;
 			case POINT:

@@ -13,15 +13,15 @@ void analyse_lexicale(char * path, Lexeme_t * list) {
 
   while (fgets(ligne, sizeof(ligne), file)) { // chaque ligne
 
-    printf("Ligne lit pour MAIN ==> %s\n", ligne);
+    //printf("Ligne lit pour MAIN ==> %s\n", ligne);
     char* n_ligne = strdup(canon(ligne));
-  	printf("Main reponse ==> %s\n\n", strdup(n_ligne));
-    printf("Analyse Lexicale:\n");
-    aef(n_ligne, comp_ligne, list);
+  	//printf("Main reponse ==> %s\n\n", strdup(n_ligne));
+    //printf("Analyse Lexicale:\n");
+    aef(strdup(n_ligne), comp_ligne, list);
 
     comp_ligne++;
   }
 
-  printf("FIN DU FICHIER\n");
+  //printf("FIN DU FICHIER\n");
   fclose(file);
 }

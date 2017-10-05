@@ -19,3 +19,5 @@ lunch : .word 12
 
 ADD "salut","ciao"
 ADD  "salut","ciao" ..data
+.word .wwwwwwwww uuuuuuu
+.word 12

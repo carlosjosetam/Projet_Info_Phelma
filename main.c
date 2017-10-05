@@ -2,25 +2,19 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include "canonisation.h"
-#include "aef.h"
+#include "src/structures/list_lexeme.h"
+#include "src/analyse_lexicale/analyse_lexicale.h"
+
+
+
 
 int main () {
-  FILE* file = fopen("ass.s", "r"); /* should check the result */
-  char ligne[256];
+  //CREATION DE LIST CHAINEE
+  Lexeme_t *list = new_lexeme();
+  if (is_empty(list)) printf("EMPTY list\n");
 
-  while (fgets(ligne, sizeof(ligne), file)) { // chaque ligne
-
-        printf("Ligne lit pour MAIN ==> %s\n", ligne);
-        char* n_ligne = strdup(canon(ligne));
-      	printf("Main reponse ==> %s\n\n", strdup(n_ligne));
-	aef(n_ligne);
-    }
-    /* may check feof here to make a difference between eof and io failure -- network
-       timeout for instance */
-       printf("FIN DU FICHIER\n");
-  fclose(file);
-
+  //ANALYSE LEXICALE
+  analyse_lexicale("tests/ass.s", list);
 
 	return 0;
 }

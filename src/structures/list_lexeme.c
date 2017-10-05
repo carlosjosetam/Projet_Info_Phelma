@@ -1,0 +1,103 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+typedef struct Lexeme {
+  // Linked list with first HEAD element non
+  // acessible.
+    char* word;
+    int type;
+    int ligne;
+    struct Lexeme * next;
+} Lexeme_t;
+
+void print_list(Lexeme_t * head) {
+  // Print all elements on list
+  Lexeme_t * current = head->next;
+
+  printf("\nLIST ==>>\n");
+
+  while (current != NULL) {
+    printf("%s %d\n", current->word, current->type);
+    current = current->next;
+  }
+
+  printf("\n");
+}
+
+void push(Lexeme_t * head, char* word, int type) {
+  // ADD element on top of the linked list
+  Lexeme_t * current = head;
+  while (current->next != NULL) {
+    current = current->next;
+  }
+
+  current->next = malloc(sizeof(Lexeme_t));
+  current->next->word = word;
+  current->next->type = type;
+  current->next->next = NULL;
+}
+
+int pop_last(Lexeme_t * head, char ** word) {
+  // This function pops the LAST element of the linked list
+  // returns its atributte TYPE and writes on the adress
+  // WORD the atributte WORD
+  Lexeme_t * current = head;
+
+  if (current->next == NULL) {
+    printf("Attention! List EMPTY! => ");
+    printf("ABORT\n");
+    printf("Verify your code and try again!\n");
+    abort();
+    return -1;
+  }
+
+  while (current->next->next != NULL) {
+    current = current->next;
+  }
+
+  *word = current->next->word;
+  int type = current->next->type;
+  free(current->next);
+  current->next = NULL;
+  return type;
+}
+
+int pop_first(Lexeme_t * head, char ** word) {
+  // This function pops the FIRST element of the linked list
+  // returns its atributte TYPE and writes on the adress
+  // WORD the atributte WORD
+  Lexeme_t * current = head;
+  if (current->next == NULL) {
+    printf("Attention! List EMPTY! => ");
+    printf("ABORT\n");
+    printf("Verify your code and try again!\n");
+    abort();
+    return -1;
+  }
+
+  *word = current->next->word;
+  int type = current->next->type;
+  Lexeme_t * aux = current->next;
+  head->next = head->next->next;
+  free(aux);
+  return type;
+}
+
+bool is_empty(Lexeme_t * head) {
+  // Verify if the list is EMPTY
+  if (head->next == NULL) return true;
+  return false;
+}
+
+Lexeme_t * new_lexeme() {
+  // Create a new struvture of type Lexeme_t
+  // and inicializes the head with HEAD 0
+  Lexeme_t *head = NULL;
+  head = malloc(sizeof(Lexeme_t));
+  head->word = "HEAD";
+  head->type = 0;
+  head->next = NULL;
+  return head;
+}

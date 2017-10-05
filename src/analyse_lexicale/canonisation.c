@@ -65,6 +65,7 @@ char* canon(char *ligne) {
 			while (!(ligne[i] == '\0')) {
 				i++; //EFACER TOUT APRES
 			}
+			n_ligne[j] = '\0';
 		}
 		else if (! isCS(ligne[i])) { // CHAR NORMAL
 			n_ligne[j] = ligne[i]; j++; i++;
@@ -77,6 +78,8 @@ char* canon(char *ligne) {
 			//RIEN A FAIRE
 		}
 	}
+
+	n_ligne[j] = '\0';
 
 	//printf("Ligne canonisé: %s\n", n_ligne);
 

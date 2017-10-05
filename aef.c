@@ -64,7 +64,6 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 				else if (text[c]=='\0') 
 					{
 					printf("ligne %d \n",ligne);
-					}
 				break;
 			case POINT:
 				if (isalpha(text[c]))
@@ -83,7 +82,6 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					mot[i]=text[c];
 					S=ERREUR;
 					}
-				break;
 			case DOLLAR:
 				if (isalpha(text[c]) || isdigit(text[c]))
 					{
@@ -101,7 +99,6 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					mot[i]=text[c];
 					S=ERREUR;
 					}
-				break;
 			case PARENTHESE:
 				//push(list,mot,S,ligne);
 				printf("%s ==> PARENTHESE \n",mot);
@@ -258,4 +255,4 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 			}
 		}
 	}	
-	
+	}

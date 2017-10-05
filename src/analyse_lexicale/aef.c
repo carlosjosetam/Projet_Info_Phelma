@@ -76,7 +76,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 			case POINT:
 				if (isalpha(text[c]))
 					{
-					mot[i]=text[i];
+					mot[i]=text[c];//text[i]==>text[c]
 					S=DIRECTIVE;
 					}
 				else if (isspace(text[c]))
@@ -89,7 +89,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				else // CAS ou on a .45 
 					{
 					mot[i]=text[c];
-					printf("ERREUR: Ligne %d | Notation de DIRECTIVE -> . <- erroné\n", ligne);
+					printf("ERREUR: Ligne %d | Notation de DIRECTIVE -> %s <- erroné\n", ligne, strdup(mot));
 					S=ERREUR;
 					}
 				break;  // erreur bête ici

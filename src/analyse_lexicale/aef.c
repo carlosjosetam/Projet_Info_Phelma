@@ -81,13 +81,15 @@ void aef(char* text, int ligne, Lexeme_t * list)
 					}
 				else if (isspace(text[c]))
 					{
-					push(list,strdup(mot),S,ligne);
+					printf("ERREUR: Ligne %d | Notation de DIRECTIVE -> . <- erroné\n", ligne);
+					push(list,strdup(mot),14,ligne);
 					//printf("%s ==> ERREUR \n",mot);
 					S=INIT;
 					}
-				else
+				else // CAS ou on a .45 
 					{
 					mot[i]=text[c];
+					printf("ERREUR: Ligne %d | Notation de DIRECTIVE -> . <- erroné\n", ligne);
 					S=ERREUR;
 					}
 				break;  // erreur bête ici
@@ -106,6 +108,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				else
 					{
 					mot[i]=text[c];
+					printf("ERREUR: Ligne %d | Notation de REGISTRE -> %s <- erroné\n", ligne, strdup(mot));
 					S=ERREUR;
 					}
 				break;
@@ -166,6 +169,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				else if (isalpha(text[c]) && text[c]>'g')
 					{
 					mot[i]=text[c];
+					printf("ERREUR: Ligne %d | Notation -> %s <- HEXA erroné\n", ligne, strdup(mot));
 					S=ERREUR;
 					}
 				else if (isspace(text[c]))
@@ -184,6 +188,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				else if (isdigit(text[c]) || text[c]=='9')
 					{
 					mot[i]=text[c];
+					printf("ERREUR: Ligne %d | Notation -> %s <- OCTA erroné\n", ligne, strdup(mot));
 					S=ERREUR;
 					}
 				else if (isspace(text[c]))
@@ -228,6 +233,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				else  if (isalpha(text[c]))
 					{
 					mot[i]=text[c];
+					printf("ERREUR: Ligne %d | Notation -> %s <- DECIMAL erroné\n", ligne, strdup(mot));
 					S=ERREUR;
 					}
 				else if (isspace(text[c]) || text[c]=='\0')

@@ -21,3 +21,4 @@ ADD "salut","ciao"
 ADD  "salut","ciao" ..data
 .word .wwwwwwwww uuuuuuu
 .word 12
+.5 . .data.4.5.fata

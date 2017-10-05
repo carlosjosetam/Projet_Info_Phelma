@@ -10,13 +10,20 @@
 
 int main () {
   //CREATION DE LIST CHAINEE
-  Lexeme_t *list = new_lexeme();
-  if (is_empty(list)) printf("EMPTY list\n");
+  Lexeme_t *list1 = new_lexeme();
+  Lexeme_t *list2 = new_lexeme();
+  Lexeme_t *list3 = new_lexeme();
+  if (is_empty(list1)) printf("EMPTY list\n");
 
   //ANALYSE LEXICALE
-  analyse_lexicale("tests/ass.s", list);
+  analyse_lexicale("tests/ass.s", list1);
+  print_list(list1);
 
-  print_list(list);
+  analyse_lexicale("tests/miam.s", list2);
+  print_list(list2);
+
+  analyse_lexicale("tests/mult.s", list3);
+  print_list(list3);
 
 	return 0;
 }

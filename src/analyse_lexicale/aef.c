@@ -83,7 +83,7 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					mot[i]=text[c];
 					S=ERREUR;
 					}
-				break;
+				break;  // erreur bête ici
 			case DOLLAR:
 				if (isalpha(text[c]) || isdigit(text[c]))
 					{

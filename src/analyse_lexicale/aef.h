@@ -1,3 +1,2 @@
 
-void aef(char* ligne);
-
+void aef(char* text, int ligne);

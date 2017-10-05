@@ -3,7 +3,7 @@
 #include<ctype.h>
 #include<string.h>
 
-enum{INIT, SYMBOLE, DECIMAL, DIRECTIVE, VIRGULE, ZERO, HEXA, OCTA, REGISTRE, DEUX_POINTS, PARENTHESE, ERREUR};
+enum{INIT, SYMBOLE, DECIMAL, DIRECTIVE, VIRGULE, ZERO, HEXA, OCTA, DOLLAR, REGISTRE, POINT, DEUX_POINTS, PARENTHESE, ERREUR};
 
 void aef(char* text, int ligne)//, Lexeme_t * list)
 	{
@@ -40,7 +40,7 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 				else if (text[c]=='.')
 					{
 					mot[i]=text[c];
-					S=DIRECTIVE;
+					S=POINT;
 					}
 				else if (text[c]==',')
 					{
@@ -50,7 +50,7 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 				else if (text[c]=='$')
 					{
 					mot[i]=text[c];
-					S=REGISTRE;
+					S=DOLLAR;
 					}
 				else if (text[c]=='0')
 					{
@@ -65,6 +65,40 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					{
 					printf("ligne %d \n",ligne);
 				break;
+			case POINT:
+				if (isalpha(text[c]))
+					{
+					mot[i]=text[i];
+					S=DIRECTIVE;
+					}
+				else if (isspace(text[c]))
+					{
+					//push(list,mot,S,ligne);
+					printf("%s ==> ERREUR \n",mot);
+					S=INIT;
+					}
+				else 
+					{
+					mot[i]=text[c];
+					S=ERREUR;
+					}
+			case DOLLAR:
+				if (isalpha(text[c]) || isdigit(text[c]))
+					{
+					mot[i]=text[c];
+					S=REGISTRE;
+					}
+				else if (isspace(text[c]))
+					{
+					//push(list,mot,S,ligne);
+					printf("%s ==> ERREUR \n",mot);
+					S=INIT;
+					}
+				else
+					{
+					mot[i]=text[c];
+					S=ERREUR;
+					}
 			case PARENTHESE:
 				//push(list,mot,S,ligne);
 				printf("%s ==> PARENTHESE \n",mot);
@@ -179,7 +213,7 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 				else  if (isalpha(text[c]))
 					{
 					mot[i]=text[c];
-					S=SYMBOLE;
+					S=ERREUR;
 					}
 				else if (isspace(text[c]) || text[c]=='\0') 
 					{
@@ -206,6 +240,18 @@ void aef(char* text, int ligne)//, Lexeme_t * list)
 					S=INIT;
 					}
 				break;
+			case ERREUR:
+				if (isspace(text[c]))
+					{
+					//push(list,mot,S,ligne);
+					printf("%s ==> ERREUR \n",mot);
+					S=INIT;
+					}
+				else
+					{
+					mot[i]=text[c];
+					S=ERREUR;
+					}
 			}
 		}
 	}	

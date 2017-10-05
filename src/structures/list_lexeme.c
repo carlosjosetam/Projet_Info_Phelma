@@ -12,6 +12,7 @@ typedef struct Lexeme {
     struct Lexeme * next;
 } Lexeme_t;
 
+
 void print_list(Lexeme_t * head) {
   // Print all elements on list
   Lexeme_t * current = head->next;
@@ -19,14 +20,14 @@ void print_list(Lexeme_t * head) {
   printf("\nLIST ==>>\n");
 
   while (current != NULL) {
-    printf("%s %d\n", current->word, current->type);
+    printf("%s %d | ligne: %d\n", current->word, current->type, current->ligne);
     current = current->next;
   }
 
   printf("\n");
 }
 
-void push(Lexeme_t * head, char* word, int type) {
+void push(Lexeme_t * head, char* word, int type, int ligne) {
   // ADD element on top of the linked list
   Lexeme_t * current = head;
   while (current->next != NULL) {
@@ -36,6 +37,7 @@ void push(Lexeme_t * head, char* word, int type) {
   current->next = malloc(sizeof(Lexeme_t));
   current->next->word = word;
   current->next->type = type;
+  current->next->ligne = ligne;
   current->next->next = NULL;
 }
 
@@ -98,6 +100,7 @@ Lexeme_t * new_lexeme() {
   head = malloc(sizeof(Lexeme_t));
   head->word = "HEAD";
   head->type = 0;
+  head->ligne = -1;
   head->next = NULL;
   return head;
 }

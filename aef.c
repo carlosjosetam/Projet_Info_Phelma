@@ -3,188 +3,210 @@
 #include<ctype.h>
 #include<string.h>
 
-enum{INIT, SYMBOLE, DECIMAL, DIRECTIVE, VIRGULE, ZERO, HEXA, OCTA, REGISTRE};
+enum{INIT, SYMBOLE, DECIMAL, DIRECTIVE, VIRGULE, ZERO, HEXA, OCTA, REGISTRE, DEUX_POINTS, PARENTHESE, ERREUR};
 
-void aef(char* text)
-{
-	int c;
+void aef(char* text, int ligne)//, Lexeme_t * list)
+	{
+	int c,i;
 	int S=INIT;
 	int longueur_phrase=strlen(text);
-	for(c=0;c<=longueur_phrase+1;c=c+1) 
-	{
-		switch(S)
+	for(c=0,i=0;c<=longueur_phrase;c++,i++) 
 		{
-		case INIT:
-			if (isdigit(text[c]) && text[c]>'0')
-				{ 
-				printf("%c",text[c]);
-				S=DECIMAL;
-				}
-			else if (isalpha(text[c])) 
-				{
-				printf("%c",text[c]);
-				S=SYMBOLE;
-				}
-			else if (text[c]=='.')
-				{
-				printf("%c",text[c]);
-				S=DIRECTIVE;
-				}
-			else if (text[c]==',')
-				{
-				printf("%c",text[c]);
-				S=VIRGULE;
-				}
-			else if (text[c]=='$')
-				{
-				printf("%c",text[c]);
-				S=REGISTRE;
-				}
-			else if (text[c]=='0')
-				{
-				printf("%c",text[c]);
-				S=ZERO;
-				}
-			else if (isspace(text[c])) 
-				{
+		switch(S)
+			{
+			case INIT:
+				i=0;
+				char mot[100]="";
+				if (isdigit(text[c]) && text[c]>'0')
+					{ 
+					mot[i]=text[c];
+					S=DECIMAL;
+					}
+				else if (text[c]=='(' || text[c]==')')
+					{
+					mot[i]=text[c];
+					S=PARENTHESE;
+					}
+				else if (text[c]==':')
+					{
+					mot[i]=text[c];
+					S=DEUX_POINTS;
+					}
+				else if (isalpha(text[c])) 
+					{
+					mot[i]=text[c];
+					S=SYMBOLE;
+					}
+				else if (text[c]=='.')
+					{
+					mot[i]=text[c];
+					S=DIRECTIVE;
+					}
+				else if (text[c]==',')
+					{
+					mot[i]=text[c];
+					S=VIRGULE;
+					}
+				else if (text[c]=='$')
+					{
+					mot[i]=text[c];
+					S=REGISTRE;
+					}
+				else if (text[c]=='0')
+					{
+					mot[i]=text[c];
+					S=ZERO;
+					}
+				else if (isspace(text[c])) 
+					{
+					S=INIT;
+					}
+				else if (text[c]=='\0') 
+					{
+					printf("ligne %d \n",ligne);
+				break;
+			case PARENTHESE:
+				//push(list,mot,S,ligne);
+				printf("%s ==> PARENTHESE \n",mot);
 				S=INIT;
-				}
-			else if (text[c]=='\0') printf("Fin \n");
-			break;
-		case ZERO:
-			if (text[c]=='x' || text[c]=='X')
-				{
-				printf("%c",text[c]);
-				S=HEXA;
-				}
-			else if (isdigit(text[c]) && text[c]<'8')
-				{
-				printf("%c",text[c]);
-				S=OCTA;
-				}
-			else if (isalpha(text[c]) || text[c]>='8')
-				{
-				printf("%c",text[c]);
-				S=SYMBOLE;
-				}
-			else if (isspace(text[c]) || text[c]=='\0')
-				{
-				printf(" ZERO \n");
+				break;
+			case DEUX_POINTS:
+				//push(list,mot,S,ligne);
+				printf("%s ==> DEUX_POINTS \n",mot);
 				S=INIT;
-				}
-			break;
-		case HEXA:
-			if (isdigit(text[c]))
-				{
-				printf("%c",text[c]);
-				S=HEXA;
-				}
-			else if (isalpha(text[c]) && text[c]<'g')
-				{
-				printf("%c",text[c]);
-				S=HEXA;
-				}
-			else if (isalpha(text[c]) && text[c]>'g')
-				{
-				printf("%c",text[c]);
-				S=SYMBOLE;
-				}
-			else if (text[c]=='$')
-				{
-				printf("%c",text[c]);
-				S=REGISTRE;
-				}
-			else if (isspace(text[c]))
-				{
-				printf(" HEXA \n");
+				break;
+			case VIRGULE:
+				//push(list,mot,S,ligne);
+				printf("%s ==> VIRGULE \n",mot);
 				S=INIT;
-				}
-			break;
-		case OCTA:
-			if (isdigit(text[c]) && text[c]<'9')
-				{
-				printf("%c",text[c]);
-				S=OCTA;
-				}
-			else if (isdigit(text[c]) || text[c]=='9')
-				{
-				printf("%c",text[c]);
-				S=SYMBOLE;
-				}
-			else if (isspace(text[c]))
-				{
-				printf(" OCTA \n");
-				S=INIT;
-				}
-			break;
-		case REGISTRE:
-			if (isdigit(text[c]) || isalpha(text[c]))
-				{
-				printf("%c",text[c]);
-				S=REGISTRE;
-				}
-			else if (isspace(text[c]) || text[c]=='\0')
-				{
-				printf(" REGISTRE \n");
-				S=INIT;
-				}
-			break;
-		case VIRGULE:
-			printf(" VIRGULE \n");
-			S=INIT;
-			break;
-		case DIRECTIVE:
-			if (isalpha(text[c]) || isdigit(text[c]))
-				{
-				S=DIRECTIVE;
-				printf("%c",text[c]);
-				}
-			else if	(isspace(text[c]) || text[c]=='\0')
-				{
-				printf(" DIRECTIVE \n");
-				S=INIT;
-				}
-			break;
-		case DECIMAL:
-			if (isdigit(text[c]))
-				{
-				printf("%c",text[c]);
-				S=DECIMAL;
-				}
-			else  if (isalpha(text[c]))
-				{
-				printf("%c",text[c]);
-				S=SYMBOLE;
-				}
-			else if (isspace(text[c]) || text[c]=='\0') 
-				{
-				printf(" DECIMAL \n");
-				S=INIT;
-				}
-			break;
-		case SYMBOLE:
-			if (isalpha(text[c])) 
-				{
-				printf("%c",text[c]);
-				S=SYMBOLE;
-				}
-			else if (isdigit(text[c])) 
-				{
-				printf("%c",text[c]);
-				S=SYMBOLE;
-				}
-			else if (isspace(text[c]) || text[c]=='\0') 
-				{
-				printf(" SYMBOLE \n");
-				S=INIT;
-				}
-			break;
+				break;
+			case ZERO:
+				if (text[c]=='x' || text[c]=='X')
+					{
+					mot[i]=text[c];
+					S=HEXA;
+					}
+				else if (isdigit(text[c]) && text[c]<'8')
+					{
+					mot[i]=text[c];
+					S=OCTA;
+					}
+				else if (isalpha(text[c]) || text[c]>='8')
+					{
+					mot[i]=text[c];
+					S=SYMBOLE;
+					}
+				else if (isspace(text[c]) || text[c]=='\0')
+					{
+					//push(list,mot,S,ligne);
+					printf("%s ==> ZERO \n",mot);
+					S=INIT;
+					}
+				break;
+			case HEXA:
+				if (isdigit(text[c]))
+					{
+					mot[i]=text[c];
+					S=HEXA;
+					}
+				else if (isalpha(text[c]) && text[c]<'g')
+					{
+					mot[i]=text[c];
+					S=HEXA;
+					}
+				else if (isalpha(text[c]) && text[c]>'g')
+					{
+					mot[i]=text[c];
+					S=ERREUR;
+					}
+				else if (isspace(text[c]))
+					{
+					//push(list,mot,S,ligne);
+					printf("%s ==> HEXA \n",mot);
+					S=INIT;
+					}
+				break;
+			case OCTA:
+				if (isdigit(text[c]) && text[c]<'9')
+					{
+					mot[i]=text[c];
+					S=OCTA;
+					}
+				else if (isdigit(text[c]) || text[c]=='9')
+					{
+					mot[i]=text[c];
+					S=ERREUR;
+					}
+				else if (isspace(text[c]))
+					{
+					//push(list,mot,S,ligne);
+					printf("%s ==> OCTA \n",mot);
+					S=INIT;
+					}
+				break;
+			case REGISTRE:
+				if (isdigit(text[c]) || isalpha(text[c]))
+					{
+					mot[i]=text[c];
+					S=REGISTRE;
+					}
+				else if (isspace(text[c]) || text[c]=='\0')
+					{
+					//push(list,mot,S,ligne);
+					printf("%s ==> REGISTRE \n",mot);
+					S=INIT;
+					}
+				break;
+			case DIRECTIVE:
+				if (isalpha(text[c]) || isdigit(text[c]))
+					{
+					mot[i]=text[c];
+					S=DIRECTIVE;
+					}
+				else if	(isspace(text[c]) || text[c]=='\0')
+					{
+					//push(list,mot,S,ligne);
+					printf("%s ==> DIRECTIVE \n",mot);
+					S=INIT;
+					}
+				break;
+			case DECIMAL:
+				if (isdigit(text[c]))
+					{
+					mot[i]=text[c];
+					S=DECIMAL;
+					}
+				else  if (isalpha(text[c]))
+					{
+					mot[i]=text[c];
+					S=SYMBOLE;
+					}
+				else if (isspace(text[c]) || text[c]=='\0') 
+					{
+					//push(list,mot,S,ligne);
+					printf("%s ==> DECIMAL \n",mot);
+					S=INIT;
+					}
+				break;
+			case SYMBOLE:
+				if (isalpha(text[c])) 
+					{
+					mot[i]=text[c];
+					S=SYMBOLE;
+					}
+				else if (isdigit(text[c])) 
+					{
+					mot[i]=text[c];
+					S=SYMBOLE;
+					}
+				else if (isspace(text[c]) || text[c]=='\0') 
+					{
+					//push(list,mot,S,ligne);
+					printf("%s ==> SYMBOLE \n",mot);
+					S=INIT;
+					}
+				break;
+			}
 		}
+	}	
 	}
-}
-	
-
-
-	
-
-

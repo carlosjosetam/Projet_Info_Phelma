@@ -3,49 +3,47 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef struct Lexeme {
+typedef struct Etiquette {
   // Linked list with first HEAD element non
   // acessible.
     char* word;
-    int type;
     int ligne;
-    struct Lexeme * next;
-} Lexeme_t;
+    struct Etiquette * next;
+} Etiquette_t;
 
 
-void print_list(Lexeme_t * head) {
+void print_list_etiquette(Etiquette_t * head) {
   // Print all elements on list
-  Lexeme_t * current = head->next;
+  Etiquette_t * current = head->next;
 
-  printf("\nLIST ==>>\n");
+  printf("\nLIST DE ETIQUETTES ==>>\n");
 
   while (current != NULL) {
-    printf("%s %d | ligne: %d\n", current->word, current->type, current->ligne);
+    printf("%s | ligne: %d\n", current->word, current->ligne);
     current = current->next;
   }
 
   printf("\n");
 }
 
-void push(Lexeme_t * head, char* word, int type, int ligne) {
+void push_etiquette(Etiquette_t * head, char* word, int ligne) {
   // ADD element on top of the linked list
-  Lexeme_t * current = head;
+  Etiquette_t * current = head;
   while (current->next != NULL) {
     current = current->next;
   }
 
-  current->next = malloc(sizeof(Lexeme_t));
+  current->next = malloc(sizeof(Etiquette_t));
   current->next->word = word;
-  current->next->type = type;
   current->next->ligne = ligne;
   current->next->next = NULL;
 }
 
-int pop_last(Lexeme_t * head, char ** word) {
+int pop_last_etiquette(Etiquette_t * head, char ** word) {
   // This function pops the LAST element of the linked list
-  // returns its atributte TYPE and writes on the adress
+  // returns its atributte LIGNE and writes on the adress
   // WORD the atributte WORD
-  Lexeme_t * current = head;
+  Etiquette_t * current = head;
 
   if (current->next == NULL) {
     printf("Attention! List EMPTY! => ");
@@ -60,17 +58,17 @@ int pop_last(Lexeme_t * head, char ** word) {
   }
 
   *word = current->next->word;
-  int type = current->next->type;
+  int ligne = current->next->ligne;
   free(current->next);
   current->next = NULL;
-  return type;
+  return ligne;
 }
 
-int pop_first(Lexeme_t * head, char ** word) {
+int pop_first_etiquette(Etiquette_t * head, char ** word) {
   // This function pops the FIRST element of the linked list
-  // returns its atributte TYPE and writes on the adress
+  // returns its atributte LIGNE and writes on the adress
   // WORD the atributte WORD
-  Lexeme_t * current = head;
+  Etiquette_t * current = head;
   if (current->next == NULL) {
     printf("Attention! List EMPTY! => ");
     printf("ABORT\n");
@@ -80,63 +78,26 @@ int pop_first(Lexeme_t * head, char ** word) {
   }
 
   *word = current->next->word;
-  int type = current->next->type;
-  Lexeme_t * aux = current->next;
+  int ligne = current->next->ligne;
+  Etiquette_t * aux = current->next;
   head->next = head->next->next;
   free(aux);
-  return type;
+  return ligne;
 }
 
-bool is_empty(Lexeme_t * head) {
+bool is_empty_etiquette(Etiquette_t * head) {
   // Verify if the list is EMPTY
   if (head->next == NULL) return true;
   return false;
 }
 
-Lexeme_t * new_lexeme() {
-  // Create a new struvture of type Lexeme_t
-  // and inicializes the head with HEAD 0
-  Lexeme_t *head = NULL;
-  head = malloc(sizeof(Lexeme_t));
+Etiquette_t * new_etiquette() {
+  // Create a new struvture of type Etiquette_t
+  // and inicializes the head with HEAD -1
+  Etiquette_t *head = NULL;
+  head = malloc(sizeof(Etiquette_t));
   head->word = "HEAD";
-  head->type = 0;
   head->ligne = -1;
   head->next = NULL;
   return head;
 }
-
-Lexeme_t * next_lexeme(Lexeme_t * head) {
-  return head->next;
-}
-
-int type_lexeme(Lexeme_t * head) {
-  return head->type;
-}
-
-char * word_lexeme(Lexeme_t * head) {
-  return strdup(head->word);
-}
-
-int ligne_lexeme(Lexeme_t * head) {
-  return head->ligne;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

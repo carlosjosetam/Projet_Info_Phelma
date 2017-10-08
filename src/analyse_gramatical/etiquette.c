@@ -10,7 +10,7 @@ void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes) {
   // of etiquettes
 
   push(head_lexemes, "salut", 1, 1);
-	
+
   Lexeme_t * current = next_lexeme(head_lexemes);
 
   while (current != NULL && next_lexeme(current) != NULL) {
@@ -21,6 +21,4 @@ void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes) {
     }
     current = next_lexeme(current);
   }
-
-  print_list_etiquette(list_etiquettes);
 }

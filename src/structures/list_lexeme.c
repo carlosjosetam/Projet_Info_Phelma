@@ -120,23 +120,3 @@ char * word_lexeme(Lexeme_t * head) {
 int ligne_lexeme(Lexeme_t * head) {
   return head->ligne;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

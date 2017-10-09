@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include "../structures/list_lexeme.h"
 
-enum{INIT, SYMBOLE, DECIMAL, DIRECTIVE, VIRGULE, ZERO, HEXA, OCTA, DOLLAR, REGISTRE, POINT, DEUX_POINTS, PAR_GAU, PAR_DRO, ERREUR};
+enum{INIT, SYMBOLE, DECIMAL, DIRECTIVE, VIRGULE, ZERO, HEXA, OCTA, DOLLAR, REGISTRE, POINT, DEUX_POINTS, PAR_GAU, PAR_DRO, ERREUR, CHAINE_CHAR, MOINS};
 
 void aef(char* text, int ligne, Lexeme_t * list)
 	{
@@ -63,6 +63,15 @@ void aef(char* text, int ligne, Lexeme_t * list)
 					{
 					mot[i]=text[c];
 					S=ZERO;
+					}
+				else if (text[c]=='"')
+					{
+					S=CHAINE_CHAR;
+					}
+				else if (text[c]=='-')
+					{
+					mot[i]=text[c];
+					S=MOINS;
 					}
 				else if (isspace(text[c]))
 					{
@@ -273,6 +282,28 @@ void aef(char* text, int ligne, Lexeme_t * list)
 					mot[i]=text[c];
 					S=ERREUR;
 					}
+				break;
+			case CHAINE_CHAR:
+				if (text[c]=='"')
+					{
+					push(list,strdup(mot),S,ligne);
+					S=INIT;
+					}
+				else if (text[c]=='\0')
+					{
+					push(list,strdup(mot),14,ligne);
+					S=INIT;
+					}
+				else
+					{
+					mot[i-1]=text[c];
+					S=CHAINE_CHAR;
+					}
+				break;
+			case MOINS:
+				push(list,strdup(mot),S,ligne);
+				S=INIT;
+				break;
 			}
 		}
 	}

@@ -24,17 +24,17 @@ int main () {
   cherche_etiquette(list1, etiq1);
   print_list_etiquette(etiq1);
 
-  printf("Liste du fichier ==>> miam.s\n");
-  analyse_lexicale("tests/miam.s", list2);
-  print_list(list2);
-  cherche_etiquette(list2, etiq2);
-  print_list_etiquette(etiq2);
-
-  printf("Liste du fichier ==>> mult.s\n");
-  analyse_lexicale("tests/mult.s", list3);
-  print_list(list3);
-  cherche_etiquette(list3, etiq3);
-  print_list_etiquette(etiq3);
+  // printf("Liste du fichier ==>> miam.s\n");
+  // analyse_lexicale("tests/miam.s", list2);
+  // print_list(list2);
+  // cherche_etiquette(list2, etiq2);
+  // print_list_etiquette(etiq2);
+  //
+  // printf("Liste du fichier ==>> mult.s\n");
+  // analyse_lexicale("tests/mult.s", list3);
+  // print_list(list3);
+  // cherche_etiquette(list3, etiq3);
+  // print_list_etiquette(etiq3);
 
   return 0;
 }

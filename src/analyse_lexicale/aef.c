@@ -39,7 +39,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 					mot[i]=text[c];
 					S=DEUX_POINTS;
 					}
-				else if (isalpha(text[c]))
+				else if (isalpha(text[c]) || text[c] == '_') // Cas d'etiquetes
 					{
 					mot[i]=text[c];
 					S=SYMBOLE;
@@ -95,7 +95,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 					//printf("%s ==> ERREUR \n",mot);
 					S=INIT;
 					}
-				else // CAS ou on a .45 
+				else // CAS ou on a .45
 					{
 					mot[i]=text[c];
 					printf("ERREUR: Ligne %d | Notation de DIRECTIVE -> %s <- erroné\n", ligne, strdup(mot));

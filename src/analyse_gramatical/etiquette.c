@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include "../structures/list_etiquette.h"
 #include "../structures/list_etiquette.c"
-#include "../structures/list_lexeme.h"
 
 void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes) {
   // Search on list of lexemes and push etiquetes on list

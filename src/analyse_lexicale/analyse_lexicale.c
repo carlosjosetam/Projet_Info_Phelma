@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include "canonisation.h"
-#include "aef.h"
-#include "../structures/list_lexeme.h"
+#include "canonisation.c"
+#include "aef.c"
 
 void analyse_lexicale(char * path, Lexeme_t * list) {
   FILE* file = fopen(path, "r"); /* should check the result */

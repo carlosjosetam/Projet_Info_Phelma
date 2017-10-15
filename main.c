@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include "src/structures/list_lexeme.h"
-#include "src/structures/list_etiquette.h"
-#include "src/analyse_lexicale/analyse_lexicale.h"
-#include "src/analyse_gramatical/etiquette.h"
+#include "src/structures/list_lexeme.c"
+#include "src/analyse_lexicale/analyse_lexicale.c"
 #include "src/structures/dicio_instru.c"
+#include "src/analyse_gramatical/analyse_gramatical_1.c"
 
 int main () {
+  printf("ASSEMBLEUR MIPS ==>> Projet Info PHELMA 2017\n");
   //CREATION DE DICIONIRE D'INSTRUCTIONS
   Dicio_Instru_t * dicio_instru = new_Dicio_Instru();
   print_Dicio_Instru(dicio_instru);
@@ -26,7 +26,7 @@ int main () {
   printf("Liste du fichier ==>> ass.s\n");
   analyse_lexicale("tests/ass.s", list1);
   //print_list(list1);
-  cherche_etiquette(list1, etiq1);
+  analyse_gramatical_1(list1, etiq1);
   print_list_etiquette(etiq1);
 
   // printf("Liste du fichier ==>> miam.s\n");

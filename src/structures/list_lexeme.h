@@ -10,3 +10,4 @@ Lexeme_t * new_lexeme();
 int type_lexeme(Lexeme_t * head);
 char * word_lexeme(Lexeme_t * head);
 int ligne_lexeme(Lexeme_t * head);
+void effacer_2(Lexeme_t * before);

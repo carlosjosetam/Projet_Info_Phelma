@@ -75,7 +75,7 @@ int pop_first(Lexeme_t * head, char ** word) {
     printf("Attention! List EMPTY! => ");
     printf("ABORT\n");
     printf("Verify your code and try again!\n");
-    abort();
+    //abort();
     return -1;
   }
 
@@ -119,4 +119,13 @@ char * word_lexeme(Lexeme_t * head) {
 
 int ligne_lexeme(Lexeme_t * head) {
   return head->ligne;
+}
+
+void effacer_2(Lexeme_t * before) {
+  Lexeme_t * first = before->next;
+  Lexeme_t * second = before->next;
+
+  before->next = before->next->next->next;
+  // free(first);
+  // free(second); SEE THAT
 }

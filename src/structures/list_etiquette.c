@@ -90,7 +90,7 @@ int pop_first_etiquette(Etiquette_t * head, char ** word) {
     printf("Attention! List EMPTY! => ");
     printf("ABORT\n");
     printf("Verify your code and try again!\n");
-    abort();
+    //abort();
     return -1;
   }
 

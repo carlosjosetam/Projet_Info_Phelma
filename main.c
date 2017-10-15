@@ -6,8 +6,13 @@
 #include "src/structures/list_etiquette.h"
 #include "src/analyse_lexicale/analyse_lexicale.h"
 #include "src/analyse_gramatical/etiquette.h"
+#include "src/structures/dicio_instru.c"
 
 int main () {
+  //CREATION DE DICIONIRE D'INSTRUCTIONS
+  Dicio_Instru_t * dicio_instru = new_Dicio_Instru();
+  print_Dicio_Instru(dicio_instru);
+
   //CREATION DE LIST CHAINEE
   Lexeme_t *list1 = new_lexeme();
   Lexeme_t *list2 = new_lexeme();
@@ -20,7 +25,7 @@ int main () {
 
   printf("Liste du fichier ==>> ass.s\n");
   analyse_lexicale("tests/ass.s", list1);
-  print_list(list1);
+  //print_list(list1);
   cherche_etiquette(list1, etiq1);
   print_list_etiquette(etiq1);
 

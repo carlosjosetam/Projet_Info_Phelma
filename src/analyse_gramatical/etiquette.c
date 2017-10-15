@@ -9,7 +9,7 @@ void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes) {
 
   Lexeme_t * current = next_lexeme(head_lexemes);
   Lexeme_t * before_current = head_lexemes;
-  printf("ANALYSE D'ETIQUETTES EN COURS...\n");
+  printf("\nANALYSE D'ETIQUETTES EN COURS...\n");
   while (current != NULL && next_lexeme(current) != NULL) {
     if (type_lexeme(current) == 1 && type_lexeme(next_lexeme(current)) == 11) { // CAS ETIQUETTES => SYMBOLE :
       if (ligne_lexeme(current) == ligne_lexeme(next_lexeme(current))) {
@@ -37,4 +37,5 @@ void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes) {
     }
 
   }
+  print_list_etiquette(list_etiquettes);
 }

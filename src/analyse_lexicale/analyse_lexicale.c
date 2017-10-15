@@ -9,7 +9,7 @@ void analyse_lexicale(char * path, Lexeme_t * list) {
   char ligne[256];
   // compteur de ligne
   int comp_ligne = 1;
-
+  printf("CANONISATION ET ANALYSE DE LEXEMES EN COURS...\n");
   while (fgets(ligne, sizeof(ligne), file)) { // chaque ligne
 
     //printf("Ligne lit pour MAIN ==> %s\n", ligne);

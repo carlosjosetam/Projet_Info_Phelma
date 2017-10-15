@@ -23,11 +23,10 @@ int main () {
 
   //if (is_empty(list1)) printf("EMPTY list\n");
 
-  printf("Liste du fichier ==>> ass.s\n");
+  //printf("Liste du fichier ==>> ass.s\n");
   analyse_lexicale("tests/ass.s", list1);
   //print_list(list1);
-  analyse_gramatical_1(list1, etiq1);
-  print_list_etiquette(etiq1);
+  analyse_gramatical_1(list1, etiq1, dicio_instru);
 
   // printf("Liste du fichier ==>> miam.s\n");
   // analyse_lexicale("tests/miam.s", list2);

@@ -6,6 +6,7 @@
 #include "src/analyse_lexicale/analyse_lexicale.c"
 #include "src/structures/dicio_instru.c"
 #include "src/analyse_gramatical/analyse_gramatical_1.c"
+#include "src/structures/dicio_directives.c"
 
 int main (int argc, char ** argv ) {
   if (argc != 2) {
@@ -19,6 +20,10 @@ int main (int argc, char ** argv ) {
   //CREATION DE DICIONIRE D'INSTRUCTIONS
   Dicio_Instru_t * dicio_instru = new_Dicio_Instru();
   print_Dicio_Instru(dicio_instru);
+
+  //CREATION DE DICIONIRE DE DIRECTIVES
+  Dicio_Directives_t * dicio_directives = new_Dicio_Directives();
+  print_Dicio_Directives(dicio_directives);
 
   //CREATION DE LIST CHAINEE
   Lexeme_t * list_complet = new_lexeme();
@@ -34,7 +39,7 @@ int main (int argc, char ** argv ) {
   //printf("Liste du fichier ==>> ass.s\n");
   analyse_lexicale(path, list_complet);
   //print_list(list_complet);
-  analyse_gramatical_1(list_complet, list_text, list_data, list_bss, etiq1, dicio_instru);
+  analyse_gramatical_1(list_complet, list_text, list_data, list_bss, etiq1, dicio_instru, dicio_directives);
 
   // printf("Liste du fichier ==>> miam.s\n");
   // analyse_lexicale("tests/miam.s", list2);

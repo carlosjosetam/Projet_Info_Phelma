@@ -2,16 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
-typedef struct Lexeme {
-  // Linked list with first HEAD element non
-  // acessible.
-    char* word;
-    int type;
-    int ligne;
-    struct Lexeme * next;
-} Lexeme_t;
-
+#include "list_lexeme.h"
 
 void print_list(Lexeme_t * head) {
   // Print all elements on list

@@ -4,15 +4,6 @@
 #include <stdbool.h>
 #include "dicio_instru.h"
 
-typedef struct Dicio_Instru{
-  // Linked list for Instructions dicionaire
-    char* word; // ADD
-    int n_op; // 3
-    int code_bin; //100001
-    struct Dicio_Instru * next;
-} Dicio_Instru_t;
-
-
 void print_Dicio_Instru(Dicio_Instru_t * head) {
   // Print all elements on list
   Dicio_Instru_t * current = head->next;

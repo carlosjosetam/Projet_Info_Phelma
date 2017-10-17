@@ -1,4 +1,14 @@
-typedef struct Lexeme Lexeme_t;
+#ifndef _Lexeme
+#define _Lexeme
+
+typedef struct Lexeme {
+  // Linked list with first HEAD element non
+  // acessible.
+    char* word;
+    int type;
+    int ligne;
+    struct Lexeme * next;
+} Lexeme_t;
 
 void print_list(Lexeme_t * head);
 void push(Lexeme_t * head, char* word, int type, int ligne);
@@ -11,3 +21,5 @@ int type_lexeme(Lexeme_t * head);
 char * word_lexeme(Lexeme_t * head);
 int ligne_lexeme(Lexeme_t * head);
 void effacer_2(Lexeme_t * before);
+
+#endif

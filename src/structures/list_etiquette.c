@@ -2,15 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
-typedef struct Etiquette {
-  // Linked list with first HEAD element non
-  // acessible.
-    char* word;
-    int ligne;
-    struct Etiquette * next;
-} Etiquette_t;
-
+#include "list_etiquette.h"
 
 void print_list_etiquette(Etiquette_t * head) {
   // Print all elements on list

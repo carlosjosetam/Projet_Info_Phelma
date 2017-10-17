@@ -5,10 +5,19 @@
 #include "verification_text.c"
 #include "verification_data.c"
 #include "verification_bss.c"
+#include "division_section.c"
 
-void analyse_gramatical_1(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes, Dicio_Instru_t * dicio_instru) {
-  cherche_etiquette(head_lexemes, list_etiquettes);
-  verification_text(head_lexemes, dicio_instru);
-  verification_data(head_lexemes, dicio_instru);
-  verification_bss(head_lexemes, dicio_instru);
+void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_t * head_data, Lexeme_t * head_bss, Etiquette_t * list_etiquettes, Dicio_Instru_t * dicio_instru) {
+
+  division_section(head_lexemes, head_text, head_data, head_bss, dicio_instru);
+  printf("LIST OF .TEXT\n");
+  print_list(head_text);
+  cherche_etiquette(head_text, list_etiquettes, "text");
+  printf("LIST OF .DATA\n");
+  print_list(head_data);
+  cherche_etiquette(head_data, list_etiquettes, "data");
+  printf("LIST OF .BSS\n");
+  print_list(head_bss);
+  cherche_etiquette(head_bss, list_etiquettes, "bss");
+  //cherche_etiquette(head_lexemes, list_etiquettes);
 }

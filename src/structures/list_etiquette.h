@@ -6,11 +6,13 @@ typedef struct Etiquette {
   // acessible.
     char* word;
     int ligne;
+    int decalage;
+    char * section;
     struct Etiquette * next;
 } Etiquette_t;
 
 void print_list_etiquette(Etiquette_t * head);
-void push_etiquette(Etiquette_t * head, char* word, int ligne);
+void push_etiquette(Etiquette_t * head, char* word, int ligne, int decalage, char * section);
 int pop_last_etiquette(Etiquette_t * head, char ** word);
 int pop_first_etiquette(Etiquette_t * head, char ** word);
 bool is_empty_etiquette(Etiquette_t * head);

@@ -11,7 +11,7 @@ void print_list_etiquette(Etiquette_t * head) {
   printf("\nLIST DE ETIQUETTES ==>>\n");
 
   while (current != NULL) {
-    printf("%s | ligne: %d\n", current->word, current->ligne);
+    printf("%s | ligne: %d | decalage: %d | section: .%s\n", current->word, current->ligne, current->decalage, current->section);
     current = current->next;
   }
 
@@ -35,7 +35,7 @@ bool is_in_list(Etiquette_t * head, char * word) {
   return false;
 }
 
-void push_etiquette(Etiquette_t * head, char* word, int ligne) {
+void push_etiquette(Etiquette_t * head, char* word, int ligne, int decalage, char * section) {
   // ADD element on top of the linked list
   Etiquette_t * current = head;
   while (current->next != NULL) {
@@ -45,6 +45,8 @@ void push_etiquette(Etiquette_t * head, char* word, int ligne) {
   current->next = malloc(sizeof(Etiquette_t));
   current->next->word = word;
   current->next->ligne = ligne;
+  current->next->decalage = decalage;
+  current->next->section = section;
   current->next->next = NULL;
 }
 
@@ -107,6 +109,8 @@ Etiquette_t * new_etiquette() {
   head = malloc(sizeof(Etiquette_t));
   head->word = "HEAD";
   head->ligne = -1;
+  head->decalage = -1;
+  head->section = "HEAD";
   head->next = NULL;
   return head;
 }

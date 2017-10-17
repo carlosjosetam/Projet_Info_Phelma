@@ -20,6 +20,7 @@ Lexeme_t * find_bss(Lexeme_t * head_lexemes) {
 void verification_bss(Lexeme_t * head_lexemes, Dicio_Instru_t * dicio_instru) {
   printf("\nVerification .BSS en cours...\n");
   Lexeme_t * head_text = find_bss(head_lexemes);
+  
   if (head_text == NULL) {
     printf("On n'a pas trouvé => .bss <= dans le fichier\n");
     printf("Verifier pour continuer compilation\n");

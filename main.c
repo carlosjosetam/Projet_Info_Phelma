@@ -21,19 +21,20 @@ int main (int argc, char ** argv ) {
   print_Dicio_Instru(dicio_instru);
 
   //CREATION DE LIST CHAINEE
-  Lexeme_t *list1 = new_lexeme();
-  //Lexeme_t *list2 = new_lexeme();
-  //Lexeme_t *list3 = new_lexeme();
+  Lexeme_t * list_complet = new_lexeme();
+  Lexeme_t * list_text = new_lexeme();
+  Lexeme_t * list_data = new_lexeme();
+  Lexeme_t * list_bss = new_lexeme();
+
   Etiquette_t *etiq1 = new_etiquette();
-  //Etiquette_t *etiq2 = new_etiquette();
-  //Etiquette_t *etiq3 = new_etiquette();
+
 
   //if (is_empty(list1)) printf("EMPTY list\n");
 
   //printf("Liste du fichier ==>> ass.s\n");
-  analyse_lexicale(path, list1);
+  analyse_lexicale(path, list_complet);
   //print_list(list1);
-  analyse_gramatical_1(list1, etiq1, dicio_instru);
+  analyse_gramatical_1(list_complet, list_text, list_data, list_bss, etiq1, dicio_instru);
 
   // printf("Liste du fichier ==>> miam.s\n");
   // analyse_lexicale("tests/miam.s", list2);

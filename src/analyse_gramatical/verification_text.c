@@ -20,9 +20,13 @@ Lexeme_t * find_text(Lexeme_t * head_lexemes) {
 void verification_text(Lexeme_t * head_lexemes, Dicio_Instru_t * dicio_instru) {
   printf("\nVerification .TEXT en cours...\n");
   Lexeme_t * head_text = find_text(head_lexemes);
-  if (head_text == NULL) {
+
+  if (head_text == NULL) { // FILE WITHOUT .TEXT
     printf("On n'a pas trouvé => .text <= dans le fichier\n");
     printf("Verifier pour continuer compilation\n");
     abort();
   }
+  printf("ADD tem %d ops\n", is_Instru_in_Dicio_Instru(dicio_instru, "ADD"));
+
+
 }

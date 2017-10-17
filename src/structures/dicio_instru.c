@@ -17,7 +17,7 @@ void print_Dicio_Instru(Dicio_Instru_t * head) {
   printf("\n");
 }
 
-bool is_Instru_in_Dicio_Instru(Dicio_Instru_t * head, char * word) {
+int is_Instru_in_Dicio_Instru(Dicio_Instru_t * head, char * word) {
   // If WORD is on list return true
   // Else, return false
 
@@ -26,10 +26,10 @@ bool is_Instru_in_Dicio_Instru(Dicio_Instru_t * head, char * word) {
   while (current->next != NULL) {
     current = current->next;
     if (strcmp(strdup(word), strdup(current->word)) == 0) {
-      return true;
+      return current->n_op;
     }
   }
-  return false;
+  return -1;
 }
 
 bool is_n_op_correct_Dicio_Instru(Dicio_Instru_t * head, char * word, int n_op) {

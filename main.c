@@ -7,24 +7,31 @@
 #include "src/structures/dicio_instru.c"
 #include "src/analyse_gramatical/analyse_gramatical_1.c"
 
-int main () {
+int main (int argc, char ** argv ) {
+  if (argc != 2) {
+    printf("Number of arguments incorrect. Check path. ==> ABORT\n");
+    abort();
+  }
+  char * path = argv[1];
+
   printf("ASSEMBLEUR MIPS ==>> Projet Info PHELMA 2017\n");
+  printf("Selected file: %s\n", path);
   //CREATION DE DICIONIRE D'INSTRUCTIONS
   Dicio_Instru_t * dicio_instru = new_Dicio_Instru();
   print_Dicio_Instru(dicio_instru);
 
   //CREATION DE LIST CHAINEE
   Lexeme_t *list1 = new_lexeme();
-  Lexeme_t *list2 = new_lexeme();
-  Lexeme_t *list3 = new_lexeme();
+  //Lexeme_t *list2 = new_lexeme();
+  //Lexeme_t *list3 = new_lexeme();
   Etiquette_t *etiq1 = new_etiquette();
-  Etiquette_t *etiq2 = new_etiquette();
-  Etiquette_t *etiq3 = new_etiquette();
+  //Etiquette_t *etiq2 = new_etiquette();
+  //Etiquette_t *etiq3 = new_etiquette();
 
   //if (is_empty(list1)) printf("EMPTY list\n");
 
   //printf("Liste du fichier ==>> ass.s\n");
-  analyse_lexicale("tests/ass.s", list1);
+  analyse_lexicale(path, list1);
   //print_list(list1);
   analyse_gramatical_1(list1, etiq1, dicio_instru);
 

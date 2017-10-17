@@ -1,2 +1,3 @@
 gcc main.c -o test -Wall
-./test
+clear
+./test tests/ass.s

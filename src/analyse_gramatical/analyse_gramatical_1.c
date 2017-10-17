@@ -13,11 +13,15 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   printf("LIST OF .TEXT\n");
   print_list(head_text);
   cherche_etiquette(head_text, list_etiquettes, "text");
+  print_list(head_text);
+
   printf("LIST OF .DATA\n");
   print_list(head_data);
   cherche_etiquette(head_data, list_etiquettes, "data");
+  print_list(head_data);
+
   printf("LIST OF .BSS\n");
   print_list(head_bss);
   cherche_etiquette(head_bss, list_etiquettes, "bss");
-  //cherche_etiquette(head_lexemes, list_etiquettes);
+  print_list(head_bss);
 }

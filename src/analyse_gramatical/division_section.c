@@ -77,5 +77,14 @@ void division_section(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_t * 
     }
     current = next_lexeme(current);
   }
-
+  //LAST ELEMENT
+  if (S == TEXT) {
+    push(head_text, strdup(word_lexeme(current)), type_lexeme(current), ligne_lexeme(current));
+  }
+  else if (S == DATA) {
+    push(head_data, strdup(word_lexeme(current)), type_lexeme(current), ligne_lexeme(current));
+  }
+  else if (S == BSS) {
+    push(head_bss, strdup(word_lexeme(current)), type_lexeme(current), ligne_lexeme(current));
+  }
 }

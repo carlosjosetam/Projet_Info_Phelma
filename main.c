@@ -33,7 +33,7 @@ int main (int argc, char ** argv ) {
 
   //printf("Liste du fichier ==>> ass.s\n");
   analyse_lexicale(path, list_complet);
-  //print_list(list1);
+  //print_list(list_complet);
   analyse_gramatical_1(list_complet, list_text, list_data, list_bss, etiq1, dicio_instru);
 
   // printf("Liste du fichier ==>> miam.s\n");

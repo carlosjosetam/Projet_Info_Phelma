@@ -11,4 +11,5 @@ ADD $7, $8, $9
 .bss
 menu: .space 24
 .space 34
-.space a
+.space 45
+.space 44  

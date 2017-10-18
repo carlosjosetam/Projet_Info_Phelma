@@ -10,9 +10,9 @@ typedef struct Dicio_Directives{
 } Dicio_Directives_t;
 
 void print_Dicio_Directives(Dicio_Directives_t * head);
-int is_Instru_in_Dicio_Directives(Dicio_Directives_t * head, char * word);
-bool is_n_op_correct_Dicio_Directives(Dicio_Directives_t * head, char * word, int n_op);
+bool is_Dir_in_Dicio_Directives(Dicio_Directives_t * head, char * word);
 void push_Dicio_Directives(Dicio_Directives_t * head, char* word, int n_op, int type_permit);
+int type_permit_directive(Dicio_Directives_t * head, char * word);
 Dicio_Directives_t * new_Dicio_Directives();
 
 #endif

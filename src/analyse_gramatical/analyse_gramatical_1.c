@@ -22,7 +22,8 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   print_list(head_bss);
   cherche_etiquette(head_bss, list_etiquettes, "bss");
   print_list(head_bss);
-  analyse_bss(head_bss, dicio_directives);
+  Coll_BSS_t * coll_bss = analyse_bss(head_bss, dicio_directives);
+  print_Coll_BSS(coll_bss);
 
 
 }

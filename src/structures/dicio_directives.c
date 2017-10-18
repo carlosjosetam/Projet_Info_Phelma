@@ -17,10 +17,22 @@ void print_Dicio_Directives(Dicio_Directives_t * head) {
   printf("\n");
 }
 
-int is_Dir_in_Dicio_Directives(Dicio_Directives_t * head, char * word) {
+bool is_Dir_in_Dicio_Directives(Dicio_Directives_t * head, char * word) {
   // If WORD is on list return true
   // Else, return false
 
+  Dicio_Directives_t * current = head;
+  if (current->next == NULL) return false; // case EMPTY list
+  while (current->next != NULL) {
+    current = current->next;
+    if (strcmp(strdup(word), strdup(current->word)) == 0) {
+      return true;
+    }
+  }
+  return false;
+}
+
+int type_permit_directive(Dicio_Directives_t * head, char * word) {
   Dicio_Directives_t * current = head;
   if (current->next == NULL) return false; // case EMPTY list
   while (current->next != NULL) {

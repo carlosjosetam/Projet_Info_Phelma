@@ -7,6 +7,7 @@
 #include "src/structures/dicio_instru.c"
 #include "src/analyse_gramatical/analyse_gramatical_1.c"
 #include "src/structures/dicio_directives.c"
+#include "src/structures/coll_bss.c"
 
 int main (int argc, char ** argv ) {
   if (argc != 2) {

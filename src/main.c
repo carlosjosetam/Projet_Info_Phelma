@@ -2,12 +2,17 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include "src/structures/list_lexeme.c"
-#include "src/analyse_lexicale/analyse_lexicale.c"
-#include "src/structures/dicio_instru.c"
-#include "src/analyse_gramatical/analyse_gramatical_1.c"
-#include "src/structures/dicio_directives.c"
-#include "src/structures/coll_bss.c"
+#include <stdlib.h>
+
+#include "structures/list_lexeme.h"
+#include "structures/list_etiquette.h"
+#include "structures/dicio_instru.h"
+#include "structures/dicio_directives.h"
+#include "structures/coll_bss.h"
+
+#include "analyse_lexicale/analyse_lexicale.h"
+#include "analyse_gramatical/analyse_gramatical_1.h"
+
 
 int main (int argc, char ** argv ) {
   if (argc != 2) {

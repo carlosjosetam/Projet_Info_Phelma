@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdlib.h>
+
 #include "../structures/dicio_directives.h"
 #include "../structures/coll_bss.h"
+#include "../structures/list_lexeme.h"
+#include "analyse_bss.h"
 
 enum {START_BSS, SPACE_BSS, ERROR_BSS};
 

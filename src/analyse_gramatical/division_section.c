@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include "../structures/list_lexeme.h"
+#include "../structures/dicio_instru.h"
+#include "division_section.h"
 
 enum {START, TEXT, DATA, BSS};
 

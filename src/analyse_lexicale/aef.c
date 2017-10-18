@@ -3,6 +3,7 @@
 #include<ctype.h>
 #include<string.h>
 #include <stdbool.h>
+#include "aef.h"
 #include "../structures/list_lexeme.h"
 
 enum{INIT, SYMBOLE, DECIMAL, DIRECTIVE, VIRGULE, ZERO, HEXA, OCTA, DOLLAR, REGISTRE, POINT, DEUX_POINTS, PAR_GAU, PAR_DRO, ERREUR, CHAINE_CHAR, MOINS};

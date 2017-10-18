@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include "etiquette.c"
-#include "division_section.c"
-#include "analyse_bss.c"
+#include "../structures/list_lexeme.h"
+#include "../structures/list_etiquette.h"
+#include "etiquette.h"
+#include "division_section.h"
+#include "analyse_bss.h"
+#include "analyse_gramatical_1.h"
+
+
 
 void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_t * head_data, Lexeme_t * head_bss, Etiquette_t * list_etiquettes, Dicio_Instru_t * dicio_instru, Dicio_Directives_t * dicio_directives) {
 

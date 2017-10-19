@@ -70,8 +70,11 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
       case ERROR_BSS:
         printf("VERIFY THE ERRORS TO CONTINUE... ABORT\n");
         abort();
-        break;
     }
+  }
+  if (S == ERROR_BSS) {
+    printf("VERIFY THE ERRORS TO CONTINUE... ABORT\n");
+    abort();
   }
   return coll_bss;
 }

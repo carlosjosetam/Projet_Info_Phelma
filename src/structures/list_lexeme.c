@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+
 #include "list_lexeme.h"
 
 void print_list(Lexeme_t * head) {

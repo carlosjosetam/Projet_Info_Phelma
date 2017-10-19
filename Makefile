@@ -45,7 +45,7 @@ debug   : $(OBJ_DBG)
 
 debug_run   : $(OBJ_DBG)
 	$(LD) $^ $(LFLAGS) -o $(TARGET)
-	./as-mips tests/test_Automate_bss.s
+	./as-mips tests/test_Automate_bss_data.s
 
 release : $(OBJ_RLS)
 	$(LD) $^ $(LFLAGS) -o $(TARGET)

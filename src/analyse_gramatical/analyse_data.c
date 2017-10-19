@@ -20,18 +20,36 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
   char * directive;
   int ver_ligne = ligne_lexeme(next_lexeme(current));
   int decalage = 0;
+  bool error = false;
   while (next_lexeme(current) != NULL) {
 
      // if there was an error, starts verification
     current = next_lexeme(current);
 
+    /*if (error) {
+      if (ver_ligne != ligne_lexeme(current)) {
+        error = false;
+      }
+      else {
+        if (next_lexeme(current) != NULL) {
+          current = next_lexeme(current);
+          while (ver_ligne == ligne_lexeme(current)) {
+            current = next_lexeme(current);
+            printf("ligne %d: EXTRA WORD => %s <= ON LINE\n", ligne_lexeme(current), word_lexeme(current));
+          }
+        }
+        else error = false;
+    }
+  }*/
 
     if (ver_ligne != ligne_lexeme(current)) { // Changement de ligne
       decalage = decalage + 4;
       ver_ligne = ligne_lexeme(current);
     }
+
     switch (S) {
       case START_DATA:
+      printf("current %s\n", word_lexeme(current));
         if (type_lexeme(current) == 3) { // EST DIRECTIVE
           if (is_Dir_in_Dicio_Directives(dicio_directives, word_lexeme(current))) { // IF IN DICIONIRE
             if (next_lexeme(current) != NULL) {
@@ -58,6 +76,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
             }
             else {
               printf("ligne %d: DIRECTIVE => %s <= DOES NOT HAVE OPERANDS\n", ligne_lexeme(current), word_lexeme(current));
+              error = true;
             }
           }
           else { // ERROR OF DIRECTIVE
@@ -73,6 +92,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
         }
         break;
       case DIR_DATA:
+      printf("current %s\n", word_lexeme(current));
         if (is_type_permit_directive(dicio_directives, directive, type_lexeme(current))) { // DECIMAL. ADD TO COLL
           //printf("ARGUMENT, AJOUT COLL\n");
           //printf("decalage: %d\n", decalage);
@@ -81,11 +101,13 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
           if (next_lexeme(current) != NULL) {
             if (type_lexeme(next_lexeme(current)) == 4) { // VIRGULE APRES -> MORE THAN ONE OPERAND
               printf("ligne %d: ONLY 1 OPERAND FOR => %s <= IS ALLOWED\n", ligne_lexeme(current), directive);
+              error = true;
             }
           }
         }
         else {
           printf("ligne %d: INCORECT TYPE (%d) OF OPERAND => %s <= FOR => %s <=\n", ligne_lexeme(current), type_lexeme(current), word_lexeme(current), directive);
+          error = true;
         }
         break;
       case ERROR_DATA:
@@ -93,10 +115,6 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
         break;
         //abort();
     }
-  }
-  if (S == ERROR_DATA) {
-    printf("VERIFY THE ERRORS TO CONTINUE... ABORT\n");
-    //abort();
   }
   return coll_data;
 }

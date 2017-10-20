@@ -7,9 +7,7 @@
 #include "../structures/coll_instru.h"
 #include "../structures/list_lexeme.h"
 #include "analyse_text.h"
-
-enum {START_TEXT, OP1_TEXT, VIRGULE_1_TEXT, OP2_TEXT, VIRGULE_2_TEXT, OP3_TEXT, JUMP_TEXT};
-
+#include "analyse_gramatical_1.h" //
 
 bool is_next_same_line(Lexeme_t * current, int current_line) {
   if (next_lexeme(current) != NULL) {
@@ -19,6 +17,8 @@ bool is_next_same_line(Lexeme_t * current, int current_line) {
   }
   return false;
 }
+
+enum {START_TEXT, OP1_TEXT, VIRGULE_1_TEXT, OP2_TEXT, VIRGULE_2_TEXT, OP3_TEXT, JUMP_TEXT};
 
 Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru) {
   Lexeme_t * current = head_text;
@@ -30,7 +30,15 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
   char * op2 = NULL;
   char * op3 = NULL;
   int decalage = 0;
-  int current_line = ligne_lexeme(next_lexeme(current));
+  int current_line;
+
+  if (next_lexeme(current) == NULL) { //EXIT, NO .text TERMS
+    return coll_instru;
+  }
+  else {
+    current_line = ligne_lexeme(next_lexeme(current));
+  }
+
 
   while (next_lexeme(current) != NULL) {
 
@@ -108,9 +116,9 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
             }
           }
         }
-        else if (next_lexeme(current) != NULL) { // FOUND ERROR
-          if (ligne_lexeme(next_lexeme(current)) == current_line) {
-            printf("line %d: incorrect operand aa\n", ligne_lexeme(current));
+        else {
+          if (is_next_same_line(current, current_line)) {
+            printf("line %d: incorrect operand \n", ligne_lexeme(current));
             S = JUMP_TEXT;
             break;
           }

@@ -12,7 +12,7 @@ typedef struct Coll_DATA{
 } Coll_DATA_t;
 
 void print_Coll_DATA(Coll_DATA_t * head);
-void push_Coll_DATA(Coll_DATA_t * head, char* directive, int n_op, int ligne, int decalage, int valeur);
+void push_Coll_DATA(Coll_DATA_t * head, char* directive, int n_op, int ligne, int decalage, char * valeur);
 Coll_DATA_t * new_Coll_DATA();
 
 #endif

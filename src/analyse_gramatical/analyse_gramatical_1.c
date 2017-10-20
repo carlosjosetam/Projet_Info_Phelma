@@ -12,7 +12,6 @@
 #include "analyse_gramatical_1.h"
 
 
-
 void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_t * head_data, Lexeme_t * head_bss, Etiquette_t * list_etiquettes, Dicio_Instru_t * dicio_instru, Dicio_Directives_t * dicio_directives) {
 
   division_section(head_lexemes, head_text, head_data, head_bss, dicio_instru);
@@ -23,7 +22,7 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   Coll_INSTRU_t * coll_instru = analyse_text(head_text, dicio_instru);
   printf("DONE\n");
   print_Coll_INSTRU(coll_instru);
-  abort();
+
 
   printf("LIST OF .DATA\n");
   print_list(head_data);
@@ -31,6 +30,7 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   print_list(head_data);
   Coll_DATA_t * coll_data = analyse_data(head_data, dicio_directives);
   print_Coll_DATA(coll_data);
+  abort();
 
   printf("LIST OF .BSS\n");
   print_list(head_bss);

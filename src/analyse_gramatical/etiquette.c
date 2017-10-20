@@ -10,6 +10,9 @@
 void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes, char * section) {
   // Search on list of lexemes and push etiquetes on list
   // of etiquettes
+  if (next_lexeme(head_lexemes) == NULL) { // case of section EMPTY
+    return;
+  }
 
   Lexeme_t * current = next_lexeme(head_lexemes);
   Lexeme_t * before_current = head_lexemes;

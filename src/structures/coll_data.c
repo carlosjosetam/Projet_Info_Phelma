@@ -11,14 +11,14 @@ void print_Coll_DATA(Coll_DATA_t * head) {
   printf("\nCOLLECTION DATA ==>>\n");
 
   while (current != NULL) {
-    printf("%s | n_op: %d | ligne: %d | decalage: %d | valeur: %d\n", current->directive, current->n_op, current->ligne, current->decalage, current->valeur);
+    printf("%s | n_op: %d | ligne: %d | decalage: %d | valeur: %s\n", current->directive, current->n_op, current->ligne, current->decalage, strdup(current->valeur));
     current = current->next;
   }
   printf("\n");
 }
 
 
-void push_Coll_DATA(Coll_DATA_t * head, char* directive, int n_op, int ligne, int decalage, int valeur) {
+void push_Coll_DATA(Coll_DATA_t * head, char* directive, int n_op, int ligne, int decalage, char * valeur) {
   // ADD element on top of the linked list
   Coll_DATA_t * current = head;
   while (current->next != NULL) {
@@ -42,7 +42,7 @@ Coll_DATA_t * new_Coll_DATA() {
   head->n_op = -1;
   head->ligne = -1;
   head->decalage = -1;
-  head->valeur = -1;
+  head->valeur = NULL;
   head->next = NULL;
 
   return head;

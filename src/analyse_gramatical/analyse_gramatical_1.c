@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include "../structures/list_lexeme.h"
 #include "../structures/list_etiquette.h"
 #include "etiquette.h"
 #include "division_section.h"
 #include "analyse_bss.h"
 #include "analyse_data.h"
+#include "analyse_text.h"
 #include "analyse_gramatical_1.h"
 
 
@@ -18,6 +20,10 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   print_list(head_text);
   cherche_etiquette(head_text, list_etiquettes, "text");
   print_list(head_text);
+  Coll_INSTRU_t * coll_instru = analyse_text(head_text, dicio_instru);
+  printf("DONE\n");
+  print_Coll_INSTRU(coll_instru);
+  abort();
 
   printf("LIST OF .DATA\n");
   print_list(head_data);

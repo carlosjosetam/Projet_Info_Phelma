@@ -17,7 +17,7 @@ void print_Dicio_Instru(Dicio_Instru_t * head) {
   printf("\n");
 }
 
-int is_Instru_in_Dicio_Instru(Dicio_Instru_t * head, char * word) {
+int n_op_Dicio_Instru(Dicio_Instru_t * head, char * word) {
   // If WORD is on list return true
   // Else, return false
 
@@ -32,7 +32,7 @@ int is_Instru_in_Dicio_Instru(Dicio_Instru_t * head, char * word) {
   return -1;
 }
 
-bool is_n_op_correct_Dicio_Instru(Dicio_Instru_t * head, char * word, int n_op) {
+bool is_Instru_Dicio_Instru(Dicio_Instru_t * head, char * word) {
   // If WORD is on list return true
   // Else, return false
 
@@ -41,11 +41,12 @@ bool is_n_op_correct_Dicio_Instru(Dicio_Instru_t * head, char * word, int n_op) 
   while (current->next != NULL) {
     current = current->next;
     if (strcmp(strdup(word), strdup(current->word)) == 0) {
-      if (n_op == current->n_op) return true;
+      return true;
     }
   }
   return false;
 }
+
 
 void push_Dicio_Instru(Dicio_Instru_t * head, char* word, int n_op, int code_bin) {
   // ADD element on top of the linked list
@@ -72,6 +73,8 @@ Dicio_Instru_t * new_Dicio_Instru() {
 
   //ADD INSTRUCTIONS HERE
   push_Dicio_Instru(head, "ADD", 3, 100001);
+  push_Dicio_Instru(head, "MOV", 2, 100001);
+  push_Dicio_Instru(head, "MOVS", 1, 100001);
 
   return head;
 }

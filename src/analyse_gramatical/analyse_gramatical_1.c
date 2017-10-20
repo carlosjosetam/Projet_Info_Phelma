@@ -30,7 +30,6 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   print_list(head_data);
   Coll_DATA_t * coll_data = analyse_data(head_data, dicio_directives);
   print_Coll_DATA(coll_data);
-  abort();
 
   printf("LIST OF .BSS\n");
   print_list(head_bss);

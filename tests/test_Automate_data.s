@@ -12,3 +12,9 @@ space 1234
 .asciiz 1234
 
 .text
+
+.bss
+menu: .space 24
+.space 0x33
+.space a
+.space 3

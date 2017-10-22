@@ -19,15 +19,15 @@ void print_Dicio_Directives(Dicio_Directives_t * head) {
       DEBUG_MSG("%s | n_op: %d | type_permit: %d", current->word, current->n_op, current->type_permit->type);
     }
     if (current->type_permit_2 != NULL) {
-      printf(" | type_permit: %d", current->type_permit_2->type);
+      DEBUG_MSG(" | type_permit: %d", current->type_permit_2->type);
     }
     if (current->type_permit_3 != NULL) {
-      printf(" | type_permit: %d", current->type_permit_3->type);
+      DEBUG_MSG(" | type_permit: %d", current->type_permit_3->type);
     }
-    printf("\n");
+    DEBUG_MSG("\n");
     current = current->next;
   }
-  printf("\n");
+  DEBUG_MSG("\n");
 }
 
 bool is_Dir_in_Dicio_Directives(Dicio_Directives_t * head, char * word) {
@@ -75,7 +75,6 @@ bool is_value_permit_directive(Dicio_Directives_t * head, char * word, int type,
   while (current->next != NULL) {
     current = current->next;
     if (strcmp(strdup(word), strdup(current->word)) == 0) {
-      printf("HERE %d\n", type);
 
       if (current->type_permit != NULL) {
         if (type == current->type_permit->type) current_type = current->type_permit;
@@ -93,7 +92,6 @@ bool is_value_permit_directive(Dicio_Directives_t * head, char * word, int type,
         if (is_in_interval_DECIMAL(value, current_type->max_value, current_type->min_value)) return true;
       }
       if (current_type->type == 6) { // HEXA
-        printf("HEXAAAAAAAAA ===== %s | %s\n", value, current_type->max_value);
         if (is_in_interval_HEXA(value, current_type->max_value, current_type->min_value)) return true;
       }
       if (current_type->type == 15) { // STRING

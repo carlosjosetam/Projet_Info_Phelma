@@ -3,19 +3,20 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "list_etiquette.h"
+#include "../../include/notify.h"
 
 void print_list_etiquette(Etiquette_t * head) {
   // Print all elements on list
   Etiquette_t * current = head->next;
 
-  printf("\nLIST DE ETIQUETTES ==>>\n");
+  DEBUG_MSG("\nLIST DE ETIQUETTES ==>>\n");
 
   while (current != NULL) {
-    printf("%s | ligne: %d | decalage: %d | section: .%s\n", current->word, current->ligne, current->decalage, current->section);
+    DEBUG_MSG("%s | ligne: %d | decalage: %d | section: .%s\n", current->word, current->ligne, current->decalage, current->section);
     current = current->next;
   }
 
-  printf("\n");
+  DEBUG_MSG("\n");
 }
 
 bool is_in_list(Etiquette_t * head, char * word) {
@@ -57,10 +58,7 @@ int pop_last_etiquette(Etiquette_t * head, char ** word) {
   Etiquette_t * current = head;
 
   if (current->next == NULL) {
-    printf("Attention! List EMPTY! => ");
-    printf("ABORT\n");
-    printf("Verify your code and try again!\n");
-    abort();
+    ERROR_MSG("Attention! List EMPTY! => ");
     return -1;
   }
 

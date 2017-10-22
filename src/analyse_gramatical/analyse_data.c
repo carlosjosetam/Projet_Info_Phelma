@@ -73,7 +73,6 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
 
       case OP1_DATA:
         //printf("OP1_DATA\n");
-        printf("%s | %d | %s\n", word_lexeme(current), type_lexeme(current), directive);
         if (is_type_permit_directive(dicio_directives, directive, type_lexeme(current))) { // VERIFICATION OF TYPE
           if (is_value_permit_directive(dicio_directives, directive, type_lexeme(current), word_lexeme(current))) { // VERIFICATION OF VALUE
             op1 = strdup(word_lexeme(current)); // VALIDATED

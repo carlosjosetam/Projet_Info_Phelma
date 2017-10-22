@@ -1,3 +1,5 @@
+#include "../../include/notify.h"
+
 #ifndef _Dicio_Instru
 #define _Dicio_Instru
 

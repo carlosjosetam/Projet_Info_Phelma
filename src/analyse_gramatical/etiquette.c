@@ -18,7 +18,6 @@ void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes, c
   Lexeme_t * before_current = head_lexemes;
   int decalage = 0;
   int ver_ligne = ligne_lexeme(current);
-  printf("\nANALYSE D'ETIQUETTES EN COURS...\n");
   while (current != NULL && next_lexeme(current) != NULL) {
     if (ver_ligne != ligne_lexeme(current)) { // Changement de ligne
       decalage = decalage + 4;
@@ -28,21 +27,19 @@ void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes, c
       if (ligne_lexeme(current) == ligne_lexeme(next_lexeme(current))) {
         if (is_in_list(list_etiquettes, strdup(word_lexeme(current))) == false) {
           push_etiquette(list_etiquettes, strdup(word_lexeme(current)), ligne_lexeme(current), decalage, section);
-          printf("Trouvé etiquette => %s <= en ligne %d\n", strdup(word_lexeme(current)), ligne_lexeme(current));
+          DEBUG_MSG("Trouvé etiquette => %s <= en ligne %d\n", strdup(word_lexeme(current)), ligne_lexeme(current));
           effacer_2(before_current);
           current = next_lexeme(before_current);
         }
         else {
-          printf("L'etiquette => %s <= en ligne %d a été declaré plus qu'une fois\n", strdup(word_lexeme(current)), ligne_lexeme(current));
-          printf("Corriger pour continuer la compilation\n");
-          abort();
+          ERROR_MSG("L'etiquette => %s <= en ligne %d a été declaré plus qu'une fois\n", strdup(word_lexeme(current)), ligne_lexeme(current));
+          //abort();
         }
       }
     }
     else if (type_lexeme(current) == 14 && type_lexeme(next_lexeme(current)) == 11) { // CAS => ERROR :
-      printf("L'etiquette => %s <= en ligne %d n'est pas permis\n", strdup(word_lexeme(current)), ligne_lexeme(current));
-      printf("Corriger pour continuer la compilation\n");
-      abort();
+      ERROR_MSG("L'etiquette => %s <= en ligne %d n'est pas permit\n", strdup(word_lexeme(current)), ligne_lexeme(current));
+      //abort();
     }
     else {
       current = next_lexeme(current);

@@ -39,27 +39,9 @@ int main (int argc, char ** argv ) {
 
   Etiquette_t *etiq1 = new_etiquette();
 
-
-  //if (is_empty(list1)) printf("EMPTY list\n");
-
-  //printf("Liste du fichier ==>> ass.s\n");
   analyse_lexicale(path, list_complet);
-  //print_list(list_complet);
+  
   analyse_gramatical_1(list_complet, list_text, list_data, list_bss, etiq1, dicio_instru, dicio_directives);
-
-  printf("%d\n", hex2int("0x80000000"));
-  printf("%d\n", hex2int("0x10000"));
-  // printf("Liste du fichier ==>> miam.s\n");
-  // analyse_lexicale("tests/miam.s", list2);
-  // print_list(list2);
-  // cherche_etiquette(list2, etiq2);
-  // print_list_etiquette(etiq2);
-  //
-  // printf("Liste du fichier ==>> mult.s\n");
-  // analyse_lexicale("tests/mult.s", list3);
-  // print_list(list3);
-  // cherche_etiquette(list3, etiq3);
-  // print_list_etiquette(etiq3);
 
   return 0;
 }

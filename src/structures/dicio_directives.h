@@ -1,4 +1,5 @@
 #include "../global.h"
+#include "../../include/notify.h"
 
 #ifndef _Dicio_Directives
 #define _Dicio_Directives

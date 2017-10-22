@@ -1,5 +1,5 @@
 .data
-space 1234
+.space 1234
 .space 12
 .byte 8
 .byte abcdf

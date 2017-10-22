@@ -1,3 +1,5 @@
+#include "../../include/notify.h"
+
 #ifndef _Coll_DATA
 #define _Coll_DATA
 

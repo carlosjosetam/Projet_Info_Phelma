@@ -3,18 +3,19 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "dicio_instru.h"
+#include "../../include/notify.h"
 
 void print_Dicio_Instru(Dicio_Instru_t * head) {
   // Print all elements on list
   Dicio_Instru_t * current = head->next;
 
-  printf("\nDICIONAIRE DE INSTRUCTIONS ==>>\n");
+  DEBUG_MSG("\nDICIONAIRE DE INSTRUCTIONS ==>>\n");
 
   while (current != NULL) {
-    printf("%s | n_op: %d | bin: %d\n", current->word, current->n_op, current->code_bin);
+    DEBUG_MSG("%s | n_op: %d | bin: %d\n", current->word, current->n_op, current->code_bin);
     current = current->next;
   }
-  printf("\n");
+  DEBUG_MSG("\n");
 }
 
 int n_op_Dicio_Instru(Dicio_Instru_t * head, char * word) {

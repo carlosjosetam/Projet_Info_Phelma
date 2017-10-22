@@ -4,19 +4,20 @@
 #include <stdbool.h>
 
 #include "list_lexeme.h"
+#include "../../include/notify.h"
 
 void print_list(Lexeme_t * head) {
   // Print all elements on list
   Lexeme_t * current = head->next;
 
-  printf("\nLIST ==>>\n");
+  DEBUG_MSG("\nLIST ==>>\n");
 
   while (current != NULL) {
-    printf("%s %d | ligne: %d\n", current->word, current->type, current->ligne);
+    DEBUG_MSG("%s %d | ligne: %d\n", current->word, current->type, current->ligne);
     current = current->next;
   }
 
-  printf("\n");
+  DEBUG_MSG("\n");
 }
 
 void push(Lexeme_t * head, char* word, int type, int ligne) {
@@ -40,10 +41,7 @@ int pop_last(Lexeme_t * head, char ** word) {
   Lexeme_t * current = head;
 
   if (current->next == NULL) {
-    printf("Attention! List EMPTY! => ");
-    printf("ABORT\n");
-    printf("Verify your code and try again!\n");
-    abort();
+    ERROR_MSG("Attention! List EMPTY! => ");
     return -1;
   }
 
@@ -64,9 +62,7 @@ int pop_first(Lexeme_t * head, char ** word) {
   // WORD the atributte WORD
   Lexeme_t * current = head;
   if (current->next == NULL) {
-    printf("Attention! List EMPTY! => ");
-    printf("ABORT\n");
-    printf("Verify your code and try again!\n");
+    ERROR_MSG("Attention! List EMPTY! => ");
     //abort();
     return -1;
   }

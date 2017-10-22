@@ -15,25 +15,27 @@
 void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_t * head_data, Lexeme_t * head_bss, Etiquette_t * list_etiquettes, Dicio_Instru_t * dicio_instru, Dicio_Directives_t * dicio_directives) {
 
   division_section(head_lexemes, head_text, head_data, head_bss, dicio_instru);
+  print_list(head_text);
+  print_list(head_data);
+  print_list(head_bss);
+
+  printf("\nANALYSE D'ETIQUETTES EN COURS...\n");
+  cherche_etiquette(head_text, list_etiquettes, "text");
+  cherche_etiquette(head_data, list_etiquettes, "data");
+  cherche_etiquette(head_bss, list_etiquettes, "bss");
+
   printf("LIST OF .TEXT\n");
   print_list(head_text);
-  cherche_etiquette(head_text, list_etiquettes, "text");
-  print_list(head_text);
   Coll_INSTRU_t * coll_instru = analyse_text(head_text, dicio_instru);
-  printf("DONE\n");
   print_Coll_INSTRU(coll_instru);
 
 
   printf("LIST OF .DATA\n");
   print_list(head_data);
-  cherche_etiquette(head_data, list_etiquettes, "data");
-  print_list(head_data);
   Coll_DATA_t * coll_data = analyse_data(head_data, dicio_directives);
   print_Coll_DATA(coll_data);
 
   printf("LIST OF .BSS\n");
-  print_list(head_bss);
-  cherche_etiquette(head_bss, list_etiquettes, "bss");
   print_list(head_bss);
   Coll_BSS_t * coll_bss = analyse_bss(head_bss, dicio_directives);
   print_Coll_BSS(coll_bss);

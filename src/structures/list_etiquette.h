@@ -1,3 +1,4 @@
+#include "../../include/notify.h"
 #ifndef _Etiquette
 #define _Etiquette
 

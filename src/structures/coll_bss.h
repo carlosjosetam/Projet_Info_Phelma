@@ -1,3 +1,5 @@
+#include "../../include/notify.h"
+
 #ifndef _Coll_BSS
 #define _Coll_BSS
 

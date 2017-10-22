@@ -8,6 +8,7 @@
 #include "../structures/list_lexeme.h"
 #include "analyse_bss.h"
 #include "analyse_text.h"
+#include "../../include/notify.h"
 
 enum {START_BSS, OP1_BSS, JUMP_BSS};
 
@@ -27,29 +28,29 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
     current = next_lexeme(current);
 
     if (current_line != ligne_lexeme(current)) { // Changement de ligne
-      printf("*********** NEW LINE ***********\n");
+      //DEBUG_MSG("*********** NEW LINE ***********\n");
       decalage = decalage + 4;
       current_line = ligne_lexeme(current);
     }
 
     switch (S) {
       case START_BSS:
-        printf("START\n");
+        //DEBUG_MSG("START_BSS\n");
         if (type_lexeme(current) == 3) { // IS DIRECTIVE
           if (strcmp(word_lexeme(current), ".space") == 0) { // ONLY SPACE ALLOWED
             if (is_next_same_line(current, current_line)) { // VALIDATE DIRECTIVE
               directive = strdup(word_lexeme(current));
-              printf("directive => %s\n", directive);
+              //DEBUG_MSG("directive => %s\n", directive);
               S = OP1_BSS;
               break;
             }
             else {
-              printf("line %d: Directive > %s < without parameters\n", ligne_lexeme(current), word_lexeme(current));
+              WARNING_MSG("line %d: Directive > %s < without parameters\n", ligne_lexeme(current), word_lexeme(current));
               S = START_BSS; break;
             }
           }
           else {
-            printf("line %d: Directive > %s < not allowed\n", ligne_lexeme(current), word_lexeme(current));
+            ERROR_MSG("line %d: Directive > %s < not allowed in .bss\n", ligne_lexeme(current), word_lexeme(current));
             if (is_next_same_line(current, current_line)) {
               S = JUMP_BSS; break;
             }
@@ -59,7 +60,7 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
           }
         }
         else {
-          printf("line %d: TYPE > %d < not allowed in .bss\n", ligne_lexeme(current), type_lexeme(current));
+          ERROR_MSG("line %d: Type > %d < not allowed in .bss\n", ligne_lexeme(current), type_lexeme(current));
           if (is_next_same_line(current, current_line)) {
             S = JUMP_BSS; break;
           }
@@ -77,18 +78,18 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
             op1 = strdup(word_lexeme(current)); // VALIDATED
 
             if (is_next_same_line(current, current_line)) {
-              printf("MORE ELEMENTS IN LINE\n");
+              WARNING_MSG("line %d: More elements in line than allowed\n");
               S = JUMP_BSS; break;
             }
             else {
               // PUSH TO COLL
               push_Coll_BSS(coll_bss, directive, n_op, ligne_lexeme(current), decalage, op1);
-              printf("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
+              DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
               S = START_BSS; break; // DONE
             }
           }
           else {
-            printf("line %d: incorect value for > %s < \n", ligne_lexeme(current), directive);
+            WARNING_MSG("line %d: Incorect value > %s < for > %s <\n", ligne_lexeme(current), word_lexeme(current), directive);
             if (is_next_same_line(current, current_line)) {
               S = JUMP_BSS; break;
             }
@@ -98,7 +99,7 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
           }
         }
         else {
-          printf("line %d: incorrect operand \n", ligne_lexeme(current));
+          WARNING_MSG("line %d: Incorrect operand > %s < for > %s < \n", ligne_lexeme(current), word_lexeme(current), directive);
           if (is_next_same_line(current, current_line)) {
             S = JUMP_BSS; break;
           }
@@ -115,6 +116,7 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
               break;
             }
           }
+          WARNING_MSG("line %d: Extra element > %s < in line", ligne_lexeme(current), word_lexeme(current));
           break;
     }
   }

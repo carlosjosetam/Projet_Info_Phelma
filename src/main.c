@@ -9,6 +9,7 @@
 #include "structures/dicio_instru.h"
 #include "structures/dicio_directives.h"
 #include "structures/coll_bss.h"
+#include "notify.h"
 
 #include "analyse_lexicale/analyse_lexicale.h"
 #include "analyse_gramatical/analyse_gramatical_1.h"
@@ -16,13 +17,12 @@
 
 int main (int argc, char ** argv ) {
   if (argc != 2) {
-    printf("Number of arguments incorrect. Check path. ==> ABORT\n");
-    abort();
+    ERROR_MSG("Number of arguments incorrect. Check path");
   }
   char * path = argv[1];
 
   printf("ASSEMBLEUR MIPS ==>> Projet Info PHELMA 2017\n");
-  printf("Selected file: %s\n", path);
+  INFO_MSG("Selected file: %s\n", path);
   //CREATION DE DICIONIRE D'INSTRUCTIONS
   Dicio_Instru_t * dicio_instru = new_Dicio_Instru();
   print_Dicio_Instru(dicio_instru);

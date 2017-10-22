@@ -50,6 +50,7 @@ debug_run   : $(OBJ_DBG)
 
 release : $(OBJ_RLS)
 	$(LD) $^ $(LFLAGS) -o $(TARGET)
+	./as-mips tests/test_Automate_data.s
 
 %.dbg : %.c
 	$(CC) $< $(CFLAGS_DBG) -c -o $(basename $<).dbg

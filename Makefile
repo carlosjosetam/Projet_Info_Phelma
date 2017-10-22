@@ -46,13 +46,21 @@ debug   : $(OBJ_DBG)
 
 debug_run   : $(OBJ_DBG)
 	$(LD) $^ $(LFLAGS) -o $(TARGET)
-	./as-mips tests/test_Automate_data.s
+	make run
 
 release : $(OBJ_RLS)
 	$(LD) $^ $(LFLAGS) -o $(TARGET)
 
 release_run : $(OBJ_RLS)
 	$(LD) $^ $(LFLAGS) -o $(TARGET)
+	make run
+
+clean_release_run : $(OBJ_RLS)
+	make clean
+	make release_run
+
+
+run :
 	./as-mips tests/test_Automate_data.s
 
 %.dbg : %.c
@@ -66,6 +74,9 @@ docu :
 
 clean :
 	$(RM) $(TARGET) $(SRCDIR)/*.orig $(SRCDIR)/*.dbg $(SRCDIR)/*.rls $(GARBAGE)
+	$(RM) $(TARGET) $(SRCDIR)/structures/*.orig $(SRCDIR)/structures/*.dbg $(SRCDIR)/structures/*.rls $(GARBAGE)
+	$(RM) $(TARGET) $(SRCDIR)/analyse_lexicale/*.orig $(SRCDIR)/analyse_lexicale/*.dbg $(SRCDIR)/analyse_lexicale/*.rls $(GARBAGE)
+	$(RM) $(TARGET) $(SRCDIR)/analyse_gramatical/*.orig $(SRCDIR)/analyse_gramatical/*.dbg $(SRCDIR)/analyse_gramatical/*.rls $(GARBAGE)
 	$(RM) -r $(DOCDIR)/*
 
 archive :

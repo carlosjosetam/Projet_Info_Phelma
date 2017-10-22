@@ -74,8 +74,7 @@ extern "C" {
 
 #define WARNING_MSG(...) do {						\
     fprintf( stderr, "%c[%d;%dm", 0x1B, STYLE_BOLD, COLOR_BLUE );	\
-    fprintf( stderr, "[WARNING:: %s:%s:%d] ",				\
-	     __FILE__, __FUNCTION__, __LINE__ );			\
+    fprintf( stderr, "[WARNING: ");			\
     SET_COLORS(FOR_WARNINGS, ON(stderr));				\
     fprintf( stderr, __VA_ARGS__ );					\
     fprintf( stderr, ".\n" );						\

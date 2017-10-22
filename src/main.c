@@ -13,6 +13,23 @@
 #include "analyse_lexicale/analyse_lexicale.h"
 #include "analyse_gramatical/analyse_gramatical_1.h"
 
+uint32_t hex2int(char * hex) {
+
+    uint32_t val = 0;
+    uint8_t byte = *hex++; byte = *hex++; // JUMP TWO FIRSTS ELEMENTS
+    while (*hex) {
+        // get current character then increment
+        byte = *hex++;
+        // transform hex character to the 4bit equivalent number, using the ascii table indexes
+        if (byte >= '0' && byte <= '9') byte = byte - '0';
+        else if (byte >= 'a' && byte <='f') byte = byte - 'a' + 10;
+        else if (byte >= 'A' && byte <='F') byte = byte - 'A' + 10;
+        // shift 4 to make space for new digit, and add the 4 bits of the new digit
+        val = (val << 4) | (byte & 0xF);
+    }
+    return val;
+}
+
 
 int main (int argc, char ** argv ) {
   if (argc != 2) {
@@ -46,6 +63,9 @@ int main (int argc, char ** argv ) {
   analyse_lexicale(path, list_complet);
   //print_list(list_complet);
   analyse_gramatical_1(list_complet, list_text, list_data, list_bss, etiq1, dicio_instru, dicio_directives);
+
+  uint32_t val = hex2int("0x0");
+  printf("%d\n", val);
 
   // printf("Liste du fichier ==>> miam.s\n");
   // analyse_lexicale("tests/miam.s", list2);

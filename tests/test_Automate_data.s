@@ -24,3 +24,6 @@ menu: .space 24
 .space 0x33
 .space a
 .space 3
+.space 2
+.space 200
+.space 127

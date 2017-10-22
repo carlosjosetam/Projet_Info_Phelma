@@ -73,29 +73,37 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
       case OP1_BSS:
         printf("OP1_BSS\n");
         if (is_type_permit_directive(dicio_directives, directive, type_lexeme(current))) { // VERIFICATION OF TYPE
-          op1 = strdup(word_lexeme(current)); // VALIDATED
+          if (is_value_permit_directive(dicio_directives, directive, type_lexeme(current), word_lexeme(current))) { // VERIFICATION OF VALUE
+            op1 = strdup(word_lexeme(current)); // VALIDATED
 
-          if (is_next_same_line(current, current_line)) {
-            printf("MORE ELEMENTS IN LINE\n");
-            S = JUMP_BSS; break;
+            if (is_next_same_line(current, current_line)) {
+              printf("MORE ELEMENTS IN LINE\n");
+              S = JUMP_BSS; break;
+            }
+            else {
+              // PUSH TO COLL
+              push_Coll_BSS(coll_bss, directive, n_op, ligne_lexeme(current), decalage, op1);
+              printf("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
+              S = START_BSS; break; // DONE
+            }
           }
           else {
-            // PUSH TO COLL
-            push_Coll_BSS(coll_bss, directive, n_op, ligne_lexeme(current), decalage, op1);
-            printf("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
-            S = START_BSS; break; // DONE
+            printf("line %d: incorect value for > %s < \n", ligne_lexeme(current), directive);
+            if (is_next_same_line(current, current_line)) {
+              S = JUMP_BSS; break;
+            }
+            else {
+              S = START_BSS; break;
+            }
           }
         }
         else {
+          printf("line %d: incorrect operand \n", ligne_lexeme(current));
           if (is_next_same_line(current, current_line)) {
-            printf("line %d: incorrect operand \n", ligne_lexeme(current));
-            S = JUMP_BSS;
-            break;
+            S = JUMP_BSS; break;
           }
           else {
-            printf("line %d: incorrect operand\n", ligne_lexeme(current));
-            S = START_BSS;
-            break;
+            S = START_BSS; break;
           }
         }
         break;

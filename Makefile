@@ -48,6 +48,10 @@ debug_run   : $(OBJ_DBG)
 	$(LD) $^ $(LFLAGS) -o $(TARGET)
 	make run
 
+clean_debug_run :
+	make clean
+	make debug_run
+
 release : $(OBJ_RLS)
 	$(LD) $^ $(LFLAGS) -o $(TARGET)
 
@@ -58,7 +62,6 @@ release_run : $(OBJ_RLS)
 clean_release_run : $(OBJ_RLS)
 	make clean
 	make release_run
-
 
 run :
 	./as-mips tests/test_Automate_data.s

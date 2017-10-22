@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include "../global.h"
 #include "dicio_directives.h"
+#include "../../include/notify.h"
 
 
 void print_Dicio_Directives(Dicio_Directives_t * head) {
@@ -11,11 +12,11 @@ void print_Dicio_Directives(Dicio_Directives_t * head) {
   Dicio_Directives_t * current = head->next;
   type_directive_t * type;
 
-  printf("\nDICIONAIRE DE DIRECTIVES ==>>\n");
+  DEBUG_MSG("\nDICIONAIRE DE DIRECTIVES ==>>\n");
 
   while (current->next != NULL) {
     if (current->type_permit != NULL) {
-      printf("%s | n_op: %d | type_permit: %d", current->word, current->n_op, current->type_permit->type);
+      DEBUG_MSG("%s | n_op: %d | type_permit: %d", current->word, current->n_op, current->type_permit->type);
     }
     if (current->type_permit_2 != NULL) {
       printf(" | type_permit: %d", current->type_permit_2->type);

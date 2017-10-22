@@ -72,7 +72,7 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
         break;
 
       case OP1_BSS:
-        printf("OP1_BSS\n");
+        //printf("OP1_BSS\n");
         if (is_type_permit_directive(dicio_directives, directive, type_lexeme(current))) { // VERIFICATION OF TYPE
           if (is_value_permit_directive(dicio_directives, directive, type_lexeme(current), word_lexeme(current))) { // VERIFICATION OF VALUE
             op1 = strdup(word_lexeme(current)); // VALIDATED

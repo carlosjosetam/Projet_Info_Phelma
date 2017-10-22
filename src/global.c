@@ -20,3 +20,29 @@ int hex2int(char * hex) {
     }
     return val;
 }
+
+bool is_in_interval_DECIMAL(char * cmp, char * max_value, char * min_value) {
+  int cmp_int = atoi(cmp);
+  int max_value_int = atoi(max_value);
+  int min_value_int = atoi(min_value);
+
+  if (cmp_int <= max_value_int) {
+    if (cmp_int >= min_value_int) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool is_in_interval_HEXA(char * cmp, char * max_value, char * min_value) { // Verfifies by size
+  int cmp_hex = hex2int(cmp);
+  int max_value_hex = hex2int(max_value);
+  int min_value_hex = hex2int(min_value);
+
+  if (cmp_hex <= max_value_hex) {
+    if (cmp_hex >= min_value_hex) {
+      return true;
+    }
+  }
+  return false;
+}

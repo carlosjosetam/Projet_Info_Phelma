@@ -22,6 +22,7 @@ CFLAGS_DBG=$(CFLAGS) -g -DDEBUG -Wall
 CFLAGS_RLS=$(CFLAGS)
 
 SRC=$(wildcard $(SRCDIR)/main.c)
+SRC+=$(wildcard $(SRCDIR)/global.c)
 SRC+=$(wildcard $(SRCDIR)/structures/*.c)
 SRC+=$(wildcard $(SRCDIR)/analyse_lexicale/*.c)
 SRC+=$(wildcard $(SRCDIR)/analyse_gramatical/*.c)

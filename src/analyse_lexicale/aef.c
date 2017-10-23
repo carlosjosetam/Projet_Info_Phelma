@@ -263,6 +263,11 @@ void aef(char* text, int ligne, Lexeme_t * list)
 					mot[i]=text[c];
 					S=SYMBOLE;
 					}
+        else if (text[c] == '_') // condition etiquettes
+					{
+					mot[i]=text[c];
+					S=SYMBOLE;
+					}
 				else if (isspace(text[c]) || text[c]=='\0')
 					{
 					push(list,strdup(mot),S,ligne);

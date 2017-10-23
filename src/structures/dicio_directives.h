@@ -22,9 +22,10 @@ typedef struct Dicio_Directives {
 } Dicio_Directives_t;
 
 void print_Dicio_Directives(Dicio_Directives_t * head);
-bool is_Dir_in_Dicio_Directives(Dicio_Directives_t * head, char * word);
+
 void push_Dicio_Directives(Dicio_Directives_t * head, char* word, int n_op, type_directive_t * type_permit, type_directive_t * type_permit_2, type_directive_t * type_permit_3);
 int type_permit_directive(Dicio_Directives_t * head, char * word);
+bool is_Dir_in_Dicio_Directives(Dicio_Directives_t * head, char * word);
 bool is_type_permit_directive(Dicio_Directives_t * head, char * word, int type);
 bool is_value_permit_directive(Dicio_Directives_t * head, char * word, int type, char * value);
 Dicio_Directives_t * new_Dicio_Directives();

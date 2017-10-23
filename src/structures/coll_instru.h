@@ -4,8 +4,8 @@
 #define _Coll_INSTRU
 
 typedef struct Coll_INSTRU{
-  // Linked list for Coll_INSTRU dicionaire
-    char * instruction; // .SPACE
+  // Linked list for Coll_INSTRU
+    char * instruction; // .ADD
     int n_op; // 1
     int ligne; // 11
     int decalage; // 0

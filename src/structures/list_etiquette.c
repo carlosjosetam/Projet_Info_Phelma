@@ -9,14 +9,14 @@ void print_list_etiquette(Etiquette_t * head) {
   // Print all elements on list
   Etiquette_t * current = head->next;
 
-  DEBUG_MSG("\nLIST DE ETIQUETTES ==>>\n");
+  printf("\nLIST DE ETIQUETTES ==>>\n");
 
   while (current != NULL) {
-    DEBUG_MSG("%s | ligne: %d | decalage: %d | section: .%s\n", current->word, current->ligne, current->decalage, current->section);
+    printf("%s | ligne: %d | decalage: %d | section: .%s\n", current->word, current->ligne, current->decalage, current->section);
     current = current->next;
   }
 
-  DEBUG_MSG("\n");
+  printf("\n");
 }
 
 bool is_in_list(Etiquette_t * head, char * word) {

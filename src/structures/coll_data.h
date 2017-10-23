@@ -4,7 +4,7 @@
 #define _Coll_DATA
 
 typedef struct Coll_DATA{
-  // Linked list for COLL_DATA dicionaire
+  // Linked list for COLL_DATA
     char* directive; // .SPACE
     int n_op; // 1
     int ligne; // 11

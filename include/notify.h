@@ -63,8 +63,8 @@ extern "C" {
 
 #define ERROR_MSG(...) do {							\
     fprintf( stderr, "%c[%d;%dm", 0x1B, STYLE_BOLD, COLOR_BLUE );	\
-    fprintf( stderr, "[ ERROR :: %s:%s:%d] ",				\
-	     __FILE__, __FUNCTION__, __LINE__ );			\
+    fprintf( stderr, "[ ERROR :: %s:%d] ",				\
+	      __FUNCTION__, __LINE__ );			\
     SET_COLORS(FOR_ERRORS, ON(stderr));					\
     fprintf( stderr, __VA_ARGS__ );					\
     fprintf( stderr, ".\n" );						\

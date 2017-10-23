@@ -21,7 +21,14 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
   char * directive = NULL;
   char * op1 = NULL;
   int decalage = 0;
-  int current_line = ligne_lexeme(next_lexeme(current));
+  int current_line;
+
+  if (next_lexeme(current) == NULL) { //EXIT, NO .text TERMS
+    return coll_data;
+  }
+  else {
+    current_line = ligne_lexeme(next_lexeme(current));
+  }
 
   while (next_lexeme(current) != NULL) {
 
@@ -78,7 +85,8 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
             op1 = strdup(word_lexeme(current)); // VALIDATED
 
             if (is_next_same_line(current, current_line)) {
-              WARNING_MSG("line %d: More elements in line than allowed\n");
+              WARNING_MSG("line %d: More elements in line than allowed\n", ligne_lexeme(current));
+
               S = JUMP_DATA; break;
             }
             else {
@@ -110,13 +118,13 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
         break;
 
         case JUMP_DATA:
+        WARNING_MSG("line %d: Extra element > %s < in line", ligne_lexeme(current), word_lexeme(current));
           if (next_lexeme(current) != NULL) {
             if (ligne_lexeme(next_lexeme(current)) != current_line) {
               S = START_DATA;
               break;
             }
           }
-          WARNING_MSG("line %d: Extra element > %s < in line", ligne_lexeme(current), word_lexeme(current));
           break;
     }
   }

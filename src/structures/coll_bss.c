@@ -11,7 +11,7 @@ void print_Coll_BSS(Coll_BSS_t * head) {
   printf("\nCOLLECTION BSS ==>>\n");
 
   while (current != NULL) {
-    printf("%s | n_op: %d | ligne: %d | decalage: %d | valeur: %s\n", current->directive, current->n_op, current->ligne, current->decalage, current->valeur);
+    printf("%s %s | ligne: %d | decalage: %d\n", current->directive, current->valeur, current->ligne, current->decalage);
     current = current->next;
   }
   printf("\n");

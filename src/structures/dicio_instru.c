@@ -73,9 +73,9 @@ Dicio_Instru_t * new_Dicio_Instru() {
   head->next = NULL;
 
   //ADD INSTRUCTIONS HERE
-  push_Dicio_Instru(head, "ADD", 3, 100001);
-  push_Dicio_Instru(head, "MOV", 2, 100001);
-  push_Dicio_Instru(head, "MOVS", 1, 100001);
+  push_Dicio_Instru(head, "NOP3", 3, 100001);
+  push_Dicio_Instru(head, "NOP2", 2, 100001);
+  push_Dicio_Instru(head, "NOP1", 1, 100001);
 
   return head;
 }

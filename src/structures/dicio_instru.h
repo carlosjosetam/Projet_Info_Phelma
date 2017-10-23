@@ -12,8 +12,10 @@ typedef struct Dicio_Instru{
 } Dicio_Instru_t;
 
 void print_Dicio_Instru(Dicio_Instru_t * head);
+
 int n_op_Dicio_Instru(Dicio_Instru_t * head, char * word);
 bool is_Instru_Dicio_Instru(Dicio_Instru_t * head, char * word);
+
 void push_Dicio_Instru(Dicio_Instru_t * head, char* word, int n_op, int code_bin);
 Dicio_Instru_t * new_Dicio_Instru();
 

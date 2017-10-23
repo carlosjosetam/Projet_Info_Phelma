@@ -32,13 +32,13 @@ void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes, c
           current = next_lexeme(before_current);
         }
         else {
-          ERROR_MSG("L'etiquette => %s <= en ligne %d a été declaré plus qu'une fois\n", strdup(word_lexeme(current)), ligne_lexeme(current));
+          ERROR_MSG("line %d: Etiquette => %s <= has been already declared\n", ligne_lexeme(current), strdup(word_lexeme(current)));
           //abort();
         }
       }
     }
-    else if (type_lexeme(current) == 14 && type_lexeme(next_lexeme(current)) == 11) { // CAS => ERROR :
-      ERROR_MSG("L'etiquette => %s <= en ligne %d n'est pas permit\n", strdup(word_lexeme(current)), ligne_lexeme(current));
+    else if (type_lexeme(current) != 1 && type_lexeme(next_lexeme(current)) == 11) { // CAS => ERROR :
+      ERROR_MSG("line %d: Etiquette => %s <= not allowed\n", ligne_lexeme(current), strdup(word_lexeme(current)));
       //abort();
     }
     else {

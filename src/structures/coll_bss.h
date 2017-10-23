@@ -4,7 +4,7 @@
 #define _Coll_BSS
 
 typedef struct Coll_BSS{
-  // Linked list for COLL_BSS dicionaire
+  // Linked list for COLL_BSS
     char* directive; // .SPACE
     int n_op; // 1
     int ligne; // 11

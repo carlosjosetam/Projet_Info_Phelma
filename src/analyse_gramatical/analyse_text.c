@@ -79,7 +79,7 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
           }
         }
         else {
-          ERROR_MSG("line %d: Type > %d < not allowed in .bss\n", ligne_lexeme(current), type_lexeme(current));
+          ERROR_MSG("line %d: Type > %d < not allowed in .text\n", ligne_lexeme(current), type_lexeme(current));
           if (is_next_same_line(current, current_line)) {
             S = JUMP_TEXT; break;
           }
@@ -97,7 +97,7 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
 
           if (n_op == 1) { // SHOULD END HERE
             if (is_next_same_line(current, current_line)) {
-              WARNING_MSG("line %d: More elements in line than allowed\n");
+              WARNING_MSG("line %d: More elements in line than allowed\n", ligne_lexeme(current));
               S = JUMP_TEXT; break;
             }
             else {
@@ -248,7 +248,6 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
               break;
             }
           }
-          WARNING_MSG("line %d: Extra element > %s < in line", ligne_lexeme(current), word_lexeme(current));
           break;
     }
   }

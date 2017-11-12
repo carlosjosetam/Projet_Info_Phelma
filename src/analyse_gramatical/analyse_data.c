@@ -50,7 +50,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
         //printf("START\n");
         if (type_lexeme(current) == 3) { // IS DIRECTIVE
           if (is_Dir_in_Dicio_Directives(dicio_directives, word_lexeme(current))) {
-            if (is_next_same_line(current, current_line)) { // VALIDATE DIRECTIVE
+            if (is_next_same_line(current)) { // VALIDATE DIRECTIVE
               directive = strdup(word_lexeme(current));
               //printf("directive => %s\n", directive);
               S = OP1_DATA;
@@ -63,7 +63,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
           }
           else {
             ERROR_MSG("line %d: Directive > %s < not allowed in .data\n", ligne_lexeme(current), word_lexeme(current));
-            if (is_next_same_line(current, current_line)) {
+            if (is_next_same_line(current)) {
               S = JUMP_DATA; break;
             }
             else {
@@ -73,7 +73,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
         }
         else {
           ERROR_MSG("line %d: Type > %d < not allowed in .data\n", ligne_lexeme(current), type_lexeme(current));
-          if (is_next_same_line(current, current_line)) {
+          if (is_next_same_line(current)) {
             S = JUMP_DATA; break;
           }
           else {
@@ -89,7 +89,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
           if (is_value_permit_directive(dicio_directives, directive, type_lexeme(current), word_lexeme(current))) { // VERIFICATION OF VALUE
             op1 = strdup(word_lexeme(current)); // VALIDATED
 
-            if (is_next_same_line(current, current_line)) {
+            if (is_next_same_line(current)) {
               WARNING_MSG("line %d: More elements in line than allowed\n", ligne_lexeme(current));
 
               S = JUMP_DATA; break;
@@ -103,7 +103,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
           }
           else {
             WARNING_MSG("line %d: Incorect value > %s < for > %s <\n", ligne_lexeme(current), word_lexeme(current), directive);
-            if (is_next_same_line(current, current_line)) {
+            if (is_next_same_line(current)) {
               S = JUMP_DATA; break;
             }
             else {
@@ -113,7 +113,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
         }
         else {
           WARNING_MSG("line %d: Incorrect operand > %s < for > %s < \n", ligne_lexeme(current), word_lexeme(current), directive);
-          if (is_next_same_line(current, current_line)) {
+          if (is_next_same_line(current)) {
             S = JUMP_DATA; break;
           }
           else {

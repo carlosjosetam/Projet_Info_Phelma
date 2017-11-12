@@ -50,7 +50,7 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
         }
         if (type_lexeme(current) == 3) { // IS DIRECTIVE
           if (strcmp(word_lexeme(current), ".space") == 0) { // ONLY SPACE ALLOWED
-            if (is_next_same_line(current, current_line)) { // VALIDATE DIRECTIVE
+            if (is_next_same_line(current)) { // VALIDATE DIRECTIVE
               directive = strdup(word_lexeme(current));
               //DEBUG_MSG("directive => %s\n", directive);
               S = OP1_BSS;
@@ -63,7 +63,7 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
           }
           else {
             ERROR_MSG("line %d: Directive > %s < not allowed in .bss\n", ligne_lexeme(current), word_lexeme(current));
-            if (is_next_same_line(current, current_line)) {
+            if (is_next_same_line(current)) {
               S = JUMP_BSS; break;
             }
             else {
@@ -73,7 +73,7 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
         }
         else {
           ERROR_MSG("line %d: Type > %d < not allowed in .bss\n", ligne_lexeme(current), type_lexeme(current));
-          if (is_next_same_line(current, current_line)) {
+          if (is_next_same_line(current)) {
             S = JUMP_BSS; break;
           }
           else {
@@ -89,7 +89,7 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
           if (is_value_permit_directive(dicio_directives, directive, type_lexeme(current), word_lexeme(current))) { // VERIFICATION OF VALUE
             op1 = strdup(word_lexeme(current)); // VALIDATED
 
-            if (is_next_same_line(current, current_line)) {
+            if (is_next_same_line(current)) {
               WARNING_MSG("line %d: More elements in line than allowed\n", ligne_lexeme(current));
               S = JUMP_BSS; break;
             }
@@ -102,7 +102,7 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
           }
           else {
             WARNING_MSG("line %d: Incorect value > %s < for > %s <\n", ligne_lexeme(current), word_lexeme(current), directive);
-            if (is_next_same_line(current, current_line)) {
+            if (is_next_same_line(current)) {
               S = JUMP_BSS; break;
             }
             else {
@@ -112,7 +112,7 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
         }
         else {
           WARNING_MSG("line %d: Incorrect operand > %s < for > %s < \n", ligne_lexeme(current), word_lexeme(current), directive);
-          if (is_next_same_line(current, current_line)) {
+          if (is_next_same_line(current)) {
             S = JUMP_BSS; break;
           }
           else {

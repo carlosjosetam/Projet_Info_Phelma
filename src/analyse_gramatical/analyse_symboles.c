@@ -38,7 +38,7 @@ enum {START_SYM, SYMBOLE_SYM, MOINS_SYM, VIRGULE_SYM};
       case START_SYM:
       type = type_lexeme(current);
       if (type == 1) { //SYMBOLE
-        if (!is_next_same_line(current, current_line)) {
+        if (!is_next_same_line(current)) {
           push(new_lexemes, word_lexeme(current), type_lexeme(current), ligne_lexeme(current));
           S = START_SYM;
           break;
@@ -49,7 +49,7 @@ enum {START_SYM, SYMBOLE_SYM, MOINS_SYM, VIRGULE_SYM};
         }
       }
       else if (type == 16) { // MOINS
-        if (is_next_same_line(current, current_line)) {
+        if (is_next_same_line(current)) {
           S = MOINS_SYM;
           break;
         }

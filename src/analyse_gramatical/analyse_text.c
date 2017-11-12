@@ -12,7 +12,7 @@
 
 bool is_next_same_line(Lexeme_t * current, int current_line) {
   if (next_lexeme(current) != NULL) {
-    if (ligne_lexeme(next_lexeme(current)) == current_line) {
+    if (type_lexeme(next_lexeme(current)) != 17) {
       return true;
     }
   }
@@ -30,7 +30,7 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
   char * op1 = NULL;
   char * op2 = NULL;
   char * op3 = NULL;
-  int decalage = 0;
+  int decalage = -4;
   int current_line;
 
   if (next_lexeme(current) == NULL) { //EXIT, NO .text TERMS
@@ -47,12 +47,17 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
 
     if (current_line != ligne_lexeme(current)) { // Changement de ligne
       //printf("*********** NEW LINE ***********\n");
-      decalage = decalage + 4;
+      if (type_lexeme(current) != 17) {
+        decalage = decalage + 4;
+      }
       current_line = ligne_lexeme(current);
     }
 
     switch (S) {
       case START_TEXT:
+      if (type_lexeme(current) == 17) {
+        break; // ignore jump ligne
+      }
         //printf("START\n");
         if (type_lexeme(current) == 1) { // IS SYMBOLE
           if (is_Instru_Dicio_Instru(dicio_instru, word_lexeme(current))) {

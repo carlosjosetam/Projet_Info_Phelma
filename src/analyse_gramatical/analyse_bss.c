@@ -20,7 +20,7 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
   int n_op = 1;
   char * directive = NULL;
   char * op1 = NULL;
-  int decalage = 0;
+  int decalage = -4;
   int current_line;
 
   if (next_lexeme(current) == NULL) { //EXIT, NO .text TERMS
@@ -36,13 +36,18 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
 
     if (current_line != ligne_lexeme(current)) { // Changement de ligne
       //DEBUG_MSG("*********** NEW LINE ***********\n");
-      decalage = decalage + 4;
+      if (type_lexeme(current) != 17) {
+        decalage = decalage + 4;
+      }
       current_line = ligne_lexeme(current);
     }
 
     switch (S) {
       case START_BSS:
         //DEBUG_MSG("START_BSS\n");
+        if (type_lexeme(current) == 17) {
+          break;
+        }
         if (type_lexeme(current) == 3) { // IS DIRECTIVE
           if (strcmp(word_lexeme(current), ".space") == 0) { // ONLY SPACE ALLOWED
             if (is_next_same_line(current, current_line)) { // VALIDATE DIRECTIVE

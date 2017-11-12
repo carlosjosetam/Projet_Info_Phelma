@@ -10,9 +10,15 @@
 #include "analyse_data.h"
 #include "analyse_text.h"
 #include "analyse_gramatical_1.h"
+#include "analyse_symboles.h"
 
 
 void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_t * head_data, Lexeme_t * head_bss, Etiquette_t * list_etiquettes, Dicio_Instru_t * dicio_instru, Dicio_Directives_t * dicio_directives) {
+
+  print_list(head_lexemes);
+
+  Lexeme_t * new_lexemes = analyse_symboles(head_lexemes);
+  print_list(new_lexemes);
 
   division_section(head_lexemes, head_text, head_data, head_bss, dicio_instru);
   print_list(head_text);

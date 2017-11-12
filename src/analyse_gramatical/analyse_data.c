@@ -20,7 +20,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
   int n_op = 1;
   char * directive = NULL;
   char * op1 = NULL;
-  int decalage = 0;
+  int decalage = -4;
   int current_line;
 
   if (next_lexeme(current) == NULL) { //EXIT, NO .text TERMS
@@ -36,12 +36,17 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
 
     if (current_line != ligne_lexeme(current)) { // Changement de ligne
       //printf("*********** NEW LINE ***********\n");
-      decalage = decalage + 4;
+      if (type_lexeme(current) != 17) {
+        decalage = decalage + 4;
+      }
       current_line = ligne_lexeme(current);
     }
 
     switch (S) {
       case START_DATA:
+      if (type_lexeme(current) == 17) {
+        break;
+      }
         //printf("START\n");
         if (type_lexeme(current) == 3) { // IS DIRECTIVE
           if (is_Dir_in_Dicio_Directives(dicio_directives, word_lexeme(current))) {

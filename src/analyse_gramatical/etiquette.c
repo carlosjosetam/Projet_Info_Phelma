@@ -16,11 +16,13 @@ void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes, c
 
   Lexeme_t * current = next_lexeme(head_lexemes);
   Lexeme_t * before_current = head_lexemes;
-  int decalage = 0;
+  int decalage = -4;
   int ver_ligne = ligne_lexeme(current);
   while (current != NULL && next_lexeme(current) != NULL) {
     if (ver_ligne != ligne_lexeme(current)) { // Changement de ligne
-      decalage = decalage + 4;
+      if (type_lexeme(current) != 17) {
+        decalage = decalage + 4;
+      }
       ver_ligne = ligne_lexeme(current);
     }
     if (type_lexeme(current) == 1 && type_lexeme(next_lexeme(current)) == 11) { // CAS ETIQUETTES => SYMBOLE :

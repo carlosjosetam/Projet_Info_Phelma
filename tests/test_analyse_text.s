@@ -1,5 +1,6 @@
 # test analyse_text
 
+etiquette:
 NOP3 $4, $4, $5
 NOP3 $3, $4
 NOP3 $3, 4 $5

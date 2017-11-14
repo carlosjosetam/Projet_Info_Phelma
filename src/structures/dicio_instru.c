@@ -81,6 +81,14 @@ Dicio_Instru_t * new_Dicio_Instru() {
   head->next = NULL;
 
   //ADD INSTRUCTIONS HERE
+  push_Dicio_Instru(head, "ADD", 3, "R", "REG", "REG", "REG", 1111111);
+  push_Dicio_Instru(head, "ADDI", 3, "I", "REG", "REG", "IME", 1111111);
+  push_Dicio_Instru(head, "LW", 2, "I", "REG", "OFF", NULL, 11111);
+  push_Dicio_Instru(head, "BEQ", 3, "I", "REG", "REG", "OFF", 111111);
+  push_Dicio_Instru(head, "MFHI", 1, "R", "REG", NULL, NULL, 111111);
+  push_Dicio_Instru(head, "SLL", 3, "R", "REG", "REG", "SA", 111111);
+
+
   push_Dicio_Instru(head, "NOP3", 3, "R", "REG", "REG", "REG", 100001);
   push_Dicio_Instru(head, "NOP2", 2, "R", "REG", "REG", NULL, 100001);
   push_Dicio_Instru(head, "NOP1", 1, "R", "REG", NULL, NULL, 100001);

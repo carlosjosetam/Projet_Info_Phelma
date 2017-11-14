@@ -1,24 +1,22 @@
-# test analyse_coll
-# on veut tester qui le push
-# aux collections marche bien
+# test analyse_type_instruction
+# all samples concerned here have the right number of operands
 
-start: NOP3 $1, $2, $3
-NOP3 $1, $2, $3
-NOP2 $1, $2
+# here all samples work
+ADD $1, $2, $3
 
-.data
-.space  24
-.byte 0x66
-.word 234
-.asciiz "bonjour"
+ADDI $2, $t3, 200
+ADDI $2, $3, 0x3f
+ADDI $2, $3, X
 
-.text
-NOP1 0x678f
+LW $2, 200($3)
+SLL $2, $3, 12
+MFHI $t1
+BEQ $zero, $t2, -0x200($3)
 
-.data
-lunchtime: .word 12
-.word menu
+# here we have problems
+ADD $2, $2, 2
+ADDI $2, $2, $3
 
-.bss
-menu: .space 24
-exit: .space 33
+LW zero, 1234
+
+BEQ 123, 456, $3

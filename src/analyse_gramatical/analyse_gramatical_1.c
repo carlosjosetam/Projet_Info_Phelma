@@ -47,4 +47,7 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   print_Coll_BSS(coll_bss);
 
 
+  // ANALYSE TYPE INSTRUCTIONS
+  analyse_type_instruction(coll_instru, dicio_instru);
+
 }

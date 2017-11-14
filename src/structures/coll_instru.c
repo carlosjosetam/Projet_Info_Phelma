@@ -62,3 +62,35 @@ Coll_INSTRU_t * new_Coll_INSTRU() {
 
   return head;
 }
+
+int get_number_operands(Coll_INSTRU_t * instruction) {
+  return instruction->n_op;
+}
+
+Coll_INSTRU_t * next_instru(Coll_INSTRU_t * instruction) {
+  return instruction->next;
+}
+
+char * get_operand(Coll_INSTRU_t * instruction, int index) {
+  if (index == 1) return instruction->op1;
+  if (index == 2) return instruction->op2;
+  if (index == 3) return instruction->op3;
+
+  ERROR_MSG("Invalid index for get_operand");
+}
+
+int * get_type_operand(Coll_INSTRU_t * instruction, int index) {
+  if (index == 1) return instruction->type_op1;
+  if (index == 2) return instruction->type_op2;
+  if (index == 3) return instruction->type_op3;
+
+  ERROR_MSG("Invalid index for get_type_operand");
+}
+
+char * get_name_instruction(Coll_INSTRU_t * instruction) {
+  return instruction->instruction;
+}
+
+int get_line(Coll_INSTRU_t * instruction) {
+  return instruction->ligne;
+}

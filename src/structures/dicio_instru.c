@@ -87,3 +87,17 @@ Dicio_Instru_t * new_Dicio_Instru() {
 
   return head;
 }
+
+char * get_addressing_type(Dicio_Instru_t * dicionaire, char * word, int index) {
+  Dicio_Instru_t * current = dicionaire;
+  if (current->next == NULL) return NULL; // case EMPTY list
+  while (current->next != NULL) {
+    current = current->next;
+    if (strcmp(strdup(word), strdup(current->word)) == 0) {
+      if(index == 1) return current->op1;
+      if(index == 2) return current->op2;
+      if(index == 3) return current->op3;
+    }
+  }
+  ERROR_MSG("Invalid index for get_addressing_type");
+}

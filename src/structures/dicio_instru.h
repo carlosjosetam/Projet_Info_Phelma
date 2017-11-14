@@ -25,4 +25,6 @@ bool is_Instru_Dicio_Instru(Dicio_Instru_t * head, char * word);
 void push_Dicio_Instru(Dicio_Instru_t * head, char * word, int n_op, char * type, char * op1, char * op2, char * op3, int code_bin);
 Dicio_Instru_t * new_Dicio_Instru();
 
+char * get_addressing_type(Dicio_Instru_t * dicionaire, char * word, int index);
+
 #endif

@@ -22,7 +22,7 @@ int main (int argc, char ** argv ) {
   char * path = argv[1];
 
   printf("ASSEMBLEUR MIPS ==>> Projet Info PHELMA 2017\n");
-  INFO_MSG("Selected file: %s\n", path);
+  printf("Selected file: %s\n", path);
   //CREATION DE DICIONIRE D'INSTRUCTIONS
   Dicio_Instru_t * dicio_instru = new_Dicio_Instru();
   print_Dicio_Instru(dicio_instru);
@@ -40,7 +40,7 @@ int main (int argc, char ** argv ) {
   Etiquette_t *etiq1 = new_etiquette();
 
   analyse_lexicale(path, list_complet);
-  
+
   analyse_gramatical_1(list_complet, list_text, list_data, list_bss, etiq1, dicio_instru, dicio_directives);
 
   return 0;

@@ -12,13 +12,13 @@ void print_Coll_INSTRU(Coll_INSTRU_t * head) {
 
   while (current != NULL) {
     if (current->n_op == 1) {
-      printf("%s %s | ligne: %d | decalage: %d\n", current->instruction, current->op1, current->ligne, current->decalage);
+      printf("%s %s | ligne: %d | decalage: %d | type: %d\n", current->instruction, current->op1, current->ligne, current->decalage, current->type_op1);
     }
     else if (current->n_op == 2) {
-      printf("%s %s, %s | ligne: %d | decalage: %d\n", current->instruction, current->op1, current->op2, current->ligne, current->decalage);
+      printf("%s %s, %s | ligne: %d | decalage: %d | types: %d, %d\n", current->instruction, current->op1, current->op2, current->ligne, current->decalage, current->type_op1, current->type_op2);
     }
     else {
-      printf("%s %s, %s, %s | ligne: %d | decalage: %d\n", current->instruction, current->op1, current->op2, current->op3, current->ligne, current->decalage);
+      printf("%s %s, %s, %s | ligne: %d | decalage: %d | types: %d, %d, %d\n", current->instruction, current->op1, current->op2, current->op3, current->ligne, current->decalage, current->type_op1, current->type_op2, current->type_op3);
     }
     current = current->next;
   }
@@ -26,7 +26,7 @@ void print_Coll_INSTRU(Coll_INSTRU_t * head) {
 }
 
 
-void push_Coll_INSTRU(Coll_INSTRU_t * head, char * instruction, int n_op, int ligne, int decalage, char * op1, char * op2, char * op3) {
+void push_Coll_INSTRU(Coll_INSTRU_t * head, char * instruction, int n_op, int ligne, int decalage, char * op1, char * op2, char * op3, int type_op1, int type_op2, int type_op3) {
   // ADD element on top of the linked list
   Coll_INSTRU_t * current = head;
   while (current->next != NULL) {
@@ -41,6 +41,9 @@ void push_Coll_INSTRU(Coll_INSTRU_t * head, char * instruction, int n_op, int li
   current->next->op1 = op1;
   current->next->op2 = op2;
   current->next->op3 = op3;
+  current->next->type_op1 = type_op1;
+  current->next->type_op2 = type_op2;
+  current->next->type_op3 = type_op3;
   current->next->next = NULL;
 }
 

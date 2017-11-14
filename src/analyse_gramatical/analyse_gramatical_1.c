@@ -20,7 +20,7 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   Lexeme_t * new_lexemes = analyse_symboles(head_lexemes);
   print_list(new_lexemes);
 
-  division_section(head_lexemes, head_text, head_data, head_bss, dicio_instru);
+  division_section(new_lexemes, head_text, head_data, head_bss, dicio_instru);
   print_list(head_text);
   print_list(head_data);
   print_list(head_bss);

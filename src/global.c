@@ -3,6 +3,17 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include "global.h"
+
+
+char * capslock(char * word) {
+  for (int i = 0; word[i] <= strlen(word); i++) {
+    if (isalpha(word[i])) {
+      word[i] = toupper(word[i]);
+    }
+  }
+  return strdup(word);
+}
 
 int hex2int(char * hex) {
 

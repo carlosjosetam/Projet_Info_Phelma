@@ -45,7 +45,6 @@ int main (int argc, char ** argv ) {
 
   analyse_gramatical_1(list_complet, list_text, list_data, list_bss, etiq1, dicio_instru, dicio_directives);
 
-  printf("%s\n", capslock("ola, TUDO BEM?"));
 
   return 0;
 }

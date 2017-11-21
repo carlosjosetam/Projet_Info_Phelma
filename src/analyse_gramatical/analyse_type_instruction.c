@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <limits.h>
 
 #include "../structures/list_lexeme.h"
 #include "../structures/coll_instru.h"
@@ -12,15 +13,49 @@
 
 enum {START_TYPE_INSTRU};
 
-bool check_value_operand(char * addressing_type, int line, char * name_instruction, char * operand, int index) {
+void check_value_operand(char * addressing_type, int type_operand, int line, char * name_instruction, char * operand, int index, Registers_t * table_registers) {
+  //DECODER OPERANDS
+  short value = 0;
+  if (type_operand == 6) { // HEXA
+    value = hex2int(operand);
+    printf("operando HEXA %s, %d\n", operand, value);
+  }
+  if (type_operand == 2) {
+    value = atoi(operand);
+    printf("operando DECIMAL %s, %d\n", operand, value);
+  }
+  if (type_operand == 5) {
+    value = 0;
+    printf("operando ZERO %s, %d\n", operand, value);
+  }
+  if (type_operand == 7) {
+    ERROR_MSG("FUNCTION FOR VERIFYING OCTA VALUE NOT IMPLEMENTED YET");
+  }
+
   // REGISTER DIRECT
   if (strcmp(addressing_type, "REG") == 0) { // CHECK IF ITS REGISTER
-    return true;
+    if (is_Reg_in_table(table_registers, operand)) {
+      printf("Register %s valide\n", operand);
+    }
+    else {
+      WARNING_MSG("line %d: Register => %s <= not alowed for this device", line, operand);
+    }
   }
 
   // IMMEDIATE
   if (strcmp(addressing_type, "IME") == 0) {
-
+    if (type_operand == 1) { // If its SYMBOLE
+      printf("Symbole %s valide\n", operand);
+      //faire choses
+    }
+    else { // HEXA, DECIMAL, OCTA, ZERO
+      if (SHRT_MIN <= value <= SHRT_MAX) {
+        printf("Operand IMM %d valide\n", value);
+      }
+      else {
+        WARNING_MSG("line %d: Value of operand => %s <= off-limits", line, operand);
+      }
+    }
   }
 
   // BASE OFFSET
@@ -31,6 +66,18 @@ bool check_value_operand(char * addressing_type, int line, char * name_instructi
   // SHIFT ADDRESS
   // IMEDIATE 5BITS
   if (strcmp(addressing_type, "SA") == 0) {
+    if (type_operand == 1) { // If its SYMBOLE
+      printf("Symbole %s valide\n", operand);
+      //faire choses
+    }
+    else { // HEXA, DECIMAL, OCTA, ZERO
+      if (0 <= value <= 31) {
+        printf("Operand SA %d valide\n", value);
+      }
+      else {
+        WARNING_MSG("line %d: Value of operand => %s <= off-limits", line, operand);
+      }
+    }
 
   }
 
@@ -134,6 +181,7 @@ void analyse_type_instruction(Coll_INSTRU_t * head_coll_instru, Dicio_Instru_t *
 
     if (check_operand(addressing_type, type_operand, line, name_instruction, operand, 1)) {
         printf("Verification de valeur\n");
+        check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 1, table_registers);
     }
     else {
       WARNING_MSG("line %d: Wrong type of operand. The program won't check it's value. please correct", line);
@@ -146,6 +194,7 @@ void analyse_type_instruction(Coll_INSTRU_t * head_coll_instru, Dicio_Instru_t *
 
       if (check_operand(addressing_type, type_operand, line, name_instruction, operand, 2)) {
           printf("Verification de valeur\n");
+          check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 2, table_registers);
       }
       else {
         WARNING_MSG("line %d: Wrong type of operand. The program won't check it's value. please correct", line);
@@ -159,6 +208,7 @@ void analyse_type_instruction(Coll_INSTRU_t * head_coll_instru, Dicio_Instru_t *
 
       if (check_operand(addressing_type, type_operand, line, name_instruction, operand, 1)) {
           printf("Verification de valeur\n");
+          check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 3, table_registers);
       }
       else {
         WARNING_MSG("line %d: Wrong type of operand. The program won't check it's value. please correct", line);

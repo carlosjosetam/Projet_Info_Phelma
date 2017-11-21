@@ -67,6 +67,13 @@ Registers_t * new_Registers() {
   head->next = NULL;
 
   push_Registers(head, "$zero", 0);
+  push_Registers(head, "$1", 1);
+  push_Registers(head, "$2", 2);
+  push_Registers(head, "$3", 3);
+  push_Registers(head, "$3", 4);
+  push_Registers(head, "$5", 5);
+  push_Registers(head, "$6", 6);
+  push_Registers(head, "$7", 7);
 
   return head;
 }

@@ -1,6 +1,7 @@
 # allons au ru
 
 .text
+start:
     ADD $3, $3, $5
     LW $6, -0x200($7)
     ADDI $1, $zero, lunchtime
@@ -11,6 +12,7 @@ boucle:
     NOP
 byebye:
     ADD $1, $2, $3
+    ADDI $1, $2, start
 
 .data
 lunchtime: .word 12

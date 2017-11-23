@@ -52,8 +52,8 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   analyse_type_instruction(coll_instru, dicio_instru);
   print_Coll_INSTRU(coll_instru);
 
-  Relocation_t * reloc_text = analyse_relocation(coll_instru, list_etiquettes);
+  // RELOCATION TEXT
+  Relocation_t * reloc_text = analyse_relocation_text(coll_instru, list_etiquettes);
   print_list_relocation(reloc_text);
-
 
 }

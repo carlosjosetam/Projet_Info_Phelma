@@ -10,6 +10,7 @@
 #include "../structures/table_registers.h"
 #include "analyse_text.h"
 #include "../../include/notify.h"
+#include "../structures/list_relocation.h"
 
 enum {START_TYPE_INSTRU};
 

@@ -7,7 +7,7 @@
 
 boucle:
     NOP
-    ADDI $1 , $1 , 1
+    ADDI $1 , $1 , lunchtime
     NOP
 byebye:
     ADD $1, $2, $3

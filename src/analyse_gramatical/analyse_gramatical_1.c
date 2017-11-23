@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "../structures/list_lexeme.h"
 #include "../structures/list_etiquette.h"
+#include "../structures/list_relocation.h"
 #include "etiquette.h"
 #include "division_section.h"
 #include "analyse_bss.h"
@@ -11,6 +12,7 @@
 #include "analyse_text.h"
 #include "analyse_gramatical_1.h"
 #include "analyse_symboles.h"
+#include "analyse_relocation.h"
 
 
 void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_t * head_data, Lexeme_t * head_bss, Etiquette_t * list_etiquettes, Dicio_Instru_t * dicio_instru, Dicio_Directives_t * dicio_directives) {
@@ -49,6 +51,9 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   // ANALYSE TYPE INSTRUCTIONS
   analyse_type_instruction(coll_instru, dicio_instru);
   print_Coll_INSTRU(coll_instru);
+
+  Relocation_t * reloc_text = analyse_relocation(coll_instru, list_etiquettes);
+  print_list_relocation(reloc_text);
 
 
 }

@@ -36,6 +36,22 @@ bool is_in_list(Etiquette_t * head, char * word) {
   return false;
 }
 
+Etiquette_t * is_in_list_current(Etiquette_t * head, char * word) {
+  // If WORD is on list return true
+  // Else, return false
+  Etiquette_t * current = head;
+
+  if (current->next == NULL) return false; // case EMPTY list
+
+  while (current->next != NULL) {
+    current = current->next;
+    if (strcmp(strdup(word), strdup(current->word)) == 0) {
+      return current;
+    }
+  }
+  return NULL;
+}
+
 void push_etiquette(Etiquette_t * head, char* word, int ligne, int decalage, char * section) {
   // ADD element on top of the linked list
   Etiquette_t * current = head;
@@ -111,4 +127,12 @@ Etiquette_t * new_etiquette() {
   head->section = "HEAD";
   head->next = NULL;
   return head;
+}
+
+int get_address_etiquette(Etiquette_t * head) {
+  return head->decalage;
+}
+
+char * get_section_etiquette(Etiquette_t * head) {
+  return head->section;
 }

@@ -94,3 +94,7 @@ char * get_name_instruction(Coll_INSTRU_t * instruction) {
 int get_line(Coll_INSTRU_t * instruction) {
   return instruction->ligne;
 }
+
+int get_address_instru(Coll_INSTRU_t * instruction) {
+  return instruction->decalage;
+}

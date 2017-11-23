@@ -5,8 +5,19 @@
 #include <stdlib.h>
 #include "global.h"
 
+char* strupr(char* s)
+{
+    char* tmp = s;
 
-char * capslock(char * word) {
+    for (;*tmp;++tmp) {
+        *tmp = toupper((unsigned char) *tmp);
+    }
+
+    return s;
+}
+
+
+char * to_uppercase(char * word) {
   for (int i = 0; word[i] <= strlen(word); i++) {
     if (isalpha(word[i])) {
       word[i] = toupper(word[i]);

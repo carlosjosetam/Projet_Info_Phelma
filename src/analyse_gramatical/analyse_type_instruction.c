@@ -13,20 +13,20 @@
 
 enum {START_TYPE_INSTRU};
 
-void check_value_operand(char * addressing_type, int type_operand, int line, char * name_instruction, char * operand, int index, Registers_t * table_registers) {
+bool check_value_operand(char * addressing_type, int type_operand, int line, char * name_instruction, char * operand, int index, Registers_t * table_registers) {
   //DECODER OPERANDS
   short value = 0;
   if (type_operand == 6) { // HEXA
     value = hex2int(operand);
-    printf("operando HEXA %s, %d\n", operand, value);
+    DEBUG_MSG("operando HEXA %s, %d\n", operand, value);
   }
   if (type_operand == 2) {
     value = atoi(operand);
-    printf("operando DECIMAL %s, %d\n", operand, value);
+    DEBUG_MSG("operando DECIMAL %s, %d\n", operand, value);
   }
   if (type_operand == 5) {
     value = 0;
-    printf("operando ZERO %s, %d\n", operand, value);
+    DEBUG_MSG("operando ZERO %s, %d\n", operand, value);
   }
   if (type_operand == 7) {
     ERROR_MSG("FUNCTION FOR VERIFYING OCTA VALUE NOT IMPLEMENTED YET");
@@ -35,25 +35,25 @@ void check_value_operand(char * addressing_type, int type_operand, int line, cha
   // REGISTER DIRECT
   if (strcmp(addressing_type, "REG") == 0) { // CHECK IF ITS REGISTER
     if (is_Reg_in_table(table_registers, operand)) {
-      printf("Register %s valide\n", operand);
+      DEBUG_MSG("Register %s valide\n", operand);
     }
     else {
-      WARNING_MSG("line %d: Register => %s <= not alowed for this device", line, operand);
+      WARNING_MSG("line %d: Register => %s <= not alowed for this device", line, operand); return false;
     }
   }
 
   // IMMEDIATE
   if (strcmp(addressing_type, "IME") == 0) {
     if (type_operand == 1) { // If its SYMBOLE
-      printf("Symbole %s valide\n", operand);
+      DEBUG_MSG("Symbole %s valide\n", operand);
       //faire choses
     }
     else { // HEXA, DECIMAL, OCTA, ZERO
       if (SHRT_MIN <= value <= SHRT_MAX) {
-        printf("Operand IMM %d valide\n", value);
+        DEBUG_MSG("Operand IMM %d valide\n", value);
       }
       else {
-        WARNING_MSG("line %d: Value of operand => %s <= off-limits", line, operand);
+        WARNING_MSG("line %d: Value of operand => %s <= off-limits", line, operand); return false;
       }
     }
   }
@@ -67,15 +67,15 @@ void check_value_operand(char * addressing_type, int type_operand, int line, cha
   // IMEDIATE 5BITS
   if (strcmp(addressing_type, "SA") == 0) {
     if (type_operand == 1) { // If its SYMBOLE
-      printf("Symbole %s valide\n", operand);
+      DEBUG_MSG("Symbole %s valide\n", operand);
       //faire choses
     }
     else { // HEXA, DECIMAL, OCTA, ZERO
       if (0 <= value <= 31) {
-        printf("Operand SA %d valide\n", value);
+        DEBUG_MSG("Operand SA %d valide\n", value);
       }
       else {
-        WARNING_MSG("line %d: Value of operand => %s <= off-limits", line, operand);
+        WARNING_MSG("line %d: Value of operand => %s <= off-limits", line, operand); return false;
       }
     }
 
@@ -85,6 +85,8 @@ void check_value_operand(char * addressing_type, int type_operand, int line, cha
   if (strcmp(addressing_type, "TAR") == 0) {
 
   }
+
+  return true;
 }
 
 bool check_operand(char * addressing_type, int type_operand, int line, char * name_instruction, char * operand, int index) {
@@ -92,7 +94,7 @@ bool check_operand(char * addressing_type, int type_operand, int line, char * na
   // REGISTER DIRECT
   if (strcmp(addressing_type, "REG") == 0) { // CHECK IF ITS REGISTER
     if (type_operand == 9) { // REGISTER
-      printf("OP%d REG %s of %s valide\n", index, operand, name_instruction);
+      DEBUG_MSG("OP%d REG %s of %s valide\n", index, operand, name_instruction);
       return true;
     }
     else {
@@ -104,7 +106,7 @@ bool check_operand(char * addressing_type, int type_operand, int line, char * na
   // IMMEDIATE
   if (strcmp(addressing_type, "IME") == 0) {
     if (1 <= type_operand <= 2 || 5 <= type_operand <= 7) { // SYMBOLE DECIMAL ZERO HEXA OCTA
-      printf("OP%d IME %s of %s valide\n", index, operand, name_instruction);
+      DEBUG_MSG("OP%d IME %s of %s valide\n", index, operand, name_instruction);
       return true;
     }
     else {
@@ -116,7 +118,7 @@ bool check_operand(char * addressing_type, int type_operand, int line, char * na
   // BASE OFFSET
   if (strcmp(addressing_type, "OFF") == 0) {
     if (type_operand == 18) {
-      printf("OP%d OFF %s of %s valide\n", index, operand, name_instruction);
+      DEBUG_MSG("OP%d OFF %s of %s valide\n", index, operand, name_instruction);
       return true;
     }
     else {
@@ -129,7 +131,7 @@ bool check_operand(char * addressing_type, int type_operand, int line, char * na
   // IMEDIATE 5BITS
   if (strcmp(addressing_type, "SA") == 0) {
     if (1 <= type_operand <= 2 || 5 <= type_operand <= 7) { // SYMBOLE DECIMAL ZERO HEXA OCTA
-      printf("OP%d IME %s of %s valide\n", index, operand, name_instruction);
+      DEBUG_MSG("OP%d IME %s of %s valide\n", index, operand, name_instruction);
       return true;
     }
     else {
@@ -154,7 +156,7 @@ void analyse_type_instruction(Coll_INSTRU_t * head_coll_instru, Dicio_Instru_t *
 
   if(is_Reg_in_table(table_registers, "$zero")){
     unsigned char number = get_number_Reg_in_table(table_registers, "$zero");
-    printf("ouiii %d\n", number);
+    DEBUG_MSG("ouiii %d\n", number);
   }
 
   int S = START_TYPE_INSTRU;
@@ -163,6 +165,7 @@ void analyse_type_instruction(Coll_INSTRU_t * head_coll_instru, Dicio_Instru_t *
   char * operand = NULL;
   int type_operand = -1;
   int line = -1;
+  bool erro = false;
 
   if (next_instru(current) == NULL) { //EXIT, NO .text TERMS
     return;
@@ -174,47 +177,60 @@ void analyse_type_instruction(Coll_INSTRU_t * head_coll_instru, Dicio_Instru_t *
     name_instruction = get_name_instruction(current);
     line = get_line(current);
 
-    // VERIFICATION FIRST OPERAND
-    operand = get_operand(current, 1);
-    type_operand = get_type_operand(current, 1);
-    addressing_type = get_addressing_type(dicionaire, name_instruction, 1); // get first addressing_type
-
-    if (check_operand(addressing_type, type_operand, line, name_instruction, operand, 1)) {
-        printf("Verification de valeur\n");
-        check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 1, table_registers);
-    }
-    else {
-      WARNING_MSG("line %d: Wrong type of operand. The program won't check it's value. please correct", line);
-    }
-
-    if (get_number_operands(current) != 1) { // TWO or More operands
-      operand = get_operand(current, 2);
-      type_operand = get_type_operand(current, 2);
-      addressing_type = get_addressing_type(dicionaire, name_instruction, 2);
-
-      if (check_operand(addressing_type, type_operand, line, name_instruction, operand, 2)) {
-          printf("Verification de valeur\n");
-          check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 2, table_registers);
-      }
-      else {
-        WARNING_MSG("line %d: Wrong type of operand. The program won't check it's value. please correct", line);
-      }
-    }
-
-    if (get_number_operands(current) == 3) { // Three operands
-      operand = get_operand(current, 3);
-      type_operand = get_type_operand(current, 3);
-      addressing_type = get_addressing_type(dicionaire, name_instruction, 3);
+    if (get_number_operands(current) != 0) {
+      // VERIFICATION FIRST OPERAND
+      operand = get_operand(current, 1);
+      type_operand = get_type_operand(current, 1);
+      addressing_type = get_addressing_type(dicionaire, name_instruction, 1); // get first addressing_type
 
       if (check_operand(addressing_type, type_operand, line, name_instruction, operand, 1)) {
-          printf("Verification de valeur\n");
-          check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 3, table_registers);
+          DEBUG_MSG("Verification de valeur\n");
+          if (!check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 2, table_registers)) {
+            erro = true;
+          }
       }
       else {
+        erro = true;
         WARNING_MSG("line %d: Wrong type of operand. The program won't check it's value. please correct", line);
       }
-    }
 
+      if (get_number_operands(current) != 1) { // TWO or More operands
+        operand = get_operand(current, 2);
+        type_operand = get_type_operand(current, 2);
+        addressing_type = get_addressing_type(dicionaire, name_instruction, 2);
+
+        if (check_operand(addressing_type, type_operand, line, name_instruction, operand, 2)) {
+            DEBUG_MSG("Verification de valeur\n");
+            if (!check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 2, table_registers)) {
+              erro = true;
+            }
+        }
+        else {
+          erro = true;
+          WARNING_MSG("line %d: Wrong type of operand. The program won't check it's value. please correct", line);
+        }
+      }
+
+      if (get_number_operands(current) == 3) { // Three operands
+        operand = get_operand(current, 3);
+        type_operand = get_type_operand(current, 3);
+        addressing_type = get_addressing_type(dicionaire, name_instruction, 3);
+
+        if (check_operand(addressing_type, type_operand, line, name_instruction, operand, 1)) {
+            DEBUG_MSG("Verification de valeur\n");
+            if (!check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 3, table_registers)) {
+              erro = true;
+            }
+        }
+        else {
+          erro = true;
+          WARNING_MSG("line %d: Wrong type of operand. The program won't check it's value. please correct", line);
+        }
+      }
+    }
+   }
+   if (erro) {
+     ERROR_MSG("Correct instructions errors to continue");
    }
   return;
 }

@@ -64,9 +64,22 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
         //printf("START\n");
         if (type_lexeme(current) == 1) { // IS SYMBOLE
           if (is_Instru_Dicio_Instru(dicio_instru, word_lexeme(current))) {
+            n_op = n_op_Dicio_Instru(dicio_instru, word_lexeme(current));
+            printf("%s op %d\n", word_lexeme(current), n_op);
+            instru = strdup(word_lexeme(current));
+
+            if (n_op == 0) { // CASE NOP
+              if (!is_next_same_line(current)) {
+                push_Coll_INSTRU(coll_instru, instru, n_op, ligne_lexeme(current), decalage, NULL, NULL, NULL, -1, -1, -1);
+                S = START_TEXT; break;
+              }
+              else {
+                WARNING_MSG("line %d: Instruction => %s <= does not have operands", ligne_lexeme(current), instru);
+                S = JUMP_TEXT; break;
+              }
+            }
+
             if (is_next_same_line(current)) { // VALIDATE INSTRU
-              n_op = n_op_Dicio_Instru(dicio_instru, word_lexeme(current));
-              instru = strdup(word_lexeme(current));
               //printf("%s has %d op\n", instru, n_op);
               S = OP1_TEXT;
               break;

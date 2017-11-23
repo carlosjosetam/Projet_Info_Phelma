@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include "dicio_instru.h"
 #include "../../include/notify.h"
+#include "../global.h"
 
 void print_Dicio_Instru(Dicio_Instru_t * head) {
   // Print all elements on list
@@ -87,6 +88,9 @@ Dicio_Instru_t * new_Dicio_Instru() {
   push_Dicio_Instru(head, "BEQ", 3, "I", "REG", "REG", "OFF", 111111);
   push_Dicio_Instru(head, "MFHI", 1, "R", "REG", NULL, NULL, 111111);
   push_Dicio_Instru(head, "SLL", 3, "R", "REG", "REG", "SA", 111111);
+
+  push_Dicio_Instru(head, "NOP", 0, NULL, NULL, NULL, NULL, 1111111);
+
 
 
   push_Dicio_Instru(head, "NOP3", 3, "R", "REG", "REG", "REG", 100001);

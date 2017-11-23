@@ -28,6 +28,11 @@ void division_section(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_t * 
           //printf("In BSS section =>>\n");
           S = BSS; break;
         }
+        
+        else if(type_lexeme(current) == 17) { // case new line
+          S = START; break;
+        }
+
         else { //TEXT section
           //printf("In TEXT section =>>\n");
           if (strcmp(word_lexeme(current), ".text") != 0){

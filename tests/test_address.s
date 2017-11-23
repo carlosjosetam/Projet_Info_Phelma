@@ -8,10 +8,9 @@
 boucle:
     NOP
     ADDI $1 , $1 , 1
-    # J boucle
     NOP
 byebye:
-    # JAL viteviteauru
+    ADD $1, $2, $3
 
 .data
 lunchtime: .word 12

@@ -12,13 +12,13 @@ void print_Coll_INSTRU(Coll_INSTRU_t * head) {
 
   while (current != NULL) {
     if (current->n_op == 1) {
-      printf("%s %s | ligne: %d | decalage: %d | type: %d\n", current->instruction, current->op1, current->ligne, current->decalage, current->type_op1);
+      printf("%2d | 0x%02X | %s %s | type: %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->type_op1);
     }
     else if (current->n_op == 2) {
-      printf("%s %s, %s | ligne: %d | decalage: %d | types: %d, %d\n", current->instruction, current->op1, current->op2, current->ligne, current->decalage, current->type_op1, current->type_op2);
+      printf("%2d | 0x%02X | %s %s, %s | types: %d, %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->op2, current->type_op1, current->type_op2);
     }
     else {
-      printf("%s %s, %s, %s | ligne: %d | decalage: %d | types: %d, %d, %d\n", current->instruction, current->op1, current->op2, current->op3, current->ligne, current->decalage, current->type_op1, current->type_op2, current->type_op3);
+      printf("%2d | 0x%02X | %s %s, %s, %s | types: %d, %d, %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->op2, current->op3, current->type_op1, current->type_op2, current->type_op3);
     }
     current = current->next;
   }

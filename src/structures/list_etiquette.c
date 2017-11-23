@@ -12,7 +12,7 @@ void print_list_etiquette(Etiquette_t * head) {
   printf("\nLIST DE ETIQUETTES ==>>\n");
 
   while (current != NULL) {
-    printf("%s | ligne: %d | decalage: %d | section: .%s\n", current->word, current->ligne, current->decalage, current->section);
+    printf("%2d | .%s:0x%02X | %s\n", current->ligne, current->section, current->decalage, current->word);
     current = current->next;
   }
 

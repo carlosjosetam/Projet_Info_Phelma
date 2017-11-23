@@ -3,7 +3,7 @@
 .text
     ADD $3, $3, $5
     LW $6, -0x200($7)
-    ADDI $1, $zero ,8
+    ADDI $1, $zero, lunchtime
 
 boucle:
     NOP

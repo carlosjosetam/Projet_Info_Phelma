@@ -33,7 +33,6 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   printf("LIST OF .TEXT\n");
   print_list(head_text);
   Coll_INSTRU_t * coll_instru = analyse_text(head_text, dicio_instru);
-  print_Coll_INSTRU(coll_instru);
 
 
   printf("LIST OF .DATA\n");
@@ -49,5 +48,7 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
 
   // ANALYSE TYPE INSTRUCTIONS
   analyse_type_instruction(coll_instru, dicio_instru);
+  print_Coll_INSTRU(coll_instru);
+
 
 }

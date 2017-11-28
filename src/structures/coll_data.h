@@ -22,5 +22,6 @@ int get_type_operand_directive(Coll_DATA_t * directive);
 int get_address_directive(Coll_DATA_t * directive);
 Coll_DATA_t * get_next_directive(Coll_DATA_t * directive);
 char * get_operand_directive(Coll_DATA_t * directive);
+int get_line_directive(Coll_DATA_t * directive);
 
 #endif

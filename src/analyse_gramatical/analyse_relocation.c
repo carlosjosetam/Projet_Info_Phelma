@@ -42,7 +42,9 @@ Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquet
           push_Relocation(list_relocation, address_instru, address_etiquette, section, "TESTE", get_operand(current, i));
         }
         else {
-          push_Relocation(list_relocation, address_instru, address_etiquette, section, "TESTE", get_operand(current, i));
+          address_instru = get_address_instru(current);
+          push_Relocation(list_relocation, address_instru, -1, NULL, "TESTE", get_operand(current, i));
+          WARNING_MSG("line %d: SYMBOLE => %s <= not declared in this file", get_line(current), get_operand(current, i));
         }
       }
     }
@@ -78,7 +80,9 @@ Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquet
         push_Relocation(list_relocation, address_directive, address_etiquette, section, "TESTE", get_operand_directive(current));
       }
       else {
-        push_Relocation(list_relocation, address_directive, address_etiquette, section, "TESTE", get_operand_directive(current));
+        address_directive = get_address_directive(current);
+        push_Relocation(list_relocation, address_directive, -1, NULL, "TESTE", get_operand_directive(current));
+        WARNING_MSG("line %d: SYMBOLE => %s <= not declared in this file", get_line_directive(current), get_operand_directive(current));
       }
     }
     }

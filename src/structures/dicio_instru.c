@@ -23,6 +23,7 @@ int n_op_Dicio_Instru(Dicio_Instru_t * head, char * word) {
   /* If WORD is on list return true */
   /* Else, return false */
 
+  
   Dicio_Instru_t * current = head;
   if (current->next == NULL) return false; /* case EMPTY list */
   while (current->next != NULL) {

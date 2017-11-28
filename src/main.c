@@ -11,6 +11,7 @@
 #include "structures/coll_bss.h"
 #include "global.h"
 #include "notify.h"
+#include "main.h"
 
 #include "analyse_lexicale/analyse_lexicale.h"
 #include "analyse_gramatical/analyse_gramatical_1.h"
@@ -45,7 +46,7 @@ int main (int argc, char ** argv ) {
 
   analyse_gramatical_1(list_complet, list_text, list_data, list_bss, etiq1, dicio_instru, dicio_directives);
 
-  printf("%d\n", atoi("-1"));
+  printf("%s\n", to_uppercase("hello :)"));
 
 
   return 0;

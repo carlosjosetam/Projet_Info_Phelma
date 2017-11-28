@@ -33,7 +33,7 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
   int type_op1 = -1;
   int type_op2 = -1;
   int type_op3 = -1;
-  int decalage = 0;
+  int decalage = -4;
   int current_line;
 
   if (next_lexeme(current) == NULL) { /* EXIT, NO .text TERMS */
@@ -50,7 +50,7 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
 
     if (current_line != ligne_lexeme(current)) { /* Changement de ligne */
       /*printf("*********** NEW LINE ***********\n"); */
-      if (type_lexeme(current) != 17) {
+      if (!(type_lexeme(current) == 17)) {
         decalage = decalage + 4;
       }
       current_line = ligne_lexeme(current);

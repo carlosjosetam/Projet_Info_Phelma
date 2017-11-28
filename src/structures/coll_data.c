@@ -84,3 +84,7 @@ Coll_DATA_t * get_next_directive(Coll_DATA_t * directive) {
 char * get_operand_directive(Coll_DATA_t * directive) {
   return directive->valeur;
 }
+
+int get_line_directive(Coll_DATA_t * directive) {
+  return directive->ligne;
+}

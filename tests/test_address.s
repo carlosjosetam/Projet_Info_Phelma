@@ -5,6 +5,7 @@ start:
     ADD $3, $3, $6
     LW $6, -0x200($7)
     ADDI $1, $zero, lunchtime
+    ADDI $1, $2, notDeclared
 
 boucle:
     NOP

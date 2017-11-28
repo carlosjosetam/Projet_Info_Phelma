@@ -16,7 +16,7 @@ enum {START_TYPE_INSTRU};
 
 bool check_value_operand(char * addressing_type, int type_operand, int line, char * name_instruction, char * operand, int index, Registers_t * table_registers) {
   /* DECODER OPERANDS */
-  short value = 0;
+  int value = 0;
   if (type_operand == 6) { /* HEXA */
     value = hex2int(operand);
     DEBUG_MSG("operando HEXA %s, %d\n", operand, value);

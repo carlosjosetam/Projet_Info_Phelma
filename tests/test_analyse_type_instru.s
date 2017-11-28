@@ -1,5 +1,6 @@
 # test analyse_type_instruction
-# all samples concerned here have the right number of operands
+# all samples concerned here have
+# the right number of operands
 
 # here all samples work
 ADD $1, $2, $3

@@ -19,12 +19,11 @@ char* strupr(char* s)
 
 
 char * to_uppercase(char * word) {
-  for (int i = 0; word[i] <= strlen(word); i++) {
-    if (isalpha(word[i])) {
-      word[i] = toupper(word[i]);
-    }
+  char * new;
+  for (int i = 0; i <= strlen(word); i++) {
+    new[i] = toupper(word[i]);
   }
-  return strdup(word);
+  return new;
 }
 
 int hex2int(char * hex) {

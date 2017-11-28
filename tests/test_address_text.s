@@ -1,5 +1,5 @@
 
-
+.text
 etiq: ADD $2, $3, $4
 
 test:

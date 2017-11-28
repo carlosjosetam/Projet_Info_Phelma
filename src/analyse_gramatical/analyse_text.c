@@ -74,7 +74,7 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
                   push_Coll_INSTRU(coll_instru, "SLL", 3, ligne_lexeme(current), decalage, "$0", "$0", "0", 9, 9, 2);
                   S = START_TEXT; break;
                 }
-                
+
                 push_Coll_INSTRU(coll_instru, instru, n_op, ligne_lexeme(current), decalage, NULL, NULL, NULL, -1, -1, -1);
                 S = START_TEXT; break;
               }
@@ -193,6 +193,23 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
             }
             else { //SUCCESS
               // PUSH TO COLL
+
+              // CASE PSEUDO
+              if (strcmp(instru, "MOVE") == 0) {
+                push_Coll_INSTRU(coll_instru, "ADD", 3, ligne_lexeme(current), decalage, op1, op2, "$zero", 9, 9, 9);
+                S = START_TEXT; break;
+              }
+
+              if (strcmp(instru, "NEG") == 0) {
+                push_Coll_INSTRU(coll_instru, "SUB", 3, ligne_lexeme(current), decalage, op1, "$zero", op2, 9, 9, 9);
+                S = START_TEXT; break;
+              }
+
+              if (strcmp(instru, "LI") == 0) {
+                push_Coll_INSTRU(coll_instru, "ADDI", 3, ligne_lexeme(current), decalage, op1, "$zero", op2, 9, 9, 2);
+                S = START_TEXT; break;
+              }
+
               push_Coll_INSTRU(coll_instru, instru, n_op, ligne_lexeme(current), decalage, op1, op2, NULL, type_op1, type_op2, -1);
               DEBUG_MSG("PUSH TO COLL: %s %s %s %s | decalage: %d\n", instru, op1, op2, NULL, decalage);
               S = START_TEXT; break;
@@ -254,6 +271,16 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
             }
             else {
               // PUSH TO COLL
+
+              //PSEUDO INSTRUCTIONS
+              if (strcmp(instru, "BLT") == 0) {
+                push_Coll_INSTRU(coll_instru, "SLT", 3, ligne_lexeme(current), decalage, "$1", op1, op2, 9, 9, 9);
+                decalage = decalage + 4;
+                push_Coll_INSTRU(coll_instru, "BNE", 3, ligne_lexeme(current), decalage, "$1", "$zero", op3, 9, 9, 1);
+                S = START_TEXT; break;
+              }
+
+
               push_Coll_INSTRU(coll_instru, instru, n_op, ligne_lexeme(current), decalage, op1, op2, op3, type_op1, type_op2, type_op3);
               DEBUG_MSG("PUSH TO COLL: %s %s %s %s | decalage: %d\n", instru, op1, op2, op3, decalage);
               S = START_TEXT; break;

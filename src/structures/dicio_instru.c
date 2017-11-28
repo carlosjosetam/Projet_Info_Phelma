@@ -84,12 +84,22 @@ Dicio_Instru_t * new_Dicio_Instru() {
   //ADD INSTRUCTIONS HERE
   push_Dicio_Instru(head, "ADD", 3, "R", "REG", "REG", "REG", 1111111);
   push_Dicio_Instru(head, "ADDI", 3, "I", "REG", "REG", "IME", 1111111);
+  push_Dicio_Instru(head, "SUB", 3, "R", "REG", "REG", "REG", 1111111);
   push_Dicio_Instru(head, "LW", 2, "I", "REG", "OFF", NULL, 11111);
   push_Dicio_Instru(head, "BEQ", 3, "I", "REG", "REG", "OFF", 111111);
   push_Dicio_Instru(head, "MFHI", 1, "R", "REG", NULL, NULL, 111111);
   push_Dicio_Instru(head, "SLL", 3, "R", "REG", "REG", "SA", 111111);
+  push_Dicio_Instru(head, "SLT", 3, "R", "REG", "REG", "REG", 1111111);
+  push_Dicio_Instru(head, "BNE", 3, "J", "REG", "REG", "TAR", 1111111);
 
+
+
+  // PSEUDO INSTRUCTIONS
   push_Dicio_Instru(head, "NOP", 0, NULL, NULL, NULL, NULL, 1111111);
+  push_Dicio_Instru(head, "MOVE", 2, "R", "REG", "REG", NULL, 1111111);
+  push_Dicio_Instru(head, "NEG", 2, "R", "REG", "REG", NULL, 1111111);
+  push_Dicio_Instru(head, "LI", 2, "R", "REG", "IME", NULL, 1111111);
+  push_Dicio_Instru(head, "BLT", 3, "J", "REG", "REG", "TAR", 1111111);
 
 
 

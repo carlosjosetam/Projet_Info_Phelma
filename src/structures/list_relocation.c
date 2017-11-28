@@ -6,7 +6,7 @@
 #include "../../include/notify.h"
 
 void print_list_relocation(Relocation_t * head) {
-  // Print all elements on list
+  /* Print all elements on list */
   Relocation_t * current = head->next;
 
   while (current != NULL) {
@@ -18,7 +18,7 @@ void print_list_relocation(Relocation_t * head) {
 }
 
 void push_Relocation(Relocation_t * head, int address_instru, int address_etiquette, char * section, char * type_relocation, char * symbole) {
-  // ADD element on top of the linked list
+  /* ADD element on top of the linked list */
   Relocation_t * current = head;
   while (current->next != NULL) {
     current = current->next;
@@ -34,14 +34,14 @@ void push_Relocation(Relocation_t * head, int address_instru, int address_etique
 }
 
 bool is_empty_Relocation(Relocation_t * head) {
-  // Verify if the list is EMPTY
+  /* Verify if the list is EMPTY */
   if (head->next == NULL) return true;
   return false;
 }
 
 Relocation_t * new_Relocation() {
-  // Create a new struvture of type Relocation_t
-  // and inicializes the head with HEAD -1
+  /* Create a new struvture of type Relocation_t */
+  /* and inicializes the head with HEAD -1 */
   Relocation_t * head = NULL;
   head = malloc(sizeof(Relocation_t));
   head->address_instru = -1;

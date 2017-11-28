@@ -20,7 +20,7 @@ enum {START_SYM, SYMBOLE_SYM, MOINS_SYM, BASE_SYM, NOMBRE_SYM};
   int type = 0;
   char * new_symbole;
 
-  if (next_lexeme(current) == NULL) { //EXIT, NO .text TERMS
+  if (next_lexeme(current) == NULL) { /* EXIT, NO .text TERMS */
     return new_lexemes;
   }
   else {
@@ -29,8 +29,8 @@ enum {START_SYM, SYMBOLE_SYM, MOINS_SYM, BASE_SYM, NOMBRE_SYM};
 
   while (next_lexeme(current) != NULL) {
     current = next_lexeme(current);
-    if (current_line != ligne_lexeme(current)) { // Changement de ligne
-      //DEBUG_MSG("*********** NEW LINE ***********\n");
+    if (current_line != ligne_lexeme(current)) { /* Changement de ligne */
+      /*DEBUG_MSG("*********** NEW LINE ***********\n"); */
       current_line = ligne_lexeme(current);
 
     }
@@ -40,10 +40,10 @@ enum {START_SYM, SYMBOLE_SYM, MOINS_SYM, BASE_SYM, NOMBRE_SYM};
       new_symbole = word_lexeme(current);
       type = type_lexeme(current);
 
-      if (type == 16) { // MOINS
+      if (type == 16) { /* MOINS */
         S = MOINS_SYM; break;
       }
-      else if (type== 2 || type == 5 || type == 6 || type == 7) { // NOMBRES
+      else if (type== 2 || type == 5 || type == 6 || type == 7) { /* NOMBRES */
         S = NOMBRE_SYM; break;
       }
       else {
@@ -52,7 +52,7 @@ enum {START_SYM, SYMBOLE_SYM, MOINS_SYM, BASE_SYM, NOMBRE_SYM};
       break;
 
       case NOMBRE_SYM:
-      if (type_lexeme(current) == 17 || type_lexeme(current) == 4) { // NL or VIRGULE
+      if (type_lexeme(current) == 17 || type_lexeme(current) == 4) { /* NL or VIRGULE */
         push(new_lexemes, new_symbole, type, ligne_lexeme(current));
         push(new_lexemes, word_lexeme(current), type_lexeme(current), ligne_lexeme(current));
         S = START_SYM; break;
@@ -78,7 +78,7 @@ enum {START_SYM, SYMBOLE_SYM, MOINS_SYM, BASE_SYM, NOMBRE_SYM};
       break;
 
       case BASE_SYM:
-      if (is_next_same_line(current)) { // check if we may have a )
+      if (is_next_same_line(current)) { /* check if we may have a ) */
         if (type_lexeme(current) == 9 && type_lexeme(next_lexeme(current)) == 13) { /* if we have REGISTRE PAR_DRO */
           strcat(new_symbole, word_lexeme(current));
           strcat(new_symbole, word_lexeme(next_lexeme(current)));

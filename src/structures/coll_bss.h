@@ -4,12 +4,12 @@
 #define _Coll_BSS
 
 typedef struct Coll_BSS{
-  // Linked list for COLL_BSS
-    char* directive; // .SPACE
-    int n_op; // 1
-    int ligne; // 11
-    int decalage; // 0
-    char * valeur; // DECIMAL
+  /* Linked list for COLL_BSS */
+    char* directive; /* .SPACE */
+    int n_op; /* 1 */
+    int ligne; /* 11 */
+    int decalage; /* 0 */
+    char * valeur; /* DECIMAL */
     struct Coll_BSS * next;
 } Coll_BSS_t;
 

@@ -24,7 +24,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
   int current_line;
   int type = -1;
 
-  if (next_lexeme(current) == NULL) { //EXIT, NO .text TERMS
+  if (next_lexeme(current) == NULL) { /* EXIT, NO .text TERMS */
     return coll_data;
   }
   else {
@@ -35,10 +35,10 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
 
     current = next_lexeme(current);
 
-    if (current_line != ligne_lexeme(current)) { // Changement de ligne
-      //printf("*********** NEW LINE ***********\n");
+    if (current_line != ligne_lexeme(current)) { /* Changement de ligne */
+      /*printf("*********** NEW LINE ***********\n"); */
       if (type_lexeme(current) != 17) {
-        decalage = decalage; // EACH DIRECTIVE HAS ITS RULE
+        decalage = decalage + 0; /* EACH DIRECTIVE HAS ITS RULE */
       }
       current_line = ligne_lexeme(current);
     }
@@ -48,12 +48,12 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
       if (type_lexeme(current) == 17) {
         break;
       }
-        //printf("START\n");
-        if (type_lexeme(current) == 3) { // IS DIRECTIVE
+        /* printf("START\n"); */
+        if (type_lexeme(current) == 3) { /* IS DIRECTIVE */
           if (is_Dir_in_Dicio_Directives(dicio_directives, word_lexeme(current))) {
-            if (is_next_same_line(current)) { // VALIDATE DIRECTIVE
+            if (is_next_same_line(current)) { /* VALIDATE DIRECTIVE*/
               directive = strdup(word_lexeme(current));
-              //printf("directive => %s\n", directive);
+              /* printf("directive => %s\n", directive); */
               S = OP1_DATA;
               break;
             }
@@ -80,15 +80,15 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
           else {
             S = START_DATA; break;
           }
-          // CHECK ERROR
+          /* CHECK ERROR */
         }
         break;
 
       case OP1_DATA:
-        //printf("OP1_DATA\n");
-        if (is_type_permit_directive(dicio_directives, directive, type_lexeme(current))) { // VERIFICATION OF TYPE
-          if (is_value_permit_directive(dicio_directives, directive, type_lexeme(current), word_lexeme(current))) { // VERIFICATION OF VALUE
-            op1 = strdup(word_lexeme(current)); // VALIDATED
+        /* printf("OP1_DATA\n"); */
+        if (is_type_permit_directive(dicio_directives, directive, type_lexeme(current))) { /* VERIFICATION OF TYPE */
+          if (is_value_permit_directive(dicio_directives, directive, type_lexeme(current), word_lexeme(current))) { /* VERIFICATION OF VALUE */
+            op1 = strdup(word_lexeme(current)); /* VALIDATED */
             type = type_lexeme(current);
 
             if (is_next_same_line(current)) {
@@ -97,13 +97,13 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
               S = JUMP_DATA; break;
             }
             else {
-              // PUSH TO COLL
+              /* PUSH TO COLL */
 
               if (strcmp(directive, ".space") == 0) {
                 push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1, type);
                 DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
                 decalage = decalage + atoi(op1);
-                S = START_DATA; break; // DONE
+                S = START_DATA; break; /* DONE */
               }
 
               if (strcmp(directive, ".word") == 0) {
@@ -113,14 +113,14 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
                 push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1, type);
                 DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
                 decalage = decalage + 4;
-                S = START_DATA; break; // DONE
+                S = START_DATA; break; /* DONE */
               }
 
               if (strcmp(directive, ".byte") == 0) {
                 push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1, type);
                 DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
                 decalage = decalage + 4;
-                S = START_DATA; break; // DONE
+                S = START_DATA; break; /* DONE */
               }
 
               if (strcmp(directive, ".asciiz") == 0) {
@@ -128,7 +128,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
                 DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
                 WARNING_MSG(".asciiz not well treated");
                 decalage = decalage + 4;
-                S = START_DATA; break; // DONE
+                S = START_DATA; break; /* DONE */
               }
             }
           }

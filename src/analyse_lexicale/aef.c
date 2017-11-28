@@ -39,7 +39,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 					mot[i]=text[c];
 					S=DEUX_POINTS;
 					}
-				else if (isalpha(text[c]) || text[c] == '_') // Cas d'etiquetes
+				else if (isalpha(text[c]) || text[c] == '_') /* Cas d'etiquetes */
 					{
 					mot[i]=text[c];
 					S=SYMBOLE;
@@ -79,29 +79,29 @@ void aef(char* text, int ligne, Lexeme_t * list)
 					}
 				else if (text[c]=='\0')
 					{
-					//printf("ligne %d \n",ligne);
+					/*printf("ligne %d \n",ligne); */
 					}
 				break;
 			case POINT:
 				if (isalpha(text[c]))
 					{
-					mot[i]=text[c];//text[i]==>text[c]
+					mot[i]=text[c];/*text[i]==>text[c] */
 					S=DIRECTIVE;
 					}
 				else if (isspace(text[c]))
 					{
 					printf("ERREUR: Ligne %d | Notation de DIRECTIVE -> . <- erroné\n", ligne);
 					push(list,strdup(mot),14,ligne);
-					//printf("%s ==> ERREUR \n",mot);
+					/*printf("%s ==> ERREUR \n",mot); */
 					S=INIT;
 					}
-				else // CAS ou on a .45
+				else /* CAS ou on a .45 */
 					{
 					mot[i]=text[c];
 					printf("ERREUR: Ligne %d | Notation de DIRECTIVE -> %s <- erroné\n", ligne, strdup(mot));
 					S=ERREUR;
 					}
-				break;  // erreur bête ici
+				break;  /* erreur bête ici */
 			case DOLLAR:
 				if (isalpha(text[c]) || isdigit(text[c]))
 					{
@@ -111,7 +111,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				else if (isspace(text[c]))
 					{
 					push(list,strdup(mot),S,ligne);
-					//printf("%s ==> ERREUR \n",mot);
+					/*printf("%s ==> ERREUR \n",mot); */
 					S=INIT;
 					}
 				else
@@ -123,22 +123,22 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				break;
 			case PAR_GAU:
 				push(list,strdup(mot),S,ligne);
-				//printf("%s ==> PAR_GAU \n",mot);
+				/*printf("%s ==> PAR_GAU \n",mot); */
 				S=INIT;
 				break;
 			case PAR_DRO:
 				push(list,strdup(mot),S,ligne);
-				//printf("%s ==> PAR_DRO \n",mot);
+				/*printf("%s ==> PAR_DRO \n",mot); */
 				S=INIT;
 				break;
 			case DEUX_POINTS:
 				push(list,strdup(mot),S,ligne);
-				//printf("%s ==> DEUX_POINTS \n",mot);
+				/*printf("%s ==> DEUX_POINTS \n",mot); */
 				S=INIT;
 				break;
 			case VIRGULE:
 				push(list,strdup(mot),S,ligne);
-				//printf("%s ==> VIRGULE \n",mot);
+				/*printf("%s ==> VIRGULE \n",mot); */
 				S=INIT;
 				break;
 			case ZERO:
@@ -160,7 +160,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				else if (isspace(text[c]) || text[c]=='\0')
 					{
 					push(list,strdup(mot),S,ligne);
-					//printf("%s ==> ZERO \n",mot);
+					/*printf("%s ==> ZERO \n",mot); */
 					S=INIT;
 					}
 				break;
@@ -184,7 +184,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				else if (isspace(text[c]))
 					{
 					push(list,strdup(mot),S,ligne);
-					//printf("%s ==> HEXA \n",mot);
+					/*printf("%s ==> HEXA \n",mot); */
 					S=INIT;
 					}
 				break;
@@ -203,7 +203,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				else if (isspace(text[c]))
 					{
 					push(list,strdup(mot),S,ligne);
-					//printf("%s ==> OCTA \n",mot);
+					/*printf("%s ==> OCTA \n",mot); */
 					S=INIT;
 					}
 				break;
@@ -216,7 +216,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				else if (isspace(text[c]) || text[c]=='\0')
 					{
 					push(list,strdup(mot),S,ligne);
-					//printf("%s ==> REGISTRE \n",mot);
+					/*printf("%s ==> REGISTRE \n",mot); */
 					S=INIT;
 					}
 				break;
@@ -229,7 +229,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				else if	(isspace(text[c]) || text[c]=='\0')
 					{
 					push(list,strdup(mot),S,ligne);
-					//printf("%s ==> DIRECTIVE \n",mot);
+					/*printf("%s ==> DIRECTIVE \n",mot); */
 					S=INIT;
 					}
 				break;
@@ -248,7 +248,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				else if (isspace(text[c]) || text[c]=='\0')
 					{
 					push(list,strdup(mot),S,ligne);
-					//printf("%s ==> DECIMAL \n",mot);
+					/*printf("%s ==> DECIMAL \n",mot); */
 					S=INIT;
 					}
 				break;
@@ -263,7 +263,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 					mot[i]=text[c];
 					S=SYMBOLE;
 					}
-        else if (text[c] == '_') // condition etiquettes
+        else if (text[c] == '_') /* condition etiquettes */
 					{
 					mot[i]=text[c];
 					S=SYMBOLE;
@@ -271,7 +271,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				else if (isspace(text[c]) || text[c]=='\0')
 					{
 					push(list,strdup(mot),S,ligne);
-					//printf("%s ==> SYMBOLE \n",mot);
+					/*printf("%s ==> SYMBOLE \n",mot); */
 					S=INIT;
 					}
 				break;
@@ -279,7 +279,7 @@ void aef(char* text, int ligne, Lexeme_t * list)
 				if (isspace(text[c]))
 					{
 					push(list,strdup(mot),S,ligne);
-					//printf("%s ==> ERREUR \n",mot);
+					/*printf("%s ==> ERREUR \n",mot); */
 					S=INIT;
 					}
 				else

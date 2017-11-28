@@ -5,17 +5,17 @@
 #define _Dicio_Directives
 
 typedef struct type_directive {
-  // structure for type and value VERIFICATION
-  int type; // INT (DECIMAL)
-  char * max_value; // -128
-  char * min_value; // -18
+  /* structure for type and value VERIFICATION */
+  int type; /* INT (DECIMAL) */
+  char * max_value; /* -128 */
+  char * min_value; /* -18 */
 } type_directive_t;
 
 typedef struct Dicio_Directives {
-  // Linked list for DIRECTIVES dicionaire
-    char* word; // .SPACE
-    int n_op; // 1
-    struct type_directive * type_permit; // DECIMAL
+  /* Linked list for DIRECTIVES dicionaire */
+    char* word; /* .SPACE */
+    int n_op; /* 1 */
+    struct type_directive * type_permit; /* DECIMAL */
     struct type_directive * type_permit_2;
     struct type_directive * type_permit_3;
     struct Dicio_Directives * next;

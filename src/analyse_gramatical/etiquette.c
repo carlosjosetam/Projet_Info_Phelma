@@ -12,9 +12,9 @@
 #include "etiquette.h"
 
 void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes, char * section) {
-  // Search on list of lexemes and push etiquetes on list
-  // of etiquettes
-  if (next_lexeme(head_lexemes) == NULL) { // case of section EMPTY
+  /* Search on list of lexemes and push etiquetes on list */
+  /* of etiquettes */
+  if (next_lexeme(head_lexemes) == NULL) { /* case of section EMPTY */
     return;
   }
 
@@ -24,20 +24,20 @@ void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes, c
   int decalage = 0;
   int ver_ligne = ligne_lexeme(current);
   while (current != NULL && next_lexeme(current) != NULL) {
-    if (ver_ligne != ligne_lexeme(current)) { // Changement de ligne
+    if (ver_ligne != ligne_lexeme(current)) { /* Changement de ligne */
       if (!(type_lexeme(current) == 17 || (type_lexeme(current) == 1 && type_lexeme(next_lexeme(current)) == 11))) {
         decalage = decalage + 4;
       }
       ver_ligne = ligne_lexeme(current);
     }
-    if (type_lexeme(current) == 1 && type_lexeme(next_lexeme(current)) == 11) { // CAS ETIQUETTES => SYMBOLE :
+    if (type_lexeme(current) == 1 && type_lexeme(next_lexeme(current)) == 11) { /* CAS ETIQUETTES => SYMBOLE : */
       if (ligne_lexeme(current) == ligne_lexeme(next_lexeme(current))) {
         if (is_in_list(list_etiquettes, strdup(word_lexeme(current))) == false) {
 
-          // TO CORRECT LINE
+          /* TO CORRECT LINE */
           atributte = next_lexeme(next_lexeme(current));
           if (atributte != NULL) {
-            if (type_lexeme(atributte) == 17) { // IF SKIP LINE
+            if (type_lexeme(atributte) == 17) { /* IF SKIP LINE */
               while (next_lexeme(atributte) != NULL) {
                 if (type_lexeme(atributte) != 17) {
                   push_etiquette(list_etiquettes, strdup(word_lexeme(current)), ligne_lexeme(next_lexeme(atributte)), decalage, section);
@@ -60,13 +60,13 @@ void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes, c
         }
         else {
           ERROR_MSG("line %d: Etiquette => %s <= has been already declared\n", ligne_lexeme(current), strdup(word_lexeme(current)));
-          //abort();
+          /*abort(); */
         }
       }
     }
-    else if (type_lexeme(current) != 1 && type_lexeme(next_lexeme(current)) == 11) { // CAS => ERROR :
+    else if (type_lexeme(current) != 1 && type_lexeme(next_lexeme(current)) == 11) { /* CAS => ERROR : */
       ERROR_MSG("line %d: Etiquette => %s <= not allowed\n", ligne_lexeme(current), strdup(word_lexeme(current)));
-      //abort();
+      /*abort(); */
     }
     else {
       current = next_lexeme(current);
@@ -78,7 +78,7 @@ void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes, c
 }
 
 void update_address_etiquettes(Etiquette_t * list_etiquettes, Coll_BSS_t * coll_bss, Coll_INSTRU_t * coll_instru, Coll_DATA_t * coll_data) {
-  if (next_lexeme(list_etiquettes) == NULL) { // case of section EMPTY
+  if (get_next_etiquette(list_etiquettes) == NULL) { /* case of section EMPTY */
     return;
   }
 

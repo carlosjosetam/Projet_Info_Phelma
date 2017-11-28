@@ -5,7 +5,7 @@
 #include "coll_data.h"
 
 void print_Coll_DATA(Coll_DATA_t * head) {
-  // Print all elements on list
+  /* Print all elements on list */
   if (head->next == NULL) {
     return;
   }
@@ -23,7 +23,7 @@ void print_Coll_DATA(Coll_DATA_t * head) {
 
 
 void push_Coll_DATA(Coll_DATA_t * head, char* directive, int n_op, int ligne, int decalage, char * valeur, int type) {
-  // ADD element on top of the linked list
+  /* ADD element on top of the linked list */
   Coll_DATA_t * current = head;
   while (current->next != NULL) {
     current = current->next;
@@ -40,7 +40,7 @@ void push_Coll_DATA(Coll_DATA_t * head, char* directive, int n_op, int ligne, in
 }
 
 Coll_DATA_t * new_Coll_DATA() {
-  // Create a new struvture of type Coll_DATA_t
+  /* Create a new struvture of type Coll_DATA_t */
   Coll_DATA_t *head = NULL;
   head = malloc(sizeof(Coll_DATA_t));
   head->directive = "HEAD";
@@ -55,11 +55,11 @@ Coll_DATA_t * new_Coll_DATA() {
 }
 
 int get_address_by_line_data(Coll_DATA_t * head, int line) {
-  // If WORD is on list return true
-  // Else, return false
+  /* If WORD is on list return true */
+  /* Else, return false */
 
   Coll_DATA_t * current = head;
-  if (current->next == NULL) return false; // case EMPTY list
+  if (current->next == NULL) return false; /* case EMPTY list */
   while (current->next != NULL) {
     current = current->next;
     if (line == current->ligne) {
@@ -69,11 +69,11 @@ int get_address_by_line_data(Coll_DATA_t * head, int line) {
   return -1;
 }
 
-int * get_type_operand_directive(Coll_DATA_t * directive) {
+int get_type_operand_directive(Coll_DATA_t * directive) {
   return directive->type;
 }
 
-int * get_address_directive(Coll_DATA_t * directive) {
+int get_address_directive(Coll_DATA_t * directive) {
   return directive->decalage;
 }
 

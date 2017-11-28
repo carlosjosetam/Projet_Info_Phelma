@@ -5,7 +5,7 @@
 #include "coll_bss.h"
 
 void print_Coll_BSS(Coll_BSS_t * head) {
-  // Print all elements on list
+  /* Print all elements on list */
   if (head->next == NULL) {
     return;
   }
@@ -23,7 +23,7 @@ void print_Coll_BSS(Coll_BSS_t * head) {
 
 
 void push_Coll_BSS(Coll_BSS_t * head, char* directive, int n_op, int ligne, int decalage, char * valeur) {
-  // ADD element on top of the linked list
+  /* ADD element on top of the linked list */
   Coll_BSS_t * current = head;
   while (current->next != NULL) {
     current = current->next;
@@ -39,7 +39,7 @@ void push_Coll_BSS(Coll_BSS_t * head, char* directive, int n_op, int ligne, int 
 }
 
 Coll_BSS_t * new_Coll_BSS() {
-  // Create a new struvture of type Coll_BSS_t
+  /* Create a new struvture of type Coll_BSS_t */
   Coll_BSS_t *head = NULL;
   head = malloc(sizeof(Coll_BSS_t));
   head->directive = "HEAD";
@@ -53,11 +53,11 @@ Coll_BSS_t * new_Coll_BSS() {
 }
 
 int get_address_by_line_bss(Coll_BSS_t * head, int line) {
-  // If WORD is on list return true
-  // Else, return false
+  /* If WORD is on list return true */
+  /* Else, return false */
 
   Coll_BSS_t * current = head;
-  if (current->next == NULL) return false; // case EMPTY list
+  if (current->next == NULL) return false; /* case EMPTY list */
   while (current->next != NULL) {
     current = current->next;
     if (line == current->ligne) {

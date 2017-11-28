@@ -7,7 +7,7 @@
 #include "../global.h"
 
 void print_Dicio_Instru(Dicio_Instru_t * head) {
-  // Print all elements on list
+  /* Print all elements on list */
   Dicio_Instru_t * current = head->next;
 
   DEBUG_MSG("\nDICIONAIRE DE INSTRUCTIONS ==>>\n");
@@ -20,11 +20,11 @@ void print_Dicio_Instru(Dicio_Instru_t * head) {
 }
 
 int n_op_Dicio_Instru(Dicio_Instru_t * head, char * word) {
-  // If WORD is on list return true
-  // Else, return false
+  /* If WORD is on list return true */
+  /* Else, return false */
 
   Dicio_Instru_t * current = head;
-  if (current->next == NULL) return false; // case EMPTY list
+  if (current->next == NULL) return false; /* case EMPTY list */
   while (current->next != NULL) {
     current = current->next;
     if (strcmp(strdup(word), strdup(current->word)) == 0) {
@@ -35,11 +35,11 @@ int n_op_Dicio_Instru(Dicio_Instru_t * head, char * word) {
 }
 
 bool is_Instru_Dicio_Instru(Dicio_Instru_t * head, char * word) {
-  // If WORD is on list return true
-  // Else, return false
+  /* If WORD is on list return true */
+  /* Else, return false */
 
   Dicio_Instru_t * current = head;
-  if (current->next == NULL) return false; // case EMPTY list
+  if (current->next == NULL) return false; /* case EMPTY list */
   while (current->next != NULL) {
     current = current->next;
     if (strcmp(strdup(word), strdup(current->word)) == 0) {
@@ -51,7 +51,7 @@ bool is_Instru_Dicio_Instru(Dicio_Instru_t * head, char * word) {
 
 
 void push_Dicio_Instru(Dicio_Instru_t * head, char * word, int n_op, char * type, char * op1, char * op2, char * op3, int code_bin) {
-  // ADD element on top of the linked list
+  /* ADD element on top of the linked list */
   Dicio_Instru_t * current = head;
   while (current->next != NULL) {
     current = current->next;
@@ -69,7 +69,7 @@ void push_Dicio_Instru(Dicio_Instru_t * head, char * word, int n_op, char * type
 }
 
 Dicio_Instru_t * new_Dicio_Instru() {
-  // Create a new struvture of type Dicio_Instru_t
+  /* Create a new struvture of type Dicio_Instru_t */
   Dicio_Instru_t *head = NULL;
   head = malloc(sizeof(Dicio_Instru_t));
   head->word = "HEAD";
@@ -81,7 +81,7 @@ Dicio_Instru_t * new_Dicio_Instru() {
   head->op3 = "NULL";
   head->next = NULL;
 
-  //ADD INSTRUCTIONS HERE
+  /*ADD INSTRUCTIONS HERE */
   push_Dicio_Instru(head, "ADD", 3, "R", "REG", "REG", "REG", 1111111);
   push_Dicio_Instru(head, "ADDI", 3, "I", "REG", "REG", "IME", 1111111);
   push_Dicio_Instru(head, "SUB", 3, "R", "REG", "REG", "REG", 1111111);
@@ -94,7 +94,7 @@ Dicio_Instru_t * new_Dicio_Instru() {
 
 
 
-  // PSEUDO INSTRUCTIONS
+  /* PSEUDO INSTRUCTIONS */
   push_Dicio_Instru(head, "NOP", 0, NULL, NULL, NULL, NULL, 1111111);
   push_Dicio_Instru(head, "MOVE", 2, "R", "REG", "REG", NULL, 1111111);
   push_Dicio_Instru(head, "NEG", 2, "R", "REG", "REG", NULL, 1111111);
@@ -112,7 +112,7 @@ Dicio_Instru_t * new_Dicio_Instru() {
 
 char * get_addressing_type(Dicio_Instru_t * dicionaire, char * word, int index) {
   Dicio_Instru_t * current = dicionaire;
-  if (current->next == NULL) return NULL; // case EMPTY list
+  if (current->next == NULL) return NULL; /* case EMPTY list */
   while (current->next != NULL) {
     current = current->next;
     if (strcmp(strdup(word), strdup(current->word)) == 0) {

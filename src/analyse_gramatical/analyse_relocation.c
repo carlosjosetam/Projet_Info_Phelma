@@ -23,7 +23,7 @@ Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquet
   int address_instru = -1;
   Etiquette_t * etiquette = NULL;
 
-  if (next_instru(current) == NULL) { //EXIT, NO .text TERMS
+  if (next_instru(current) == NULL) { /* EXIT, NO .text TERMS */
     return list_relocation;
   }
 
@@ -58,10 +58,9 @@ Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquet
   char * section = NULL;
   int address_etiquette = -1;
   int address_directive = -1;
-  char * directive;
   Etiquette_t * etiquette = NULL;
 
-  if (get_next_directive(current) == NULL) { //EXIT, NO .text TERMS
+  if (get_next_directive(current) == NULL) { /* EXIT, NO .text TERMS */
     return list_relocation;
   }
 

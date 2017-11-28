@@ -15,9 +15,9 @@
 enum {START_TYPE_INSTRU};
 
 bool check_value_operand(char * addressing_type, int type_operand, int line, char * name_instruction, char * operand, int index, Registers_t * table_registers) {
-  //DECODER OPERANDS
+  /* DECODER OPERANDS */
   short value = 0;
-  if (type_operand == 6) { // HEXA
+  if (type_operand == 6) { /* HEXA */
     value = hex2int(operand);
     DEBUG_MSG("operando HEXA %s, %d\n", operand, value);
   }
@@ -33,8 +33,8 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
     ERROR_MSG("FUNCTION FOR VERIFYING OCTA VALUE NOT IMPLEMENTED YET");
   }
 
-  // REGISTER DIRECT
-  if (strcmp(addressing_type, "REG") == 0) { // CHECK IF ITS REGISTER
+  /* REGISTER DIRECT */
+  if (strcmp(addressing_type, "REG") == 0) { /* CHECK IF ITS REGISTER */
     if (is_Reg_in_table(table_registers, operand)) {
       DEBUG_MSG("Register %s valide\n", operand);
     }
@@ -43,14 +43,14 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
     }
   }
 
-  // IMMEDIATE
+  /* IMMEDIATE */
   if (strcmp(addressing_type, "IME") == 0) {
-    if (type_operand == 1) { // If its SYMBOLE
+    if (type_operand == 1) { /* If its SYMBOLE */
       DEBUG_MSG("Symbole %s valide\n", operand);
-      //faire choses
+      /*faire choses */
     }
-    else { // HEXA, DECIMAL, OCTA, ZERO
-      if (SHRT_MIN <= value <= SHRT_MAX) {
+    else { /* HEXA, DECIMAL, OCTA, ZERO */
+      if (SHRT_MIN <= value && value <= SHRT_MAX) {
         DEBUG_MSG("Operand IMM %d valide\n", value);
       }
       else {
@@ -59,20 +59,20 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
     }
   }
 
-  // BASE OFFSET
+  /* BASE OFFSET */
   if (strcmp(addressing_type, "OFF") == 0) {
 
   }
 
-  // SHIFT ADDRESS
-  // IMEDIATE 5BITS
+  /* SHIFT ADDRESS */
+  /* IMEDIATE 5BITS */
   if (strcmp(addressing_type, "SA") == 0) {
-    if (type_operand == 1) { // If its SYMBOLE
+    if (type_operand == 1) { /* If its SYMBOLE */
       DEBUG_MSG("Symbole %s valide\n", operand);
-      //faire choses
+      /* faire choses */
     }
-    else { // HEXA, DECIMAL, OCTA, ZERO
-      if (0 <= value <= 31) {
+    else { /* HEXA, DECIMAL, OCTA, ZERO */
+      if (0 <= value && value <= 31) {
         DEBUG_MSG("Operand SA %d valide\n", value);
       }
       else {
@@ -82,7 +82,7 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
 
   }
 
-  // TARGET
+  /* TARGET */
   if (strcmp(addressing_type, "TAR") == 0) {
 
   }
@@ -92,9 +92,9 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
 
 bool check_operand(char * addressing_type, int type_operand, int line, char * name_instruction, char * operand, int index) {
 
-  // REGISTER DIRECT
-  if (strcmp(addressing_type, "REG") == 0) { // CHECK IF ITS REGISTER
-    if (type_operand == 9) { // REGISTER
+  /* REGISTER DIRECT */
+  if (strcmp(addressing_type, "REG") == 0) { /* CHECK IF ITS REGISTER */
+    if (type_operand == 9) { /* REGISTER */
       DEBUG_MSG("OP%d REG %s of %s valide\n", index, operand, name_instruction);
       return true;
     }
@@ -104,9 +104,9 @@ bool check_operand(char * addressing_type, int type_operand, int line, char * na
     }
   }
 
-  // IMMEDIATE
+  /* IMMEDIATE */
   if (strcmp(addressing_type, "IME") == 0) {
-    if (1 <= type_operand <= 2 || 5 <= type_operand <= 7) { // SYMBOLE DECIMAL ZERO HEXA OCTA
+    if ((1 <= type_operand  && type_operand <= 2) || (5 <= type_operand && type_operand <= 7)) { /* SYMBOLE DECIMAL ZERO HEXA OCTA */
       DEBUG_MSG("OP%d IME %s of %s valide\n", index, operand, name_instruction);
       return true;
     }
@@ -116,7 +116,7 @@ bool check_operand(char * addressing_type, int type_operand, int line, char * na
     }
   }
 
-  // BASE OFFSET
+  /* BASE OFFSET */
   if (strcmp(addressing_type, "OFF") == 0) {
     if (type_operand == 18) {
       DEBUG_MSG("OP%d OFF %s of %s valide\n", index, operand, name_instruction);
@@ -128,10 +128,10 @@ bool check_operand(char * addressing_type, int type_operand, int line, char * na
     }
   }
 
-  // SHIFT ADDRESS
-  // IMEDIATE 5BITS
+  /* SHIFT ADDRESS */
+  /* IMEDIATE 5BITS */
   if (strcmp(addressing_type, "SA") == 0) {
-    if (1 <= type_operand <= 2 || 5 <= type_operand <= 7) { // SYMBOLE DECIMAL ZERO HEXA OCTA
+    if ((1 <= type_operand && type_operand <= 2) || (5 <= type_operand  && type_operand <= 7)) { /* SYMBOLE DECIMAL ZERO HEXA OCTA */
       DEBUG_MSG("OP%d IME %s of %s valide\n", index, operand, name_instruction);
       return true;
     }
@@ -141,11 +141,13 @@ bool check_operand(char * addressing_type, int type_operand, int line, char * na
     }
   }
 
-  // TARGET
+  /* TARGET */
   if (strcmp(addressing_type, "TAR") == 0) {
     ERROR_MSG("Type TAR is not yet accepted");
     return false;
   }
+
+  return false;
 }
 
 
@@ -155,12 +157,6 @@ void analyse_type_instruction(Coll_INSTRU_t * head_coll_instru, Dicio_Instru_t *
   Registers_t * table_registers = new_Registers();
   print_Registers(table_registers);
 
-  if(is_Reg_in_table(table_registers, "$zero")){
-    unsigned char number = get_number_Reg_in_table(table_registers, "$zero");
-    DEBUG_MSG("ouiii %d\n", number);
-  }
-
-  int S = START_TYPE_INSTRU;
   char * name_instruction = NULL;
   char * addressing_type = NULL;
   char * operand = NULL;
@@ -168,7 +164,7 @@ void analyse_type_instruction(Coll_INSTRU_t * head_coll_instru, Dicio_Instru_t *
   int line = -1;
   bool erro = false;
 
-  if (next_instru(current) == NULL) { //EXIT, NO .text TERMS
+  if (next_instru(current) == NULL) { /* EXIT, NO .text TERMS */
     return;
   }
 
@@ -179,10 +175,10 @@ void analyse_type_instruction(Coll_INSTRU_t * head_coll_instru, Dicio_Instru_t *
     line = get_line(current);
 
     if (get_number_operands(current) != 0) {
-      // VERIFICATION FIRST OPERAND
+      /* VERIFICATION FIRST OPERAND */
       operand = get_operand(current, 1);
       type_operand = get_type_operand(current, 1);
-      addressing_type = get_addressing_type(dicionaire, name_instruction, 1); // get first addressing_type
+      addressing_type = get_addressing_type(dicionaire, name_instruction, 1); /* get first addressing_type */
 
       if (check_operand(addressing_type, type_operand, line, name_instruction, operand, 1)) {
           DEBUG_MSG("Verification de valeur\n");
@@ -195,7 +191,7 @@ void analyse_type_instruction(Coll_INSTRU_t * head_coll_instru, Dicio_Instru_t *
         WARNING_MSG("line %d: Wrong type of operand. The program won't check it's value. please correct", line);
       }
 
-      if (get_number_operands(current) != 1) { // TWO or More operands
+      if (get_number_operands(current) != 1) { /* TWO or More operands */
         operand = get_operand(current, 2);
         type_operand = get_type_operand(current, 2);
         addressing_type = get_addressing_type(dicionaire, name_instruction, 2);
@@ -212,7 +208,7 @@ void analyse_type_instruction(Coll_INSTRU_t * head_coll_instru, Dicio_Instru_t *
         }
       }
 
-      if (get_number_operands(current) == 3) { // Three operands
+      if (get_number_operands(current) == 3) { /* Three operands */
         operand = get_operand(current, 3);
         type_operand = get_type_operand(current, 3);
         addressing_type = get_addressing_type(dicionaire, name_instruction, 3);

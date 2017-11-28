@@ -5,11 +5,11 @@
 #include "coll_instru.h"
 
 void print_Coll_INSTRU(Coll_INSTRU_t * head) {
-  // Print all elements on list
+  /* Print all elements on list */
   if (head->next == NULL) {
     return;
   }
-  
+
   Coll_INSTRU_t * current = head->next;
 
   printf("\nCOLLECTION INSTRUCTIONS ==>>\n");
@@ -19,7 +19,7 @@ void print_Coll_INSTRU(Coll_INSTRU_t * head) {
       printf("%2d | 0x%02X | %s %s | type: %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->type_op1);
     }
     else if (current->n_op == 2) {
-      printf("%2d | 0x%02X | %s %s, %s | types: %d, %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->op2, current->type_op1, current->type_op2);
+      printf("%2d | 0x%02X | %s %s, %s | ts: %d, %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->op2, current->type_op1, current->type_op2);
     }
     else {
       printf("%2d | 0x%02X | %s %s, %s, %s | types: %d, %d, %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->op2, current->op3, current->type_op1, current->type_op2, current->type_op3);
@@ -31,7 +31,7 @@ void print_Coll_INSTRU(Coll_INSTRU_t * head) {
 
 
 void push_Coll_INSTRU(Coll_INSTRU_t * head, char * instruction, int n_op, int ligne, int decalage, char * op1, char * op2, char * op3, int type_op1, int type_op2, int type_op3) {
-  // ADD element on top of the linked list
+  /* ADD element on top of the linked list */
   Coll_INSTRU_t * current = head;
   while (current->next != NULL) {
     current = current->next;
@@ -52,7 +52,7 @@ void push_Coll_INSTRU(Coll_INSTRU_t * head, char * instruction, int n_op, int li
 }
 
 Coll_INSTRU_t * new_Coll_INSTRU() {
-  // Create a new struvture of type Coll_INSTRU_t
+  /* Create a new struvture of type Coll_INSTRU_t */
   Coll_INSTRU_t *head = NULL;
   head = malloc(sizeof(Coll_INSTRU_t));
   head->instruction = "HEAD";
@@ -83,7 +83,7 @@ char * get_operand(Coll_INSTRU_t * instruction, int index) {
   ERROR_MSG("Invalid index for get_operand");
 }
 
-int * get_type_operand(Coll_INSTRU_t * instruction, int index) {
+int get_type_operand(Coll_INSTRU_t * instruction, int index) {
   if (index == 1) return instruction->type_op1;
   if (index == 2) return instruction->type_op2;
   if (index == 3) return instruction->type_op3;
@@ -104,11 +104,11 @@ int get_address_instru(Coll_INSTRU_t * instruction) {
 }
 
 int get_address_by_line_text(Coll_INSTRU_t * head, int line) {
-  // If WORD is on list return true
-  // Else, return false
+  /* If WORD is on list return true */
+  /* Else, return false */
 
   Coll_INSTRU_t * current = head;
-  if (current->next == NULL) return false; // case EMPTY list
+  if (current->next == NULL) return false; /* case EMPTY list */
   while (current->next != NULL) {
     current = current->next;
     if (line == current->ligne) {

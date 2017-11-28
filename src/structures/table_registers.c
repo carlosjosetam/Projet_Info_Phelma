@@ -5,7 +5,7 @@
 #include "table_registers.h"
 
 void print_Registers(Registers_t * head) {
-  // Print all elements on list
+  /* Print all elements on list */
   Registers_t * current = head->next;
 
   DEBUG_MSG("\nTABLE DE REGISTERS ==>>\n");
@@ -18,10 +18,10 @@ void print_Registers(Registers_t * head) {
 }
 
 bool is_Reg_in_table(Registers_t * head, char * word) {
-  // If WORD is on list return true
-  // Else, return false
+  /* If WORD is on list return true */
+  /* Else, return false */
   Registers_t * current = head;
-  if (current->next == NULL) return false; // case EMPTY list
+  if (current->next == NULL) return false; /* case EMPTY list */
   while (current->next != NULL) {
     current = current->next;
     if (strcmp(strdup(word), strdup(current->word)) == 0) {
@@ -32,10 +32,10 @@ bool is_Reg_in_table(Registers_t * head, char * word) {
 }
 
 unsigned char get_number_Reg_in_table(Registers_t * head, char * word) {
-  // If WORD is on list return true
-  // Else, return false
+  /* If WORD is on list return true */
+  /* Else, return false */
   Registers_t * current = head;
-  if (current->next == NULL) return false; // case EMPTY list
+  if (current->next == NULL) return false; /* case EMPTY list */
   while (current->next != NULL) {
     current = current->next;
     if (strcmp(strdup(word), strdup(current->word)) == 0) {
@@ -46,7 +46,7 @@ unsigned char get_number_Reg_in_table(Registers_t * head, char * word) {
 }
 
 void push_Registers(Registers_t * head, char * word, unsigned char number) {
-  // ADD element on top of the linked list
+  /* ADD element on top of the linked list */
   Registers_t * current = head;
   while (current->next != NULL) {
     current = current->next;
@@ -59,7 +59,7 @@ void push_Registers(Registers_t * head, char * word, unsigned char number) {
 }
 
 Registers_t * new_Registers() {
-  // Create a new struvture of type Registers_t
+  /* Create a new struvture of type Registers_t */
   Registers_t *head = NULL;
   head = malloc(sizeof(Registers_t));
   head->word = "HEAD";

@@ -4,16 +4,16 @@
 #define _Dicio_Instru
 
 typedef struct Dicio_Instru {
-  // Linked list for Instructions dicionaire
-  // operands: REG, IME, OFF, TAR, SA
+  /* Linked list for Instructions dicionaire */
+  /* operands: REG, IME, OFF, TAR, SA */
 
-    char * word; // ADD
-    int n_op; // 3
-    int code_bin; //100001
-    char * type; // R
-    char * op1; // REG
-    char * op2; // REG
-    char * op3; // REG
+    char * word; /* ADD */
+    int n_op; /* 3 */
+    int code_bin; /*100001 */
+    char * type; /* R */
+    char * op1; /* REG */
+    char * op2; /* REG */
+    char * op3; /* REG */
     struct Dicio_Instru * next;
 } Dicio_Instru_t;
 

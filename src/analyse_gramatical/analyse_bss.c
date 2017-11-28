@@ -23,7 +23,7 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
   int decalage = 0;
   int current_line;
 
-  if (next_lexeme(current) == NULL) { //EXIT, NO .text TERMS
+  if (next_lexeme(current) == NULL) { /*EXIT, NO .text TERMS */
     return coll_bss;
   }
   else {
@@ -34,25 +34,25 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
 
     current = next_lexeme(current);
 
-    if (current_line != ligne_lexeme(current)) { // Changement de ligne
-      //DEBUG_MSG("*********** NEW LINE ***********\n");
+    if (current_line != ligne_lexeme(current)) { /* Changement de ligne */
+      /*DEBUG_MSG("*********** NEW LINE ***********\n"); */
       if (type_lexeme(current) != 17) {
-        decalage = decalage; // WE ADD N SPACES
+        decalage = decalage + 0; /* WE ADD N SPACES*/
       }
       current_line = ligne_lexeme(current);
     }
 
     switch (S) {
       case START_BSS:
-        //DEBUG_MSG("START_BSS\n");
+        /* DEBUG_MSG("START_BSS\n"); */
         if (type_lexeme(current) == 17) {
           break;
         }
-        if (type_lexeme(current) == 3) { // IS DIRECTIVE
-          if (strcmp(word_lexeme(current), ".space") == 0) { // ONLY SPACE ALLOWED
-            if (is_next_same_line(current)) { // VALIDATE DIRECTIVE
+        if (type_lexeme(current) == 3) { /* IS DIRECTIVE */
+          if (strcmp(word_lexeme(current), ".space") == 0) { /* ONLY SPACE ALLOWED */
+            if (is_next_same_line(current)) { /* VALIDATE DIRECTIVE */
               directive = strdup(word_lexeme(current));
-              //DEBUG_MSG("directive => %s\n", directive);
+              /* DEBUG_MSG("directive => %s\n", directive); */
               S = OP1_BSS;
               break;
             }
@@ -79,26 +79,26 @@ Coll_BSS_t * analyse_bss(Lexeme_t * head_bss, Dicio_Directives_t * dicio_directi
           else {
             S = START_BSS; break;
           }
-          // CHECK ERROR
+          /* CHECK ERROR */
         }
         break;
 
       case OP1_BSS:
-        //printf("OP1_BSS\n");
-        if (is_type_permit_directive(dicio_directives, directive, type_lexeme(current))) { // VERIFICATION OF TYPE
-          if (is_value_permit_directive(dicio_directives, directive, type_lexeme(current), word_lexeme(current))) { // VERIFICATION OF VALUE
-            op1 = strdup(word_lexeme(current)); // VALIDATED
+        /* printf("OP1_BSS\n"); */
+        if (is_type_permit_directive(dicio_directives, directive, type_lexeme(current))) { /* VERIFICATION OF TYPE */
+          if (is_value_permit_directive(dicio_directives, directive, type_lexeme(current), word_lexeme(current))) { /* VERIFICATION OF VALUE */
+            op1 = strdup(word_lexeme(current)); /* VALIDATED */
 
             if (is_next_same_line(current)) {
               WARNING_MSG("line %d: More elements in line than allowed\n", ligne_lexeme(current));
               S = JUMP_BSS; break;
             }
             else {
-              // PUSH TO COLL
+              /* PUSH TO COLL */
               push_Coll_BSS(coll_bss, directive, n_op, ligne_lexeme(current), decalage, op1);
               decalage = decalage + atoi(op1);
               DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
-              S = START_BSS; break; // DONE
+              S = START_BSS; break; /* DONE */
             }
           }
           else {

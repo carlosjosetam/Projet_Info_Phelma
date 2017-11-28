@@ -3,8 +3,8 @@
 #define _Etiquette
 
 typedef struct Etiquette {
-  // Linked list with first HEAD element non
-  // acessible.
+  /* Linked list with first HEAD element non */
+  /* acessible. */
     char* word;
     int ligne;
     int decalage;

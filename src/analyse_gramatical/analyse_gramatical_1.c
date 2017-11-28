@@ -12,6 +12,7 @@
 #include "analyse_text.h"
 #include "analyse_gramatical_1.h"
 #include "analyse_symboles.h"
+#include "analyse_type_instruction.h"
 #include "analyse_relocation.h"
 
 
@@ -38,7 +39,7 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   DEBUG_MSG("LIST OF .TEXT\n");
   print_list(head_text);
   Coll_INSTRU_t * coll_instru = analyse_text(head_text, dicio_instru);
-  //print_Coll_INSTRU(coll_instru);
+  /* print_Coll_INSTRU(coll_instru); */
 
   DEBUG_MSG("LIST OF .DATA\n");
   print_list(head_data);
@@ -50,15 +51,15 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   Coll_BSS_t * coll_bss = analyse_bss(head_bss, dicio_directives);
   print_Coll_BSS(coll_bss);
 
-  // REWRITE ADDRESS Etiquette
+  /* REWRITE ADDRESS Etiquette */
   update_address_etiquettes(list_etiquettes, coll_bss, coll_instru, coll_data);
   print_list_etiquette(list_etiquettes);
 
-  // ANALYSE TYPE INSTRUCTIONS
+  /* ANALYSE TYPE INSTRUCTIONS */
   analyse_type_instruction(coll_instru, dicio_instru);
   print_Coll_INSTRU(coll_instru);
 
-  // RELOCATION TEXT
+  /* RELOCATION TEXT */
   Relocation_t * reloc_text = analyse_relocation_text(coll_instru, list_etiquettes);
   printf("\nLIST DE RELOCATION TEXT==>>\n");
   print_list_relocation(reloc_text);

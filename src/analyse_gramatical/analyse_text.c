@@ -36,7 +36,7 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
   int decalage = 0;
   int current_line;
 
-  if (next_lexeme(current) == NULL) { //EXIT, NO .text TERMS
+  if (next_lexeme(current) == NULL) { /* EXIT, NO .text TERMS */
     return coll_instru;
   }
   else {
@@ -48,8 +48,8 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
 
     current = next_lexeme(current);
 
-    if (current_line != ligne_lexeme(current)) { // Changement de ligne
-      //printf("*********** NEW LINE ***********\n");
+    if (current_line != ligne_lexeme(current)) { /* Changement de ligne */
+      /*printf("*********** NEW LINE ***********\n"); */
       if (type_lexeme(current) != 17) {
         decalage = decalage + 4;
       }
@@ -59,18 +59,18 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
     switch (S) {
       case START_TEXT:
       if (type_lexeme(current) == 17) {
-        break; // ignore jump ligne
+        break; /* ignore jump ligne */
       }
-        //printf("START\n");
-        if (type_lexeme(current) == 1) { // IS SYMBOLE
+        /*printf("START\n"); */
+        if (type_lexeme(current) == 1) { /* IS SYMBOLE */
           if (is_Instru_Dicio_Instru(dicio_instru, word_lexeme(current))) {
             n_op = n_op_Dicio_Instru(dicio_instru, word_lexeme(current));
             DEBUG_MSG("%s op %d\n", word_lexeme(current), n_op);
             instru = strdup(word_lexeme(current));
 
-            if (n_op == 0) { // CASE NOP
+            if (n_op == 0) { /* CASE NOP */
               if (!is_next_same_line(current)) {
-                if (strcmp(instru, "NOP") == 0) { // case NOP -> SLL $0, $0, 0
+                if (strcmp(instru, "NOP") == 0) { /* case NOP -> SLL $0, $0, 0 */
                   push_Coll_INSTRU(coll_instru, "SLL", 3, ligne_lexeme(current), decalage, "$0", "$0", "0", 9, 9, 2);
                   S = START_TEXT; break;
                 }
@@ -84,8 +84,8 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
               }
             }
 
-            if (is_next_same_line(current)) { // VALIDATE INSTRU
-              //printf("%s has %d op\n", instru, n_op);
+            if (is_next_same_line(current)) { /* VALIDATE INSTRU */
+              /*printf("%s has %d op\n", instru, n_op); */
               S = OP1_TEXT;
               break;
             }
@@ -112,29 +112,29 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
           else {
             S = START_TEXT; break;
           }
-          // CHECK ERROR
+          /* CHECK ERROR */
         }
         break;
 
       case OP1_TEXT:
-        //printf("OP1_TEXT\n");
-        if (type_lexeme(current) != 4) { // VERIFICATION OF TYPE (NOT VIRGULE)
-          op1 = strdup(word_lexeme(current)); // VALIDATED
+        /*printf("OP1_TEXT\n"); */
+        if (type_lexeme(current) != 4) { /* VERIFICATION OF TYPE (NOT VIRGULE) */
+          op1 = strdup(word_lexeme(current)); /* VALIDATED */
           type_op1 = type_lexeme(current);
 
-          if (n_op == 1) { // SHOULD END HERE
+          if (n_op == 1) { /* SHOULD END HERE */
             if (is_next_same_line(current)) {
               WARNING_MSG("line %d: More elements in line than allowed\n", ligne_lexeme(current));
               S = JUMP_TEXT; break;
             }
             else {
-              // PUSH TO COLL
+              /* PUSH TO COLL */
               push_Coll_INSTRU(coll_instru, instru, n_op, ligne_lexeme(current), decalage, op1, NULL, NULL, type_op1, -1, -1);
               DEBUG_MSG("PUSH TO COLL: %s %s %s %s | decalage: %d\n", instru, op1, NULL, NULL, decalage);
-              S = START_TEXT; break; // DONE
+              S = START_TEXT; break; /* DONE */
             }
           }
-          else { // IF N_OP > 1
+          else { /* IF N_OP > 1 */
             if (is_next_same_line(current)) {
               S = VIRGULE_1_TEXT; break;
             }
@@ -159,8 +159,8 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
         break;
 
       case VIRGULE_1_TEXT:
-        //printf("VIRGULE_1_TEXT\n");
-        if (type_lexeme(current) == 4) { // IF ITS VIRGULE
+        /*printf("VIRGULE_1_TEXT\n"); */
+        if (type_lexeme(current) == 4) { /* IF ITS VIRGULE */
           if (is_next_same_line(current)) {
             S = OP2_TEXT; break;
           }
@@ -181,9 +181,9 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
         break;
 
       case OP2_TEXT:
-        //printf("OP2_TEXT\n");
+        /*printf("OP2_TEXT\n"); */
         if (type_lexeme(current) != 4) {
-          op2 = strdup(word_lexeme(current)); // VALIDATED
+          op2 = strdup(word_lexeme(current)); /* VALIDATED */
           type_op2 = type_lexeme(current);
 
           if (n_op == 2) {
@@ -191,10 +191,10 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
               WARNING_MSG("line %d: Wrong number of operands for > %s <. Expected %d\n", ligne_lexeme(current), instru, n_op);
               S = JUMP_TEXT; break;
             }
-            else { //SUCCESS
-              // PUSH TO COLL
+            else { /*SUCCESS */
+              /* PUSH TO COLL */
 
-              // CASE PSEUDO
+              /* CASE PSEUDO */
               if (strcmp(instru, "MOVE") == 0) {
                 push_Coll_INSTRU(coll_instru, "ADD", 3, ligne_lexeme(current), decalage, op1, op2, "$zero", 9, 9, 9);
                 S = START_TEXT; break;
@@ -215,7 +215,7 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
               S = START_TEXT; break;
             }
           }
-          else { // NOP 3
+          else { /* NOP 3 */
             if (is_next_same_line(current)) {
               S = VIRGULE_2_TEXT; break;
             }
@@ -238,8 +238,8 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
         break;
 
         case VIRGULE_2_TEXT:
-          //printf("VIRGULE_2_TEXT\n");
-          if (type_lexeme(current) == 4) { // IF ITS VIRGULE
+          /*printf("VIRGULE_2_TEXT\n"); */
+          if (type_lexeme(current) == 4) { /* IF ITS VIRGULE */
             if (is_next_same_line(current)) {
               S = OP3_TEXT; break;
             }
@@ -260,9 +260,9 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
           break;
 
         case OP3_TEXT:
-          //printf("OP3_TEXT\n");
+          /*printf("OP3_TEXT\n"); */
           if (type_lexeme(current) != 4) {
-            op3 = strdup(word_lexeme(current)); // VALIDATED
+            op3 = strdup(word_lexeme(current)); /* VALIDATED */
             type_op3 = type_lexeme(current);
 
             if (is_next_same_line(current)) {
@@ -270,9 +270,9 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
               S = JUMP_TEXT; break;
             }
             else {
-              // PUSH TO COLL
+              /* PUSH TO COLL */
 
-              //PSEUDO INSTRUCTIONS
+              /*PSEUDO INSTRUCTIONS */
               if (strcmp(instru, "BLT") == 0) {
                 push_Coll_INSTRU(coll_instru, "SLT", 3, ligne_lexeme(current), decalage, "$1", op1, op2, 9, 9, 9);
                 decalage = decalage + 4;

@@ -7,7 +7,7 @@
 #include "../../include/notify.h"
 
 void print_list(Lexeme_t * head) {
-  // Print all elements on list
+  /* Print all elements on list */
   Lexeme_t * current = head->next;
 
   DEBUG_MSG("\nLIST ==>>\n");
@@ -21,7 +21,7 @@ void print_list(Lexeme_t * head) {
 }
 
 void push(Lexeme_t * head, char* word, int type, int ligne) {
-  // ADD element on top of the linked list
+  /* ADD element on top of the linked list */
   Lexeme_t * current = head;
   while (current->next != NULL) {
     current = current->next;
@@ -35,9 +35,9 @@ void push(Lexeme_t * head, char* word, int type, int ligne) {
 }
 
 int pop_last(Lexeme_t * head, char ** word) {
-  // This function pops the LAST element of the linked list
-  // returns its atributte TYPE and writes on the adress
-  // WORD the atributte WORD
+  /* This function pops the LAST element of the linked list */
+  /* returns its atributte TYPE and writes on the adress */
+  /* WORD the atributte WORD */
   Lexeme_t * current = head;
 
   if (current->next == NULL) {
@@ -57,13 +57,13 @@ int pop_last(Lexeme_t * head, char ** word) {
 }
 
 int pop_first(Lexeme_t * head, char ** word) {
-  // This function pops the FIRST element of the linked list
-  // returns its atributte TYPE and writes on the adress
-  // WORD the atributte WORD
+  /* This function pops the FIRST element of the linked list */
+  /* returns its atributte TYPE and writes on the adress */
+  /* WORD the atributte WORD */
   Lexeme_t * current = head;
   if (current->next == NULL) {
     ERROR_MSG("Attention! List EMPTY! => ");
-    //abort();
+    /*abort(); */
     return -1;
   }
 
@@ -76,14 +76,14 @@ int pop_first(Lexeme_t * head, char ** word) {
 }
 
 bool is_empty(Lexeme_t * head) {
-  // Verify if the list is EMPTY
+  /* Verify if the list is EMPTY */
   if (head->next == NULL) return true;
   return false;
 }
 
 Lexeme_t * new_lexeme() {
-  // Create a new struvture of type Lexeme_t
-  // and inicializes the head with HEAD 0
+  /* Create a new struvture of type Lexeme_t */
+  /* and inicializes the head with HEAD 0 */
   Lexeme_t *head = NULL;
   head = malloc(sizeof(Lexeme_t));
   head->word = "HEAD";
@@ -110,10 +110,8 @@ int ligne_lexeme(Lexeme_t * head) {
 }
 
 void effacer_2(Lexeme_t * before) {
-  Lexeme_t * first = before->next;
-  Lexeme_t * second = before->next;
 
   before->next = before->next->next->next;
-  // free(first);
-  // free(second); SEE THAT
+  /* free(first); */
+  /* free(second); SEE THAT */
 }

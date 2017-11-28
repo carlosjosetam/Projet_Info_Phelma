@@ -1,5 +1,6 @@
-//Program root
+/* Program global */
 #include <stdio.h>
+#include <ctype.h>
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -30,7 +31,7 @@ int hex2int(char * hex) {
 
     bool minus;
     int val = 0;
-    uint8_t byte = *hex; // JUMP TWO FIRSTS ELEMENTS
+    uint8_t byte = *hex; /* JUMP TWO FIRSTS ELEMENTS */
     if (byte == '-') {
       byte = *hex++; byte = *hex++; byte = *hex++;
       minus = true;
@@ -41,14 +42,14 @@ int hex2int(char * hex) {
     }
 
     while (*hex) {
-        // get current character then increment
+        /* get current character then increment */
         byte = *hex++;
 
-        // transform hex character to the 4bit equivalent number, using the ascii table indexes
+        /* transform hex character to the 4bit equivalent number, using the ascii table indexes */
         if (byte >= '0' && byte <= '9') byte = byte - '0';
         else if (byte >= 'a' && byte <='f') byte = byte - 'a' + 10;
         else if (byte >= 'A' && byte <='F') byte = byte - 'A' + 10;
-        // shift 4 to make space for new digit, and add the 4 bits of the new digit
+        /* shift 4 to make space for new digit, and add the 4 bits of the new digit */
         val = (val << 4) | (byte & 0xF);
     }
 
@@ -69,7 +70,7 @@ bool is_in_interval_DECIMAL(char * cmp, char * max_value, char * min_value) {
   return false;
 }
 
-bool is_in_interval_HEXA(char * cmp, char * max_value, char * min_value) { // Verfifies by size
+bool is_in_interval_HEXA(char * cmp, char * max_value, char * min_value) { /* Verfifies by size */
   int cmp_hex = hex2int(cmp);
   int max_value_hex = hex2int(max_value);
   int min_value_hex = hex2int(min_value);

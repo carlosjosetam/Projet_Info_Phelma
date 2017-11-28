@@ -1,4 +1,4 @@
-//Program root
+/* Program root */
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
@@ -25,15 +25,15 @@ int main (int argc, char ** argv ) {
 
   printf("ASSEMBLEUR MIPS ==>> Projet Info PHELMA 2017\n");
   printf("Selected file: %s\n", path);
-  //CREATION DE DICIONIRE D'INSTRUCTIONS
+  /*CREATION DE DICIONIRE D'INSTRUCTIONS */
   Dicio_Instru_t * dicio_instru = new_Dicio_Instru();
   print_Dicio_Instru(dicio_instru);
 
-  //CREATION DE DICIONIRE DE DIRECTIVES
+  /*CREATION DE DICIONIRE DE DIRECTIVES */
   Dicio_Directives_t * dicio_directives = new_Dicio_Directives();
   print_Dicio_Directives(dicio_directives);
 
-  //CREATION DE LIST CHAINEE
+  /*CREATION DE LIST CHAINEE */
   Lexeme_t * list_complet = new_lexeme();
   Lexeme_t * list_text = new_lexeme();
   Lexeme_t * list_data = new_lexeme();

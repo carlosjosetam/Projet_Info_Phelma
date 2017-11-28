@@ -6,7 +6,7 @@
 #include "../../include/notify.h"
 
 void print_list_etiquette(Etiquette_t * head) {
-  // Print all elements on list
+  /* Print all elements on list */
   Etiquette_t * current = head->next;
 
   printf("\nLIST DE ETIQUETTES ==>>\n");
@@ -20,12 +20,12 @@ void print_list_etiquette(Etiquette_t * head) {
 }
 
 bool is_in_list(Etiquette_t * head, char * word) {
-  // If WORD is on list return true
-  // Else, return false
+  /* If WORD is on list return true */
+  /* Else, return false */
 
   Etiquette_t * current = head;
 
-  if (current->next == NULL) return false; // case EMPTY list
+  if (current->next == NULL) return false; /* case EMPTY list */
 
   while (current->next != NULL) {
     current = current->next;
@@ -37,11 +37,11 @@ bool is_in_list(Etiquette_t * head, char * word) {
 }
 
 Etiquette_t * is_in_list_current(Etiquette_t * head, char * word) {
-  // If WORD is on list return true
-  // Else, return false
+  /* If WORD is on list return true */
+  /* Else, return false */
   Etiquette_t * current = head;
 
-  if (current->next == NULL) return false; // case EMPTY list
+  if (current->next == NULL) return false; /* case EMPTY list */
 
   while (current->next != NULL) {
     current = current->next;
@@ -53,7 +53,7 @@ Etiquette_t * is_in_list_current(Etiquette_t * head, char * word) {
 }
 
 void push_etiquette(Etiquette_t * head, char* word, int ligne, int decalage, char * section) {
-  // ADD element on top of the linked list
+  /* ADD element on top of the linked LIST */
   Etiquette_t * current = head;
   while (current->next != NULL) {
     current = current->next;
@@ -68,9 +68,9 @@ void push_etiquette(Etiquette_t * head, char* word, int ligne, int decalage, cha
 }
 
 int pop_last_etiquette(Etiquette_t * head, char ** word) {
-  // This function pops the LAST element of the linked list
-  // returns its atributte LIGNE and writes on the adress
-  // WORD the atributte WORD
+  /* This function pops the LAST element of the linked list */
+  /* returns its atributte LIGNE and writes on the adress */
+  /* WORD the atributte WORD */
   Etiquette_t * current = head;
 
   if (current->next == NULL) {
@@ -90,15 +90,15 @@ int pop_last_etiquette(Etiquette_t * head, char ** word) {
 }
 
 int pop_first_etiquette(Etiquette_t * head, char ** word) {
-  // This function pops the FIRST element of the linked list
-  // returns its atributte LIGNE and writes on the adress
-  // WORD the atributte WORD
+  /* This function pops the FIRST element of the linked list */
+  /* returns its atributte LIGNE and writes on the adress */
+  /* WORD the atributte WORD */
   Etiquette_t * current = head;
   if (current->next == NULL) {
     printf("Attention! List EMPTY! => ");
     printf("ABORT\n");
     printf("Verify your code and try again!\n");
-    //abort();
+    /*abort(); */
     return -1;
   }
 
@@ -111,14 +111,14 @@ int pop_first_etiquette(Etiquette_t * head, char ** word) {
 }
 
 bool is_empty_etiquette(Etiquette_t * head) {
-  // Verify if the list is EMPTY
+  /* Verify if the list is EMPTY */
   if (head->next == NULL) return true;
   return false;
 }
 
 Etiquette_t * new_etiquette() {
-  // Create a new struvture of type Etiquette_t
-  // and inicializes the head with HEAD -1
+  /* Create a new struvture of type Etiquette_t */
+  /* and inicializes the head with HEAD -1 */
   Etiquette_t *head = NULL;
   head = malloc(sizeof(Etiquette_t));
   head->word = "HEAD";

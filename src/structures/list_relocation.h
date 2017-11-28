@@ -3,8 +3,8 @@
 #define _Relocation
 
 typedef struct Relocation {
-  // Linked list with first HEAD element non
-  // acessible.
+  /* Linked list with first HEAD element non */
+  /* acessible. */
     int address_instru;
     int address_etiquette;
     char * section;

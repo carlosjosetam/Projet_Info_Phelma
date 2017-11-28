@@ -2,7 +2,7 @@
 
 .text
 start:
-    ADD $3, $3, $5
+    ADD $3, $3, $6
     LW $6, -0x200($7)
     ADDI $1, $zero, lunchtime
 

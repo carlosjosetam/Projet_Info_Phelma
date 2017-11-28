@@ -6,6 +6,9 @@
 #include "../structures/list_lexeme.h"
 #include "../structures/list_etiquette.h"
 #include "../structures/coll_bss.h"
+#include "../structures/coll_instru.h"
+#include "../structures/coll_data.h"
+
 #include "etiquette.h"
 
 void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes, char * section) {
@@ -74,7 +77,7 @@ void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes, c
   print_list_etiquette(list_etiquettes);
 }
 
-void update_address_etiquettes(Etiquette_t * list_etiquettes, Coll_BSS_t * coll_bss) {
+void update_address_etiquettes(Etiquette_t * list_etiquettes, Coll_BSS_t * coll_bss, Coll_INSTRU_t * coll_instru, Coll_DATA_t * coll_data) {
   if (next_lexeme(list_etiquettes) == NULL) { // case of section EMPTY
     return;
   }
@@ -86,6 +89,16 @@ void update_address_etiquettes(Etiquette_t * list_etiquettes, Coll_BSS_t * coll_
 
     if (strcmp(get_section_etiquette(current), "bss") == 0) {
       new_address = get_address_by_line_bss(coll_bss, get_line_etiquette(current));
+      update_address_etiquette(current, new_address);
+    }
+
+    if (strcmp(get_section_etiquette(current), "text") == 0) {
+      new_address = get_address_by_line_text(coll_instru, get_line_etiquette(current));
+      update_address_etiquette(current, new_address);
+    }
+
+    if (strcmp(get_section_etiquette(current), "data") == 0) {
+      new_address = get_address_by_line_data(coll_data, get_line_etiquette(current));
       update_address_etiquette(current, new_address);
     }
 

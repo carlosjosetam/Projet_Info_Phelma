@@ -20,7 +20,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
   int n_op = 1;
   char * directive = NULL;
   char * op1 = NULL;
-  int decalage = -4;
+  int decalage = 0;
   int current_line;
 
   if (next_lexeme(current) == NULL) { //EXIT, NO .text TERMS
@@ -37,7 +37,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
     if (current_line != ligne_lexeme(current)) { // Changement de ligne
       //printf("*********** NEW LINE ***********\n");
       if (type_lexeme(current) != 17) {
-        decalage = decalage + 4;
+        decalage = decalage; // EACH DIRECTIVE HAS ITS RULE
       }
       current_line = ligne_lexeme(current);
     }
@@ -57,7 +57,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
               break;
             }
             else {
-              WARNING_MSG("line %d: Directive > %s < without parameters\n", ligne_lexeme(current), word_lexeme(current));
+              ERROR_MSG("line %d: Directive > %s < without parameters\n", ligne_lexeme(current), word_lexeme(current));
               S = START_DATA; break;
             }
           }
@@ -90,19 +90,48 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
             op1 = strdup(word_lexeme(current)); // VALIDATED
 
             if (is_next_same_line(current)) {
-              WARNING_MSG("line %d: More elements in line than allowed\n", ligne_lexeme(current));
+              ERROR_MSG("line %d: More elements in line than allowed\n", ligne_lexeme(current));
 
               S = JUMP_DATA; break;
             }
             else {
               // PUSH TO COLL
-              push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1);
-              DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
-              S = START_DATA; break; // DONE
+
+              if (strcmp(directive, ".space") == 0) {
+                push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1);
+                DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
+                decalage = decalage + atoi(op1);
+                S = START_DATA; break; // DONE
+              }
+
+              if (strcmp(directive, ".word") == 0) {
+                if (decalage % 4 != 0) {
+                  decalage = decalage + (4 - decalage%4);
+                }
+                push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1);
+                DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
+                decalage = decalage + 4;
+                S = START_DATA; break; // DONE
+              }
+
+              if (strcmp(directive, ".byte") == 0) {
+                push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1);
+                DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
+                decalage = decalage + 4;
+                S = START_DATA; break; // DONE
+              }
+
+              if (strcmp(directive, ".asciiz") == 0) {
+                push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1);
+                DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
+                WARNING_MSG(".asciiz not well treated");
+                decalage = decalage + 4;
+                S = START_DATA; break; // DONE
+              }
             }
           }
           else {
-            WARNING_MSG("line %d: Incorect value > %s < for > %s <\n", ligne_lexeme(current), word_lexeme(current), directive);
+            ERROR_MSG("line %d: Incorect value > %s < for > %s <\n", ligne_lexeme(current), word_lexeme(current), directive);
             if (is_next_same_line(current)) {
               S = JUMP_DATA; break;
             }
@@ -112,7 +141,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
           }
         }
         else {
-          WARNING_MSG("line %d: Incorrect operand > %s < for > %s < \n", ligne_lexeme(current), word_lexeme(current), directive);
+          ERROR_MSG("line %d: Incorrect operand > %s < for > %s < \n", ligne_lexeme(current), word_lexeme(current), directive);
           if (is_next_same_line(current)) {
             S = JUMP_DATA; break;
           }
@@ -123,7 +152,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
         break;
 
         case JUMP_DATA:
-        WARNING_MSG("line %d: Extra element > %s < in line", ligne_lexeme(current), word_lexeme(current));
+        ERROR_MSG("line %d: Extra element > %s < in line", ligne_lexeme(current), word_lexeme(current));
           if (next_lexeme(current) != NULL) {
             if (ligne_lexeme(next_lexeme(current)) != current_line) {
               S = START_DATA;

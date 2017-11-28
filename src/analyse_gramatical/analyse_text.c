@@ -33,7 +33,7 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
   int type_op1 = -1;
   int type_op2 = -1;
   int type_op3 = -1;
-  int decalage = -4;
+  int decalage = 0;
   int current_line;
 
   if (next_lexeme(current) == NULL) { //EXIT, NO .text TERMS

@@ -98,3 +98,18 @@ int get_line(Coll_INSTRU_t * instruction) {
 int get_address_instru(Coll_INSTRU_t * instruction) {
   return instruction->decalage;
 }
+
+int get_address_by_line_text(Coll_INSTRU_t * head, int line) {
+  // If WORD is on list return true
+  // Else, return false
+
+  Coll_INSTRU_t * current = head;
+  if (current->next == NULL) return false; // case EMPTY list
+  while (current->next != NULL) {
+    current = current->next;
+    if (line == current->ligne) {
+      return current->decalage;
+    }
+  }
+  return -1;
+}

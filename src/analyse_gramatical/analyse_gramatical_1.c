@@ -48,7 +48,7 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   print_Coll_BSS(coll_bss);
 
   // REWRITE ADDRESS Etiquette
-  update_address_etiquettes(list_etiquettes, coll_bss);
+  update_address_etiquettes(list_etiquettes, coll_bss, coll_instru, coll_data);
 
   print_list_etiquette(list_etiquettes);
 

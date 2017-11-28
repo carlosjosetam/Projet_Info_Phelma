@@ -11,7 +11,7 @@ void print_Coll_DATA(Coll_DATA_t * head) {
   printf("\nCOLLECTION DATA ==>>\n");
 
   while (current != NULL) {
-    printf("%s %s | ligne: %d | decalage: %d\n", current->directive, current->valeur, current->ligne, current->decalage);
+    printf("%2d | 0x%02X | %s %s\n", current->ligne, current->decalage, current->directive, current->valeur);
     current = current->next;
   }
   printf("\n");
@@ -46,4 +46,19 @@ Coll_DATA_t * new_Coll_DATA() {
   head->next = NULL;
 
   return head;
+}
+
+int get_address_by_line_data(Coll_DATA_t * head, int line) {
+  // If WORD is on list return true
+  // Else, return false
+
+  Coll_DATA_t * current = head;
+  if (current->next == NULL) return false; // case EMPTY list
+  while (current->next != NULL) {
+    current = current->next;
+    if (line == current->ligne) {
+      return current->decalage;
+    }
+  }
+  return -1;
 }

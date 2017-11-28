@@ -16,5 +16,6 @@ typedef struct Coll_DATA{
 void print_Coll_DATA(Coll_DATA_t * head);
 void push_Coll_DATA(Coll_DATA_t * head, char* directive, int n_op, int ligne, int decalage, char * valeur);
 Coll_DATA_t * new_Coll_DATA();
+int get_address_by_line_data(Coll_DATA_t * head, int line);
 
 #endif

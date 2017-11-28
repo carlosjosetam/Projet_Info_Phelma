@@ -30,5 +30,6 @@ int * get_type_operand(Coll_INSTRU_t * instruction, int index);
 char * get_name_instruction(Coll_INSTRU_t * instruction);
 int get_line(Coll_INSTRU_t * instruction);
 int get_address_instru(Coll_INSTRU_t * instruction);
+int get_address_by_line_text(Coll_INSTRU_t * head, int line);
 
 #endif

@@ -64,7 +64,7 @@ clean_release_run : $(OBJ_RLS)
 	make release_run
 
 run :
-	./as-mips tests/test_pseudo.s
+	./as-mips tests/test_address_bss.s
 
 %.dbg : %.c
 	$(CC) $< $(CFLAGS_DBG) -c -o $(basename $<).dbg

@@ -136,3 +136,15 @@ int get_address_etiquette(Etiquette_t * head) {
 char * get_section_etiquette(Etiquette_t * head) {
   return head->section;
 }
+
+Etiquette_t * get_next_etiquette(Etiquette_t * head) {
+  return head->next;
+}
+
+int get_line_etiquette(Etiquette_t * head) {
+  return head->ligne;
+}
+
+void update_address_etiquette(Etiquette_t * head, int new_address) {
+  head->decalage = new_address;
+}

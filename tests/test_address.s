@@ -8,7 +8,7 @@ start:
 
 boucle:
     NOP
-    ADDI $1 , $1 , lunchtime
+    ADDI $1 , $1 , menu
     NOP
 byebye:
     ADD $1, $2, $3

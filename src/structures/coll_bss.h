@@ -16,5 +16,5 @@ typedef struct Coll_BSS{
 void print_Coll_BSS(Coll_BSS_t * head);
 void push_Coll_BSS(Coll_BSS_t * head, char* directive, int n_op, int ligne, int decalage, char * valeur);
 Coll_BSS_t * new_Coll_BSS();
-
+int get_address_by_line_bss(Coll_BSS_t * head, int line);
 #endif

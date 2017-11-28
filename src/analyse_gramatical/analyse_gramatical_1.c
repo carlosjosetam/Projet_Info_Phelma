@@ -37,7 +37,6 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   Coll_INSTRU_t * coll_instru = analyse_text(head_text, dicio_instru);
   print_Coll_INSTRU(coll_instru);
 
-
   printf("LIST OF .DATA\n");
   print_list(head_data);
   Coll_DATA_t * coll_data = analyse_data(head_data, dicio_directives);
@@ -47,6 +46,11 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   print_list(head_bss);
   Coll_BSS_t * coll_bss = analyse_bss(head_bss, dicio_directives);
   print_Coll_BSS(coll_bss);
+
+  // REWRITE ADDRESS Etiquette
+  update_address_etiquettes(list_etiquettes, coll_bss);
+
+  print_list_etiquette(list_etiquettes);
 
 
   // ANALYSE TYPE INSTRUCTIONS

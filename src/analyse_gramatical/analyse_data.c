@@ -23,6 +23,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
   int decalage = 0;
   int current_line;
   int type = -1;
+  int value = -1;
 
   if (next_lexeme(current) == NULL) { /* EXIT, NO .text TERMS */
     return coll_data;
@@ -93,16 +94,31 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
 
             if (is_next_same_line(current)) {
               ERROR_MSG("line %d: More elements in line than allowed\n", ligne_lexeme(current));
-
               S = JUMP_DATA; break;
             }
             else {
-              /* PUSH TO COLL */
+              /* DECODER OPERANDS */
+              if (type == 6) { /* HEXA */
+                value = hex2int(op1);
+                DEBUG_MSG("operando HEXA %s, %d\n", op1, value);
+              }
+              if (type == 2) {
+                value = atoi(op1);
+                DEBUG_MSG("operando DECIMAL %s, %d\n", op1, value);
+              }
+              if (type == 5) {
+                value = 0;
+                DEBUG_MSG("operando ZERO %s, %d\n", op1, value);
+              }
+              if (type == 7) {
+                ERROR_MSG("FUNCTION FOR VERIFYING OCTA VALUE NOT IMPLEMENTED YET");
+              }
 
+              /* PUSH TO COLL */
               if (strcmp(directive, ".space") == 0) {
                 push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1, type);
                 DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
-                decalage = decalage + atoi(op1);
+                decalage = decalage + value;
                 S = START_DATA; break; /* DONE */
               }
 
@@ -119,7 +135,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
               if (strcmp(directive, ".byte") == 0) {
                 push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1, type);
                 DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
-                decalage = decalage + 4;
+                decalage = decalage + value;
                 S = START_DATA; break; /* DONE */
               }
 

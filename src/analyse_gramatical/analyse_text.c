@@ -65,7 +65,7 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
         if (type_lexeme(current) == 1) { // IS SYMBOLE
           if (is_Instru_Dicio_Instru(dicio_instru, word_lexeme(current))) {
             n_op = n_op_Dicio_Instru(dicio_instru, word_lexeme(current));
-            printf("%s op %d\n", word_lexeme(current), n_op);
+            DEBUG_MSG("%s op %d\n", word_lexeme(current), n_op);
             instru = strdup(word_lexeme(current));
 
             if (n_op == 0) { // CASE NOP

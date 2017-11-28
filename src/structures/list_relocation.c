@@ -9,8 +9,6 @@ void print_list_relocation(Relocation_t * head) {
   // Print all elements on list
   Relocation_t * current = head->next;
 
-  printf("\nLIST DE RELOCATION ==>>\n");
-
   while (current != NULL) {
     printf("address: 0x%02X | %s | .%s:0x%02X | %s\n", current->address_instru, current->type_relocation, current->section, current->address_etiquette, current->symbole);
     current = current->next;

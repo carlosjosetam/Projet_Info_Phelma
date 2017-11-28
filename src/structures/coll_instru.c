@@ -6,6 +6,10 @@
 
 void print_Coll_INSTRU(Coll_INSTRU_t * head) {
   // Print all elements on list
+  if (head->next == NULL) {
+    return;
+  }
+  
   Coll_INSTRU_t * current = head->next;
 
   printf("\nCOLLECTION INSTRUCTIONS ==>>\n");

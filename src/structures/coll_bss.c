@@ -6,6 +6,10 @@
 
 void print_Coll_BSS(Coll_BSS_t * head) {
   // Print all elements on list
+  if (head->next == NULL) {
+    return;
+  }
+
   Coll_BSS_t * current = head->next;
 
   printf("\nCOLLECTION BSS ==>>\n");

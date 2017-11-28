@@ -8,7 +8,7 @@
 enum {START, TEXT, DATA, BSS};
 
 void division_section(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_t * head_data, Lexeme_t * head_bss, Dicio_Instru_t * dicio_instru) {
-  printf("\nVerification sections en cours...\n");
+  DEBUG_MSG("\nVerification sections en cours...\n");
   if (next_lexeme(head_lexemes) == NULL) { // EVITER DES ERRORS
     return;
   }
@@ -28,7 +28,7 @@ void division_section(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_t * 
           //printf("In BSS section =>>\n");
           S = BSS; break;
         }
-        
+
         else if(type_lexeme(current) == 17) { // case new line
           S = START; break;
         }

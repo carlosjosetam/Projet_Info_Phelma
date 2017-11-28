@@ -8,13 +8,13 @@ void print_Registers(Registers_t * head) {
   // Print all elements on list
   Registers_t * current = head->next;
 
-  printf("\nTABLE DE REGISTERS ==>>\n");
+  DEBUG_MSG("\nTABLE DE REGISTERS ==>>\n");
 
   while (current != NULL) {
-    printf("%s | %d\n", current->word, current->number);
+    DEBUG_MSG("%s | %d\n", current->word, current->number);
     current = current->next;
   }
-  printf("\n");
+  DEBUG_MSG("\n");
 }
 
 bool is_Reg_in_table(Registers_t * head, char * word) {

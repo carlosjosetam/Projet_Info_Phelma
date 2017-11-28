@@ -6,19 +6,23 @@
 
 void print_Coll_DATA(Coll_DATA_t * head) {
   // Print all elements on list
+  if (head->next == NULL) {
+    return;
+  }
+
   Coll_DATA_t * current = head->next;
 
   printf("\nCOLLECTION DATA ==>>\n");
 
   while (current != NULL) {
-    printf("%2d | 0x%02X | %s %s\n", current->ligne, current->decalage, current->directive, current->valeur);
+    printf("%2d | 0x%02X | %s %s | type: %d\n", current->ligne, current->decalage, current->directive, current->valeur, current->type);
     current = current->next;
   }
   printf("\n");
 }
 
 
-void push_Coll_DATA(Coll_DATA_t * head, char* directive, int n_op, int ligne, int decalage, char * valeur) {
+void push_Coll_DATA(Coll_DATA_t * head, char* directive, int n_op, int ligne, int decalage, char * valeur, int type) {
   // ADD element on top of the linked list
   Coll_DATA_t * current = head;
   while (current->next != NULL) {
@@ -31,6 +35,7 @@ void push_Coll_DATA(Coll_DATA_t * head, char* directive, int n_op, int ligne, in
   current->next->ligne = ligne;
   current->next->decalage = decalage;
   current->next->valeur = valeur;
+  current->next->type = type;
   current->next->next = NULL;
 }
 
@@ -43,6 +48,7 @@ Coll_DATA_t * new_Coll_DATA() {
   head->ligne = -1;
   head->decalage = -1;
   head->valeur = NULL;
+  head->type = -1;
   head->next = NULL;
 
   return head;
@@ -61,4 +67,20 @@ int get_address_by_line_data(Coll_DATA_t * head, int line) {
     }
   }
   return -1;
+}
+
+int * get_type_operand_directive(Coll_DATA_t * directive) {
+  return directive->type;
+}
+
+int * get_address_directive(Coll_DATA_t * directive) {
+  return directive->decalage;
+}
+
+Coll_DATA_t * get_next_directive(Coll_DATA_t * directive) {
+  return directive->next;
+}
+
+char * get_operand_directive(Coll_DATA_t * directive) {
+  return directive->valeur;
 }

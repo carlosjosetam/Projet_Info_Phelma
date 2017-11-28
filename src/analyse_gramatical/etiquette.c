@@ -74,7 +74,7 @@ void cherche_etiquette(Lexeme_t * head_lexemes, Etiquette_t * list_etiquettes, c
     }
 
   }
-  print_list_etiquette(list_etiquettes);
+  /*print_list_etiquette(list_etiquettes);*/
 }
 
 void update_address_etiquettes(Etiquette_t * list_etiquettes, Coll_BSS_t * coll_bss, Coll_INSTRU_t * coll_instru, Coll_DATA_t * coll_data) {

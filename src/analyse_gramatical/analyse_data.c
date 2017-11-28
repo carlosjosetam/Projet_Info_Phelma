@@ -22,6 +22,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
   char * op1 = NULL;
   int decalage = 0;
   int current_line;
+  int type = -1;
 
   if (next_lexeme(current) == NULL) { //EXIT, NO .text TERMS
     return coll_data;
@@ -88,6 +89,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
         if (is_type_permit_directive(dicio_directives, directive, type_lexeme(current))) { // VERIFICATION OF TYPE
           if (is_value_permit_directive(dicio_directives, directive, type_lexeme(current), word_lexeme(current))) { // VERIFICATION OF VALUE
             op1 = strdup(word_lexeme(current)); // VALIDATED
+            type = type_lexeme(current);
 
             if (is_next_same_line(current)) {
               ERROR_MSG("line %d: More elements in line than allowed\n", ligne_lexeme(current));
@@ -98,7 +100,7 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
               // PUSH TO COLL
 
               if (strcmp(directive, ".space") == 0) {
-                push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1);
+                push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1, type);
                 DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
                 decalage = decalage + atoi(op1);
                 S = START_DATA; break; // DONE
@@ -108,21 +110,21 @@ Coll_DATA_t * analyse_data(Lexeme_t * head_data, Dicio_Directives_t * dicio_dire
                 if (decalage % 4 != 0) {
                   decalage = decalage + (4 - decalage%4);
                 }
-                push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1);
+                push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1, type);
                 DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
                 decalage = decalage + 4;
                 S = START_DATA; break; // DONE
               }
 
               if (strcmp(directive, ".byte") == 0) {
-                push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1);
+                push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1, type);
                 DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
                 decalage = decalage + 4;
                 S = START_DATA; break; // DONE
               }
 
               if (strcmp(directive, ".asciiz") == 0) {
-                push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1);
+                push_Coll_DATA(coll_data, directive, n_op, ligne_lexeme(current), decalage, op1, type);
                 DEBUG_MSG("PUSH TO COLL: %s %s | decalage: %d\n", directive, op1, decalage);
                 WARNING_MSG(".asciiz not well treated");
                 decalage = decalage + 4;

@@ -70,6 +70,11 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
 
             if (n_op == 0) { // CASE NOP
               if (!is_next_same_line(current)) {
+                if (strcmp(instru, "NOP") == 0) { // case NOP -> SLL $0, $0, 0
+                  push_Coll_INSTRU(coll_instru, "SLL", 3, ligne_lexeme(current), decalage, "$0", "$0", "0", 9, 9, 2);
+                  S = START_TEXT; break;
+                }
+                
                 push_Coll_INSTRU(coll_instru, instru, n_op, ligne_lexeme(current), decalage, NULL, NULL, NULL, -1, -1, -1);
                 S = START_TEXT; break;
               }

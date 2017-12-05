@@ -14,6 +14,7 @@
 #include "analyse_symboles.h"
 #include "analyse_type_instruction.h"
 #include "analyse_relocation.h"
+#include "create_code_binaire.h"
 
 
 void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_t * head_data, Lexeme_t * head_bss, Etiquette_t * list_etiquettes, Dicio_Instru_t * dicio_instru, Dicio_Directives_t * dicio_directives) {
@@ -67,5 +68,8 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   Relocation_t * reloc_data = analyse_relocation_data(coll_data, list_etiquettes);
   printf("\nLIST DE RELOCATION DATA==>>\n");
   print_list_relocation(reloc_data);
+
+  // CREATION OF CODE BINAIRE
+  create_code_binaire(coll_instru, dicio_instru);
 
 }

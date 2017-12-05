@@ -51,7 +51,7 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
   if (strcmp(addressing_type, "IME") == 0) {
     if (type_operand == 1) { /* If its SYMBOLE */
       DEBUG_MSG("Symbole %s valide\n", operand);
-      /*faire choses */
+      WARNING_MSG("line %d: ATTENTION! RELOCATION NOT READY YET! RESULTS MAY BE WRONG", line);
     }
     else { /* HEXA, DECIMAL, OCTA, ZERO */
       if (SHRT_MIN <= value && value <= SHRT_MAX) {
@@ -74,6 +74,7 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
   if (strcmp(addressing_type, "SA") == 0) {
     if (type_operand == 1) { /* If its SYMBOLE */
       DEBUG_MSG("Symbole %s valide\n", operand);
+      WARNING_MSG("line %d: ATTENTION! RELOCATION NOT READY YET! RESULTS MAY BE WRONG", line);
       /* faire choses */
     }
     else { /* HEXA, DECIMAL, OCTA, ZERO */
@@ -92,6 +93,7 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
   if (strcmp(addressing_type, "TAR") == 0) {
     if (type_operand == 1) { /* If its SYMBOLE */
       DEBUG_MSG("Symbole %s valide\n", operand);
+      WARNING_MSG("line %d: ATTENTION! RELOCATION NOT READY YET! RESULTS MAY BE WRONG", line);
       /* faire choses */
     }
     else { /* HEXA, DECIMAL, OCTA, ZERO */

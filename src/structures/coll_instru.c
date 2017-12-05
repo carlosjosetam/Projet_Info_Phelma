@@ -98,6 +98,15 @@ char * get_operand(Coll_INSTRU_t * instruction, int index) {
   ERROR_MSG("Invalid index for get_operand");
 }
 
+int get_value_operand(Coll_INSTRU_t * instruction, int index) {
+  printf("%d\n", index);
+  if (index == 1) return instruction->value_int_op1;
+  if (index == 2) return instruction->value_int_op2;
+  if (index == 3) return instruction->value_int_op3;
+
+  ERROR_MSG("Invalid index for get_operand");
+}
+
 int get_type_operand(Coll_INSTRU_t * instruction, int index) {
   if (index == 1) return instruction->type_op1;
   if (index == 2) return instruction->type_op2;

@@ -31,7 +31,8 @@ Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquet
     current = next_instru(current);
 
     /* if there's no operand i, we have NULL */
-    for (int i = 1; i <= 3; i++) {
+    int i = 1;
+    for (i; i <= 3; i++) {
       if (get_type_operand(current, i) == 1) { /* IF WE HAVE SYMBOLE */
         etiquette = is_in_list_current(list_etiquettes, get_operand(current, i));
         if (etiquette != NULL) {

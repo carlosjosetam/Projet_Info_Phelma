@@ -14,7 +14,7 @@
 
 enum {START_TYPE_INSTRU};
 
-bool check_value_operand(char * addressing_type, int type_operand, int line, char * name_instruction, char * operand, int index, Registers_t * table_registers) {
+bool check_value_operand(char * addressing_type, int type_operand, int line, char * name_instruction, char * operand, int index, Registers_t * table_registers, Coll_INSTRU_t * instruction) {
   /* DECODER OPERANDS */
   int value = 0;
   if (type_operand == 6) { /* HEXA */
@@ -38,6 +38,10 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
   if (strcmp(addressing_type, "REG") == 0) { /* CHECK IF ITS REGISTER */
     if (is_Reg_in_table(table_registers, operand)) {
       DEBUG_MSG("Register %s valide\n", operand);
+
+      value = get_number_Reg_in_table(table_registers, operand);
+      printf("%d\n", index);
+      put_operand_value_int(instruction, index, value);
     }
     else {
       WARNING_MSG("line %d: Register => %s <= not alowed for this device", line, operand); return false;
@@ -85,7 +89,18 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
 
   /* TARGET */
   if (strcmp(addressing_type, "TAR") == 0) {
-
+    if (type_operand == 1) { /* If its SYMBOLE */
+      DEBUG_MSG("Symbole %s valide\n", operand);
+      /* faire choses */
+    }
+    else { /* HEXA, DECIMAL, OCTA, ZERO */
+      if (0 <= value && value <= 67108864) { /* UNSIGNED 26BITS */
+        DEBUG_MSG("Operand J %d valide\n", value);
+      }
+      else {
+        WARNING_MSG("line %d: Value of operand => %s <= off-limits", line, operand); return false;
+      }
+    }
   }
 
   return true;
@@ -144,8 +159,14 @@ bool check_operand(char * addressing_type, int type_operand, int line, char * na
 
   /* TARGET */
   if (strcmp(addressing_type, "TAR") == 0) {
-    ERROR_MSG("Type TAR is not yet accepted");
-    return false;
+    if ((1 <= type_operand && type_operand <= 2) || (5 <= type_operand  && type_operand <= 7)) { /* SYMBOLE DECIMAL ZERO HEXA OCTA */
+      DEBUG_MSG("OP%d TAR %s of %s valide\n", index, operand, name_instruction);
+      return true;
+    }
+    else {
+      WARNING_MSG("line %d: Wrong operand %d => %s <= for => %s <= instruction. The addressing type should be TARGET (26bits)", line, index, operand, name_instruction);
+      return false;
+    }
   }
 
   return false;
@@ -183,7 +204,7 @@ void analyse_type_instruction(Coll_INSTRU_t * head_coll_instru, Dicio_Instru_t *
 
       if (check_operand(addressing_type, type_operand, line, name_instruction, operand, 1)) {
           DEBUG_MSG("Verification de valeur\n");
-          if (!check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 2, table_registers)) {
+          if (!check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 1, table_registers, current)) {
             erro = true;
           }
       }
@@ -199,7 +220,7 @@ void analyse_type_instruction(Coll_INSTRU_t * head_coll_instru, Dicio_Instru_t *
 
         if (check_operand(addressing_type, type_operand, line, name_instruction, operand, 2)) {
             DEBUG_MSG("Verification de valeur\n");
-            if (!check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 2, table_registers)) {
+            if (!check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 2, table_registers, current)) {
               erro = true;
             }
         }
@@ -216,7 +237,7 @@ void analyse_type_instruction(Coll_INSTRU_t * head_coll_instru, Dicio_Instru_t *
 
         if (check_operand(addressing_type, type_operand, line, name_instruction, operand, 1)) {
             DEBUG_MSG("Verification de valeur\n");
-            if (!check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 3, table_registers)) {
+            if (!check_value_operand(addressing_type, type_operand, line, name_instruction, operand, 3, table_registers, current)) {
               erro = true;
             }
         }

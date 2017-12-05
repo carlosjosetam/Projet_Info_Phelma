@@ -15,6 +15,9 @@ typedef struct Coll_INSTRU {
     int type_op1;
     int type_op2;
     int type_op3;
+    int value_int_op1;
+    int value_int_op2;
+    int value_int_op3;
 
     struct Coll_INSTRU * next;
 } Coll_INSTRU_t;
@@ -31,5 +34,6 @@ char * get_name_instruction(Coll_INSTRU_t * instruction);
 int get_line(Coll_INSTRU_t * instruction);
 int get_address_instru(Coll_INSTRU_t * instruction);
 int get_address_by_line_text(Coll_INSTRU_t * head, int line);
+void put_operand_value_int(Coll_INSTRU_t * instruction, int index, int value);
 
 #endif

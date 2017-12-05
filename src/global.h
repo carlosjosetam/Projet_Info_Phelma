@@ -10,3 +10,4 @@ int hex2int(char * hex);
 char * to_uppercase(char * word);
 char* strupr(char* s);
 int octa2int(char * number);
+void showbits(unsigned int x);

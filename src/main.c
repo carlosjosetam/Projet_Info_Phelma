@@ -49,6 +49,13 @@ int main (int argc, char ** argv ) {
   printf("%s\n", to_uppercase("hello :)"));
   printf("%d\n", octa2int("0123"));
 
+  int op1 = 64;
+  int binaire = (0b000000<<5) | op1;
+  binaire = (binaire<<5) | op1;
+  binaire = (binaire<<10)<<6 | 6;
+  showbits(binaire);
+  printf("%X\n", binaire);
+
 
   return 0;
 }

@@ -69,6 +69,7 @@ int get_address_by_line_data(Coll_DATA_t * head, int line) {
   return -1;
 }
 
+
 int get_type_operand_directive(Coll_DATA_t * directive) {
   return directive->type;
 }

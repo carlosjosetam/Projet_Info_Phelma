@@ -23,7 +23,7 @@ int n_op_Dicio_Instru(Dicio_Instru_t * head, char * word) {
   /* If WORD is on list return true */
   /* Else, return false */
 
-  
+
   Dicio_Instru_t * current = head;
   if (current->next == NULL) return false; /* case EMPTY list */
   while (current->next != NULL) {
@@ -92,6 +92,8 @@ Dicio_Instru_t * new_Dicio_Instru() {
   push_Dicio_Instru(head, "SLL", 3, "R", "REG", "REG", "SA", 111111);
   push_Dicio_Instru(head, "SLT", 3, "R", "REG", "REG", "REG", 1111111);
   push_Dicio_Instru(head, "BNE", 3, "J", "REG", "REG", "TAR", 1111111);
+  push_Dicio_Instru(head, "J", 1, "J", "TAR", NULL, NULL, 1111111);
+
 
 
 

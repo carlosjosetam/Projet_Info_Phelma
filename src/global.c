@@ -34,6 +34,15 @@ int octa2int(char * number)
     return decimalNumber;
 }
 
+void showbits(unsigned int x)
+{
+    int i;
+    for(i=(sizeof(int)*8)-1; i>=0; i--)
+            (x&(1u<<i))?putchar('1'):putchar('0');
+
+    printf("\n");
+}
+
 
 char * to_uppercase(char * word) {
   char * new;

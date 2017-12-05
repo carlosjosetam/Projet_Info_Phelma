@@ -16,13 +16,13 @@ void print_Coll_INSTRU(Coll_INSTRU_t * head) {
 
   while (current != NULL) {
     if (current->n_op == 1) {
-      printf("%2d | 0x%02X | %s %s | type: %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->type_op1);
+      printf("%2d | 0x%02X | %s %s (%d) | type: %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->value_int_op1, current->type_op1);
     }
     else if (current->n_op == 2) {
-      printf("%2d | 0x%02X | %s %s, %s | ts: %d, %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->op2, current->type_op1, current->type_op2);
+      printf("%2d | 0x%02X | %s %s (%d), %s (%d) | ts: %d, %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->value_int_op1, current->op2, current->value_int_op2, current->type_op1, current->type_op2);
     }
     else {
-      printf("%2d | 0x%02X | %s %s, %s, %s | types: %d, %d, %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->op2, current->op3, current->type_op1, current->type_op2, current->type_op3);
+      printf("%2d | 0x%02X | %s %s (%d), %s (%d), %s (%d) | types: %d, %d, %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->value_int_op1, current->op2, current->value_int_op2, current->op3, current->value_int_op3, current->type_op1, current->type_op2, current->type_op3);
     }
     current = current->next;
   }
@@ -48,6 +48,9 @@ void push_Coll_INSTRU(Coll_INSTRU_t * head, char * instruction, int n_op, int li
   current->next->type_op1 = type_op1;
   current->next->type_op2 = type_op2;
   current->next->type_op3 = type_op3;
+  current->next->value_int_op1 = 0;
+  current->next->value_int_op2 = 0;
+  current->next->value_int_op3 = 0;
   current->next->next = NULL;
 }
 
@@ -65,6 +68,18 @@ Coll_INSTRU_t * new_Coll_INSTRU() {
   head->next = NULL;
 
   return head;
+}
+
+void put_operand_value_int(Coll_INSTRU_t * instruction, int index, int value) {
+  if (index == 1) {
+    instruction->value_int_op1 = value;
+  }
+  if (index == 2) {
+    instruction->value_int_op2 = value;
+  }
+  if (index == 3) {
+    instruction->value_int_op3 = value;
+  }
 }
 
 int get_number_operands(Coll_INSTRU_t * instruction) {

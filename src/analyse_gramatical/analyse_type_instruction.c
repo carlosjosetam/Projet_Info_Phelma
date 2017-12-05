@@ -40,7 +40,6 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
       DEBUG_MSG("Register %s valide\n", operand);
 
       value = get_number_Reg_in_table(table_registers, operand);
-      printf("%d\n", index);
       put_operand_value_int(instruction, index, value);
     }
     else {
@@ -57,6 +56,7 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
     else { /* HEXA, DECIMAL, OCTA, ZERO */
       if (SHRT_MIN <= value && value <= SHRT_MAX) {
         DEBUG_MSG("Operand IMM %d valide\n", value);
+        put_operand_value_int(instruction, index, value);
       }
       else {
         WARNING_MSG("line %d: Value of operand => %s <= off-limits", line, operand); return false;
@@ -66,7 +66,7 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
 
   /* BASE OFFSET */
   if (strcmp(addressing_type, "OFF") == 0) {
-
+    WARNING_MSG("line %d: OFFSET value verification NOT IMPLEMENTED YET", line);
   }
 
   /* SHIFT ADDRESS */
@@ -79,6 +79,7 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
     else { /* HEXA, DECIMAL, OCTA, ZERO */
       if (0 <= value && value <= 31) {
         DEBUG_MSG("Operand SA %d valide\n", value);
+        put_operand_value_int(instruction, index, value);
       }
       else {
         WARNING_MSG("line %d: Value of operand => %s <= off-limits", line, operand); return false;
@@ -95,7 +96,13 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
     }
     else { /* HEXA, DECIMAL, OCTA, ZERO */
       if (0 <= value && value <= 67108864) { /* UNSIGNED 26BITS */
-        DEBUG_MSG("Operand J %d valide\n", value);
+        if (value % 4 == 0) {
+          DEBUG_MSG("Operand J %d valide\n", value);
+          put_operand_value_int(instruction, index, value);
+        }
+        else {
+          WARNING_MSG("line %d: Value operand => %s <= not a valid adress. It must be divisible by 4", line, operand); return false;
+        }
       }
       else {
         WARNING_MSG("line %d: Value of operand => %s <= off-limits", line, operand); return false;

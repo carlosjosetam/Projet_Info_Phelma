@@ -11,8 +11,8 @@ boucle:
     NOP
     ADDI $1 , $1 , 0123
     NOP
-    J 671088642
     J boucle
+
 byebye:
     ADD $1, $2, $3
     ADDI $1, $2, start

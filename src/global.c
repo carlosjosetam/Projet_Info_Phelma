@@ -17,6 +17,23 @@ char* strupr(char* s)
     return s;
 }
 
+int octa2int(char * number)
+{
+    int octalNumber = atoi(number);
+    int decimalNumber = 0, i = 0;
+
+    while(octalNumber != 0)
+    {
+        decimalNumber += (octalNumber%10) * pow(8,i);
+        ++i;
+        octalNumber/=10;
+    }
+
+    i = 1;
+
+    return decimalNumber;
+}
+
 
 char * to_uppercase(char * word) {
   char * new;

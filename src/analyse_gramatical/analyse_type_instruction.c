@@ -29,8 +29,9 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
     value = 0;
     DEBUG_MSG("operando ZERO %s, %d\n", operand, value);
   }
-  if (type_operand == 7) {
-    ERROR_MSG("FUNCTION FOR VERIFYING OCTA VALUE NOT IMPLEMENTED YET");
+  if (type_operand == 7) { /* OCTA */
+    value = octa2int(operand);
+    DEBUG_MSG("operando OCTA %s, %d\n", operand, value);
   }
 
   /* REGISTER DIRECT */

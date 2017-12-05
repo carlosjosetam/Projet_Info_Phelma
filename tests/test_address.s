@@ -9,7 +9,7 @@ start:
 
 boucle:
     NOP
-    ADDI $1 , $1 , menu
+    ADDI $1 , $1 , 0123
     NOP
 byebye:
     ADD $1, $2, $3

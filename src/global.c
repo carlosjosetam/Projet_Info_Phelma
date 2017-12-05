@@ -37,7 +37,8 @@ int octa2int(char * number)
 
 char * to_uppercase(char * word) {
   char * new;
-  for (int i = 0; i <= strlen(word); i++) {
+  int i = 0;
+  for (i; i <= strlen(word); i++) {
     new[i] = toupper(word[i]);
   }
   return new;
@@ -47,7 +48,7 @@ int hex2int(char * hex) {
 
     bool minus;
     int val = 0;
-    uint8_t byte = *hex; /* JUMP TWO FIRSTS ELEMENTS */
+    int byte = *hex; /* JUMP TWO FIRSTS ELEMENTS */
     if (byte == '-') {
       byte = *hex++; byte = *hex++; byte = *hex++;
       minus = true;

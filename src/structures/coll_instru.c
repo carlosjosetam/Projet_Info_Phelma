@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "coll_instru.h"
+#include "table_registers.h"
 
 void print_Coll_INSTRU(Coll_INSTRU_t * head) {
   /* Print all elements on list */
@@ -16,13 +17,13 @@ void print_Coll_INSTRU(Coll_INSTRU_t * head) {
 
   while (current != NULL) {
     if (current->n_op == 1) {
-      printf("%2d | 0x%02X | %s %s (%d) | type: %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->value_int_op1, current->type_op1);
+      printf("%2d | 0x%08X | 0x%08X | %s %s (%d) | type: %d\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction, current->op1, current->value_int_op1, current->type_op1);
     }
     else if (current->n_op == 2) {
-      printf("%2d | 0x%02X | %s %s (%d), %s (%d) | ts: %d, %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->value_int_op1, current->op2, current->value_int_op2, current->type_op1, current->type_op2);
+      printf("%2d | 0x%08X | 0x%08X | %s %s (%d), %s (%d) | ts: %d, %d\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction, current->op1, current->value_int_op1, current->op2, current->value_int_op2, current->type_op1, current->type_op2);
     }
     else {
-      printf("%2d | 0x%02X | %s %s (%d), %s (%d), %s (%d) | types: %d, %d, %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->value_int_op1, current->op2, current->value_int_op2, current->op3, current->value_int_op3, current->type_op1, current->type_op2, current->type_op3);
+      printf("%2d | 0x%08X | 0x%08X | %s %s (%d), %s (%d), %s (%d) | types: %d, %d, %d\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction, current->op1, current->value_int_op1, current->op2, current->value_int_op2, current->op3, current->value_int_op3, current->type_op1, current->type_op2, current->type_op3);
     }
     current = current->next;
   }
@@ -52,6 +53,7 @@ void push_Coll_INSTRU(Coll_INSTRU_t * head, char * instruction, int n_op, int li
   current->next->value_int_op2 = 0;
   current->next->value_int_op3 = 0;
   current->next->next = NULL;
+  current->code_binaire_instru = 0;
 }
 
 Coll_INSTRU_t * new_Coll_INSTRU() {
@@ -98,8 +100,60 @@ char * get_operand(Coll_INSTRU_t * instruction, int index) {
   ERROR_MSG("Invalid index for get_operand");
 }
 
+int get_base_from_base_offset(Coll_INSTRU_t * instruction) {
+  char * base_offset = NULL;
+  char registre[5];
+
+  Registers_t * table_registers = new_Registers();
+  if (instruction->type_op1 == 18) base_offset = instruction->op1;
+  if (instruction->type_op2 == 18) base_offset = instruction->op2;
+  if (instruction->type_op3 == 18) base_offset = instruction->op3;
+
+  if (base_offset == NULL) {
+    return 0;
+  }
+
+  int i = 0;
+  int j = 0;
+  for (i; i<strlen(base_offset); i++) {
+    if (base_offset[i] == '(') {
+      i++;
+      while (base_offset[i] != ')') {
+        registre[j] = base_offset[i];
+        j++; i++;
+      }
+      registre[j] = '\0';
+      return get_number_Reg_in_table(table_registers, registre);
+    }
+  }
+}
+
+int get_offset_from_base_offset(Coll_INSTRU_t * instruction) {
+  char * base_offset = NULL;
+  char offset[32];
+
+  if (instruction->type_op1 == 18) base_offset = instruction->op1;
+  if (instruction->type_op2 == 18) base_offset = instruction->op2;
+  if (instruction->type_op3 == 18) base_offset = instruction->op3;
+
+  if (base_offset == NULL) {
+    return 0;
+  }
+
+
+  int i = 0;
+  int j = 0;
+  for (i; i<strlen(base_offset); i++) {
+    while (base_offset[i] != '(') {
+        offset[j] = base_offset[i];
+        j++; i++;
+    }
+    offset[j] = '\0';
+    return hex2int(offset);
+    }
+}
+
 int get_value_operand(Coll_INSTRU_t * instruction, int index) {
-  printf("%d\n", index);
   if (index == 1) return instruction->value_int_op1;
   if (index == 2) return instruction->value_int_op2;
   if (index == 3) return instruction->value_int_op3;
@@ -140,4 +194,8 @@ int get_address_by_line_text(Coll_INSTRU_t * head, int line) {
     }
   }
   return -1;
+}
+
+void push_code_binaire_instru(Coll_INSTRU_t * instru, code_binaire_instru) {
+  instru->code_binaire_instru = code_binaire_instru;
 }

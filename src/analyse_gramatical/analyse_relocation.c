@@ -13,6 +13,17 @@
 #include "../../include/notify.h"
 #include "../structures/list_relocation.h"
 
+char * get_type_relocation(char * instru) {
+  if (strcmp(instru, "LW") == 0) return "R_MIPS_LO16";
+  if (strcmp(instru, "SW") == 0) return "R_MIPS_LO16";
+
+  if (strcmp(instru, "LUI") == 0) return "R_MIPS_HI16";
+
+  if (strcmp(instru, "J") == 0) return "R_MIPS_26";
+  if (strcmp(instru, "JAL") == 0) return "R_MIPS_26";
+
+  return "[UNDEFINED]";
+}
 
 Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquette_t * list_etiquettes) {
   Relocation_t * list_relocation = new_Relocation();
@@ -21,6 +32,7 @@ Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquet
   char * section = NULL;
   int address_etiquette = -1;
   int address_instru = -1;
+  char * instru = NULL;
   Etiquette_t * etiquette = NULL;
 
   if (next_instru(current) == NULL) { /* EXIT, NO .text TERMS */
@@ -29,6 +41,7 @@ Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquet
 
   while (next_instru(current) != NULL) {
     current = next_instru(current);
+    instru = get_name_instruction(current);
 
     /* if there's no operand i, we have NULL */
     int i = 1;
@@ -40,11 +53,11 @@ Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquet
           address_etiquette = get_address_etiquette(etiquette);
           address_instru = get_address_instru(current);
 
-          push_Relocation(list_relocation, address_instru, address_etiquette, section, "TESTE", get_operand(current, i));
+          push_Relocation(list_relocation, address_instru, address_etiquette, section, get_type_relocation(instru), get_operand(current, i));
         }
         else {
           address_instru = get_address_instru(current);
-          push_Relocation(list_relocation, address_instru, 0, NULL, "[UNKNOWN]", get_operand(current, i));
+          push_Relocation(list_relocation, address_instru, 0, NULL, get_type_relocation(instru), get_operand(current, i));
           WARNING_MSG("line %d: SYMBOLE => %s <= not declared in this file", get_line(current), get_operand(current, i));
         }
       }
@@ -78,11 +91,11 @@ Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquet
         address_etiquette = get_address_etiquette(etiquette);
         address_directive = get_address_directive(current);
 
-        push_Relocation(list_relocation, address_directive, address_etiquette, section, "TESTE", get_operand_directive(current));
+        push_Relocation(list_relocation, address_directive, address_etiquette, section, "R_MIPS_32", get_operand_directive(current));
       }
       else {
         address_directive = get_address_directive(current);
-        push_Relocation(list_relocation, address_directive, 0, NULL, "[UNKNOWN]", get_operand_directive(current));
+        push_Relocation(list_relocation, address_directive, 0, NULL, "[UNDEFINED]", get_operand_directive(current));
         WARNING_MSG("line %d: SYMBOLE => %s <= not declared in this file", get_line_directive(current), get_operand_directive(current));
       }
     }

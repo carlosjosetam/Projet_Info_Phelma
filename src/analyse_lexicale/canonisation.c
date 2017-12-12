@@ -41,7 +41,7 @@ char* canon(char *ligne) {
 
 		if (ligne[i] == '$') { /*DOLLAR */
 			n_ligne[j] = ligne[i]; j++; i++;
-			/*LOOP */
+			/* LOOP */
 			while(!(ligne[i] == '\0' || isCS(ligne[i]))) {
 				n_ligne[j] = ligne[i]; j++; i++;
 			}

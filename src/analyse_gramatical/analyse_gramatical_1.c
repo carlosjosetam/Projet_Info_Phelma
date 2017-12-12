@@ -71,5 +71,6 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
 
   // CREATION OF CODE BINAIRE
   create_code_binaire(coll_instru, dicio_instru);
+  print_Coll_INSTRU(coll_instru);
 
 }

@@ -80,7 +80,7 @@ int hex2int(char * hex) {
         val = (val << 4) | (byte & 0xF);
     }
 
-    if (minus) return -1*val;
+    if (minus) return 65536-val;
     else return val;
 }
 

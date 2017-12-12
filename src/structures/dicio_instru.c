@@ -60,7 +60,6 @@ char * get_section_bin(Dicio_Instru_t * head, char * word, int index) {
   while (current->next != NULL) {
     current = current->next;
     if (strcmp(strdup(word), strdup(current->word)) == 0) {
-      printf("found! index %d\n", index);
       if (index == 1) return current->bin->sec1;
       if (index == 2) return current->bin->sec2;
       if (index == 3) return current->bin->sec3;
@@ -146,19 +145,30 @@ Dicio_Instru_t * new_Dicio_Instru() {
   bin = new_Binaire(6, 0b100000, "SPECIAL", "rs", "rt", "rd", "5zero", "INSTRU", NULL, NULL);
   push_Dicio_Instru(head, "ADD", 3, "R", "REG", "REG", "REG", bin);
 
-
+  bin = new_Binaire(4, 0b001000, "INSTRU", "5op2", "5op1", "ime16", NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "ADDI", 3, "I", "REG", "REG", "IME", bin);
   push_Dicio_Instru(head, "SUB", 3, "R", "REG", "REG", "REG", bin);
+
+  bin = new_Binaire(4, 0b100011, "INSTRU", "base", "rt", "offset", NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "LW", 2, "I", "REG", "OFF", NULL, bin);
   push_Dicio_Instru(head, "SW", 2, "I", "REG", "OFF", NULL, bin);
+
+  bin = new_Binaire(4, 0b001111, "INSTRU", "5zero", "rt", "ime16", NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "LUI", 2, "I", "REG", "IME", NULL, bin);
 
+  bin = new_Binaire(4, 0b000100, "INSTRU", "5op1", "5op2", "offset", NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "BEQ", 3, "I", "REG", "REG", "OFF", bin);
   push_Dicio_Instru(head, "MFHI", 1, "R", "REG", NULL, NULL, bin);
+
+  bin = new_Binaire(6, 0b000000, "SPECIAL", "5zero", "5op2", "5op1", "5op3", "SPECIAL", NULL, NULL);
   push_Dicio_Instru(head, "SLL", 3, "R", "REG", "REG", "SA", bin);
   push_Dicio_Instru(head, "SLT", 3, "R", "REG", "REG", "REG", bin);
   push_Dicio_Instru(head, "BNE", 3, "J", "REG", "REG", "TAR", bin);
+
+  bin = new_Binaire(2, 0b000010, "INSTRU", "26op1", NULL, NULL, NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "J", 1, "J", "TAR", NULL, NULL, bin);
+
+  bin = new_Binaire(2, 0b000011, "INSTRU", "26op1", NULL, NULL, NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "JAL", 1, "J", "TAR", NULL, NULL, bin);
 
 

@@ -13,7 +13,7 @@ void print_Dicio_Instru(Dicio_Instru_t * head) {
   DEBUG_MSG("\nDICIONAIRE DE INSTRUCTIONS ==>>\n");
 
   while (current != NULL) {
-    DEBUG_MSG("%s | %s | n_op: %d | %s | %s | %s | bin: %d\n", current->word, current->type, current->n_op, current->op1, current->op2, current->op3, current->code_bin);
+    DEBUG_MSG("%s | %s | n_op: %d | %s | %s | %s | bin: %d\n", current->word, current->type, current->n_op, current->op1, current->op2, current->op3, current->bin->code_binaire);
     printf("%s\n", current->bin->sec1);
     current = current->next;
   }
@@ -150,12 +150,17 @@ Dicio_Instru_t * new_Dicio_Instru() {
   push_Dicio_Instru(head, "ADDI", 3, "I", "REG", "REG", "IME", bin);
   push_Dicio_Instru(head, "SUB", 3, "R", "REG", "REG", "REG", bin);
   push_Dicio_Instru(head, "LW", 2, "I", "REG", "OFF", NULL, bin);
+  push_Dicio_Instru(head, "SW", 2, "I", "REG", "OFF", NULL, bin);
+  push_Dicio_Instru(head, "LUI", 2, "I", "REG", "IME", NULL, bin);
+
   push_Dicio_Instru(head, "BEQ", 3, "I", "REG", "REG", "OFF", bin);
   push_Dicio_Instru(head, "MFHI", 1, "R", "REG", NULL, NULL, bin);
   push_Dicio_Instru(head, "SLL", 3, "R", "REG", "REG", "SA", bin);
   push_Dicio_Instru(head, "SLT", 3, "R", "REG", "REG", "REG", bin);
   push_Dicio_Instru(head, "BNE", 3, "J", "REG", "REG", "TAR", bin);
   push_Dicio_Instru(head, "J", 1, "J", "TAR", NULL, NULL, bin);
+  push_Dicio_Instru(head, "JAL", 1, "J", "TAR", NULL, NULL, bin);
+
 
 
 

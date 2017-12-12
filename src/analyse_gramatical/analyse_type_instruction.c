@@ -143,7 +143,7 @@ bool check_operand(char * addressing_type, int type_operand, int line, char * na
 
   /* BASE OFFSET */
   if (strcmp(addressing_type, "OFF") == 0) {
-    if (type_operand == 18) {
+    if (type_operand == 18 || type_operand == 1) { /* SYMBOLE is also valid */
       DEBUG_MSG("OP%d OFF %s of %s valide\n", index, operand, name_instruction);
       return true;
     }

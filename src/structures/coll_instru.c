@@ -17,13 +17,38 @@ void print_Coll_INSTRU(Coll_INSTRU_t * head) {
 
   while (current != NULL) {
     if (current->n_op == 1) {
-      printf("%2d | 0x%08X | 0x%08X | %s %s (%d) | type: %d\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction, current->op1, current->value_int_op1, current->type_op1);
+      printf("%2d | 0x%08X | %s %s (%d) | type: %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->value_int_op1, current->type_op1);
     }
     else if (current->n_op == 2) {
-      printf("%2d | 0x%08X | 0x%08X | %s %s (%d), %s (%d) | ts: %d, %d\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction, current->op1, current->value_int_op1, current->op2, current->value_int_op2, current->type_op1, current->type_op2);
+      printf("%2d | 0x%08X | %s %s (%d), %s (%d) | ts: %d, %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->value_int_op1, current->op2, current->value_int_op2, current->type_op1, current->type_op2);
     }
     else {
-      printf("%2d | 0x%08X | 0x%08X | %s %s (%d), %s (%d), %s (%d) | types: %d, %d, %d\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction, current->op1, current->value_int_op1, current->op2, current->value_int_op2, current->op3, current->value_int_op3, current->type_op1, current->type_op2, current->type_op3);
+      printf("%2d | 0x%08X | %s %s (%d), %s (%d), %s (%d) | types: %d, %d, %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->value_int_op1, current->op2, current->value_int_op2, current->op3, current->value_int_op3, current->type_op1, current->type_op2, current->type_op3);
+    }
+    current = current->next;
+  }
+  printf("\n");
+}
+
+void print_Coll_INSTRU_with_code(Coll_INSTRU_t * head) {
+  /* Print all elements on list */
+  if (head->next == NULL) {
+    return;
+  }
+
+  Coll_INSTRU_t * current = head->next;
+
+  printf("\nCOLLECTION INSTRUCTIONS + BINARY CODE ==>>\n");
+
+  while (current != NULL) {
+    if (current->n_op == 1) {
+      printf("%2d | 0x%08X | 0x%08X | %s %s (%d)\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction, current->op1, current->value_int_op1);
+    }
+    else if (current->n_op == 2) {
+      printf("%2d | 0x%08X | 0x%08X | %s %s (%d), %s (%d)\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction, current->op1, current->value_int_op1, current->op2, current->value_int_op2);
+    }
+    else {
+      printf("%2d | 0x%08X | 0x%08X | %s %s (%d), %s (%d), %s (%d)\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction, current->op1, current->value_int_op1, current->op2, current->value_int_op2, current->op3, current->value_int_op3);
     }
     current = current->next;
   }
@@ -198,4 +223,20 @@ int get_address_by_line_text(Coll_INSTRU_t * head, int line) {
 
 void push_code_binaire_instru(Coll_INSTRU_t * instru, code_binaire_instru) {
   instru->code_binaire_instru = code_binaire_instru;
+}
+
+bool relocate_symbole(Coll_INSTRU_t * head, int address_instru, char * symbole, int new_address) {
+  Coll_INSTRU_t * current = head;
+  if (current->next == NULL) return false; /* case EMPTY list */
+  while (current->next != NULL) {
+    current = current->next;
+    if (address_instru == current->decalage) {
+      if (strcmp(current->op1, symbole) == 0) current->value_int_op1 = new_address;
+      else if (strcmp(current->op2, symbole) == 0) current->value_int_op2 = new_address;
+      else if (strcmp(current->op3, symbole) == 0) current->value_int_op3 = new_address;
+      else ERROR_MSG("ABORT. ERROR OF RELOCATION. Element on list_relocation but not found on coll_instru");
+      return true;
+    }
+  }
+  return false;
 }

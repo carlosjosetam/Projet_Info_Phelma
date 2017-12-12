@@ -46,15 +46,6 @@ int main (int argc, char ** argv ) {
 
   analyse_gramatical_1(list_complet, list_text, list_data, list_bss, etiq1, dicio_instru, dicio_directives);
 
-  printf("%s\n", to_uppercase("hello :)"));
-  printf("%d\n", octa2int("0123"));
-
-  int op1 = 64;
-  int binaire = (0b000000<<5) | op1;
-  binaire = (binaire<<5) | op1;
-  binaire = (binaire<<10)<<6 | 6;
-  showbits(binaire);
-  printf("%X\n", binaire);
 
 
   return 0;

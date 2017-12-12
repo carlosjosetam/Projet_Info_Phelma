@@ -60,7 +60,7 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   analyse_type_instruction(coll_instru, dicio_instru);
   print_Coll_INSTRU(coll_instru);
 
-  /* RELOCATION TEXT */
+  /* ANALYSE RELOCATION TEXT */
   Relocation_t * reloc_text = analyse_relocation_text(coll_instru, list_etiquettes);
   printf("\nLIST DE RELOCATION TEXT==>>\n");
   print_list_relocation(reloc_text);
@@ -69,8 +69,13 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   printf("\nLIST DE RELOCATION DATA==>>\n");
   print_list_relocation(reloc_data);
 
+  /* RELOCATION */
+  relocation(coll_instru, reloc_text);
+  printf("Relocation is completed with no errors\n");
+
   // CREATION OF CODE BINAIRE
+  printf("Starting generation of code...\n");
   create_code_binaire(coll_instru, dicio_instru);
-  print_Coll_INSTRU(coll_instru);
+  print_Coll_INSTRU_with_code(coll_instru);
 
 }

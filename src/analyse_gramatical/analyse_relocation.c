@@ -25,6 +25,44 @@ char * get_type_relocation(char * instru) {
   return "[UNDEFINED]";
 }
 
+void relocation(Coll_INSTRU_t * head_coll_instru, Relocation_t * list_relocation) {
+  Relocation_t * current_relocation = list_relocation;
+  Coll_INSTRU_t * current = head_coll_instru;
+  int address_etiquette = 0;
+  int address_instru = 0;
+  int new_address = 0;
+  char * symbole = NULL;
+
+  if (next_relocation(current_relocation) == NULL) {
+    return;
+  }
+
+  while (next_relocation(current_relocation) != NULL) {
+    current_relocation = next_relocation(current_relocation);
+
+
+    /* RELOCATION OF TYPE R_MIPS_26 */
+    if (strcmp(get_type_relocation_from_list(current_relocation), "R_MIPS_26") == 0) {
+      address_etiquette = get_address_etiquette_from_list_relocation(current_relocation);
+      address_instru = get_address_instru_from_list_relocation(current_relocation);
+      symbole = get_symbole_from_list_relocation(current_relocation);
+
+      if (address_etiquette % 4 == 0) { /* check if is divisible by 4 with no rest */
+        new_address = address_etiquette/4;
+        if (relocate_symbole(head_coll_instru, address_instru, symbole, new_address)) {
+        }
+        else {
+          ERROR_MSG("Error of relocation in function relocation in file analyse_relocation.c");
+        }
+      }
+      else {
+        ERROR_MSG("ERROR IN relocation. NUMBER NOT DIVISIBLE BY 4");
+      }
+    }
+  }
+
+}
+
 Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquette_t * list_etiquettes) {
   Relocation_t * list_relocation = new_Relocation();
   Coll_INSTRU_t * current = head_coll_instru;

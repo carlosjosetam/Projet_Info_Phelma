@@ -51,3 +51,23 @@ Relocation_t * new_Relocation() {
   head->symbole = NULL;
   return head;
 }
+
+Relocation_t * next_relocation(Relocation_t * relocation) {
+  return relocation->next;
+}
+
+char * get_type_relocation_from_list(Relocation_t * relocation) {
+  return relocation->type_relocation;
+}
+
+int get_address_etiquette_from_list_relocation(Relocation_t * relocation) {
+  return relocation->address_etiquette;
+}
+
+int get_address_instru_from_list_relocation(Relocation_t * relocation) {
+  return relocation->address_instru;
+}
+
+char * get_symbole_from_list_relocation(Relocation_t * relocation) {
+  return relocation->symbole;
+}

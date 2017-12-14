@@ -42,5 +42,6 @@ int get_address_by_line_text(Coll_INSTRU_t * head, int line);
 void put_operand_value_int(Coll_INSTRU_t * instruction, int index, int value);
 bool relocate_symbole(Coll_INSTRU_t * head, int address_instru, char * symbole, int new_address);
 int get_max_lines_instru(Coll_INSTRU_t * head);
+int get_code_binaire_final(Coll_INSTRU_t * head);
 
 #endif

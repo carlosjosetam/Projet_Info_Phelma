@@ -27,7 +27,11 @@ bool write_file_Coll_INSTRU_with_code(Coll_INSTRU_t * head, FILE * file, int lin
 
   while (current != NULL) {
     if (current->ligne == line) {
-      if (current->n_op == 1) {
+      if (current->n_op == 0) {
+        fprintf(file, "%3u %08X %08X %s\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction);
+        wrote = true;
+      }
+      else if (current->n_op == 1) {
         fprintf(file, "%3u %08X %08X %s %s\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction, current->op1);
         wrote = true;
       }
@@ -115,9 +119,9 @@ void write_file_list_relocation(Relocation_t * head, FILE * file) {
 }
 
 void write_file(Coll_INSTRU_t * head_coll_instru, Coll_DATA_t * head_coll_data, Coll_BSS_t * head_coll_bss, Etiquette_t * head_etiquettes, Relocation_t * head_relocation_text, Relocation_t * head_relocation_data, FILE * file) {
-  int i = 0;
+  int i = 1;
   int max_lines = find_number_lines(head_coll_instru, head_coll_data, head_coll_bss);
-  for (i = 0; i <= max_lines; i++) {
+  for (i = 1; i <= max_lines; i++) {
     if (write_file_Coll_INSTRU_with_code(head_coll_instru, file, i) \
     || write_file_Coll_DATA_with_code(head_coll_data, file, i) \
     || write_file_COLL_BSS_with_code(head_coll_bss, file , i)
@@ -127,8 +131,7 @@ void write_file(Coll_INSTRU_t * head_coll_instru, Coll_DATA_t * head_coll_data, 
     }
 
     else {
-      fprintf(file, "%3u\n", i);
-    }
+      fprintf(file, "%3u\n");    }
   }
 
   write_file_list_etiquette(head_etiquettes, file);
@@ -137,4 +140,14 @@ void write_file(Coll_INSTRU_t * head_coll_instru, Coll_DATA_t * head_coll_data, 
   fprintf(file, "\nrel.data\n");
   write_file_list_relocation(head_relocation_data, file);
 
+}
+
+void write_file_obj(Coll_INSTRU_t * head_coll_instru, Coll_DATA_t * head_coll_data, Coll_BSS_t * head_coll_bss, FILE * file) {
+  fprintf(file, "%s\n", "000000008877665544");
+
+  Coll_INSTRU_t * current = head_coll_instru;
+  while (next_instru(current) != NULL) {
+    current = next_instru(current);
+    fprintf(file, "%d\n", get_code_binaire_final(current));
+  }
 }

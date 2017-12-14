@@ -16,6 +16,9 @@ void print_Coll_INSTRU(Coll_INSTRU_t * head) {
   printf("\nCOLLECTION INSTRUCTIONS ==>>\n");
 
   while (current != NULL) {
+    if (current->n_op == 0) {
+      printf("%2d | 0x%08X | %s \n", current->ligne, current->decalage, current->instruction);
+    }
     if (current->n_op == 1) {
       printf("%2d | 0x%08X | %s %s (%d) | type: %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->value_int_op1, current->type_op1);
     }
@@ -41,6 +44,9 @@ void print_Coll_INSTRU_with_code(Coll_INSTRU_t * head) {
   printf("\nCOLLECTION INSTRUCTIONS + BINARY CODE ==>>\n");
 
   while (current != NULL) {
+    if (current->n_op == 0) {
+      printf("%2d | 0x%08X | 0x%08X | %s\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction);
+    }
     if (current->n_op == 1) {
       printf("%2d | 0x%08X | 0x%08X | %s %s (%d)\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction, current->op1, current->value_int_op1);
     }
@@ -224,6 +230,10 @@ int get_line(Coll_INSTRU_t * instruction) {
 
 int get_address_instru(Coll_INSTRU_t * instruction) {
   return instruction->decalage;
+}
+
+int get_code_binaire_final(Coll_INSTRU_t * head) {
+   return head->code_binaire_instru;
 }
 
 int get_address_by_line_text(Coll_INSTRU_t * head, int line) {

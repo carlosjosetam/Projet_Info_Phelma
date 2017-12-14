@@ -95,6 +95,13 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   }
   printf("LIST CREATED in outputs/file.l\n");
 
+  /* FICHIER .obj */
+  printf("CREATING FILE .obj\n");
+  fichier = fopen("outputs/file.obj", "w");
+  if (fichier != NULL) {
+    write_file_obj(coll_instru, coll_data, coll_bss, fichier);
+    fclose(fichier);
+  }
 
 
 }

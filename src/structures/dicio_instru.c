@@ -14,7 +14,6 @@ void print_Dicio_Instru(Dicio_Instru_t * head) {
 
   while (current != NULL) {
     DEBUG_MSG("%s | %s | n_op: %d | %s | %s | %s | bin: %d\n", current->word, current->type, current->n_op, current->op1, current->op2, current->op3, current->bin->code_binaire);
-    printf("%s\n", current->bin->sec1);
     current = current->next;
   }
   DEBUG_MSG("\n");
@@ -142,28 +141,47 @@ Dicio_Instru_t * new_Dicio_Instru() {
   Binaire_t * bin = NULL;
 
   /*ADD INSTRUCTIONS HERE */
-  bin = new_Binaire(6, 0b100000, "SPECIAL", "rs", "rt", "rd", "5zero", "INSTRU", NULL, NULL);
+  bin = new_Binaire(6, 0b100000, "SPECIAL", "5op2", "5op3", "5op1", "5zero", "INSTRU", NULL, NULL);
   push_Dicio_Instru(head, "ADD", 3, "R", "REG", "REG", "REG", bin);
 
   bin = new_Binaire(4, 0b001000, "INSTRU", "5op2", "5op1", "ime16", NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "ADDI", 3, "I", "REG", "REG", "IME", bin);
+
+  bin = new_Binaire(6, 0b100010, "SPECIAL", "5op2", "5op3", "5op1", "5zero", "INSTRU", NULL, NULL);
   push_Dicio_Instru(head, "SUB", 3, "R", "REG", "REG", "REG", bin);
 
-  bin = new_Binaire(4, 0b100011, "INSTRU", "base", "rt", "offset", NULL, NULL, NULL, NULL);
+  bin = new_Binaire(4, 0b100011, "INSTRU", "base", "5op1", "offset", NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "LW", 2, "I", "REG", "OFF", NULL, bin);
+
+
   push_Dicio_Instru(head, "SW", 2, "I", "REG", "OFF", NULL, bin);
+
+  bin = new_Binaire(5, 0b011010, "SPECIAL", "5op1", "5op2", "10zero", "INSTRU", NULL, NULL, NULL);
+  push_Dicio_Instru(head, "DIV", 2, "R", "REG", "REG", NULL, bin);
+
+  bin = new_Binaire(5, 0b010010, "SPECIAL", "10zero", "5op1", "5zero", "INSTRU", NULL, NULL, NULL);
+  push_Dicio_Instru(head, "MFLO", 1, "R", "REG", NULL, NULL, bin);
+
+  bin = new_Binaire(5, 0b011000, "SPECIAL", "5op1", "5op2", "10zero", "INSTRU", NULL, NULL, NULL);
+  push_Dicio_Instru(head, "MULT", 2, "R", "REG", "REG", NULL, bin);
 
   bin = new_Binaire(4, 0b001111, "INSTRU", "5zero", "rt", "ime16", NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "LUI", 2, "I", "REG", "IME", NULL, bin);
 
   bin = new_Binaire(4, 0b000100, "INSTRU", "5op1", "5op2", "16op3", NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "BEQ", 3, "I", "REG", "REG", "OFF", bin);
+
+  bin = new_Binaire(5, 0b010000, "SPECIAL", "10zero", "5op1", "5zero", "INSTRU", NULL, NULL, NULL);
   push_Dicio_Instru(head, "MFHI", 1, "R", "REG", NULL, NULL, bin);
 
   bin = new_Binaire(6, 0b000000, "SPECIAL", "5zero", "5op2", "5op1", "5op3", "SPECIAL", NULL, NULL);
   push_Dicio_Instru(head, "SLL", 3, "R", "REG", "REG", "SA", bin);
+
+  bin = new_Binaire(6, 0b101010, "SPECIAL", "5op2", "5op3", "5op1", "5zero", "INSTRU", NULL, NULL);
   push_Dicio_Instru(head, "SLT", 3, "R", "REG", "REG", "REG", bin);
-  push_Dicio_Instru(head, "BNE", 3, "J", "REG", "REG", "TAR", bin);
+
+  bin = new_Binaire(4, 0b000101, "INSTRU", "5op1", "5op2", "ime16", NULL, NULL, NULL, NULL);
+  push_Dicio_Instru(head, "BNE", 3, "I", "REG", "REG", "TAR", bin);
 
   bin = new_Binaire(2, 0b000010, "INSTRU", "26op1", NULL, NULL, NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "J", 1, "J", "TAR", NULL, NULL, bin);
@@ -176,6 +194,8 @@ Dicio_Instru_t * new_Dicio_Instru() {
 
 
   /* PSEUDO INSTRUCTIONS */
+  bin = new_Binaire(3, 0b001100, "SPECIAL", "20zero", "INSTRU", NULL, NULL, NULL, NULL, NULL);
+  push_Dicio_Instru(head, "SYSCALL", 0, NULL, NULL, NULL, NULL, bin);
   push_Dicio_Instru(head, "NOP", 0, NULL, NULL, NULL, NULL, bin);
   push_Dicio_Instru(head, "MOVE", 2, "R", "REG", "REG", NULL, bin);
   push_Dicio_Instru(head, "NEG", 2, "R", "REG", "REG", NULL, bin);

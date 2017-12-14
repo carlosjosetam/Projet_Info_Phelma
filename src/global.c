@@ -55,6 +55,14 @@ void showbits(unsigned int x)
     printf("0x%X\n", x);
 }
 
+void write_bits(unsigned int x, FILE * file)
+{
+    int i;
+    for(i=(sizeof(int)*8)-1; i>=0; i--) {
+      (x&(1u<<i))?fprintf(file, "1"):fprintf(file, "0");
+    }
+}
+
 
 char * to_uppercase(char * word) {
   char * new;

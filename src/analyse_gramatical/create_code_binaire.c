@@ -117,6 +117,14 @@ void create_code_binaire(Coll_INSTRU_t * instructions, Dicio_Instru_t * dicio_in
         bin = bin << 5;
       }
 
+      if (strcmp(section, "10zero") == 0) {
+        bin = bin << 10;
+      }
+
+      if (strcmp(section, "20zero") == 0) {
+        bin = bin << 10;
+      }
+
       /* CASE INSTRU */
       if (strcmp(section, "INSTRU") == 0) {
         bin = bin << 6 | get_code_instru_bin(dicio_instru, instruction);
@@ -124,7 +132,12 @@ void create_code_binaire(Coll_INSTRU_t * instructions, Dicio_Instru_t * dicio_in
 
       /* CASE IMEDIATE 16 bits */
       if (strcmp(section, "ime16") == 0) {
-        bin = bin << 16 | get_value_operand(current, cmpt_operands);
+        int value_ime16 = get_value_operand(current, cmpt_operands);
+        if (value_ime16 < 0) {
+          value_ime16 = 65536 + value_ime16;
+        }
+
+        bin = bin << 16 | value_ime16;
       }
 
       /* CASE BASE */

@@ -66,9 +66,10 @@ clean_release_run : $(OBJ_RLS)
 all_open : $(OBJ_RLS)
 	make clean_release_run
 	open outputs/file.l
+	od -t xC outputs/file.obj
 
 run :
-	./as-mips tests/miam.s
+	./as-mips tests/mult.s
 
 %.dbg : %.c
 	$(CC) $< $(CFLAGS_DBG) -c -o $(basename $<).dbg

@@ -19,14 +19,17 @@ char * get_type_relocation(char * instru, char * type) {
 
   if (strcmp_not_case_sensitive(instru, "LUI")) return "R_MIPS_HI16";
 
-  if (strcmp_not_case_sensitive(instru, "ADDI")) return "R_MIPS_32";
+  if (strcmp_not_case_sensitive(instru, "ADDI")) return "R_MIPS_LO16";
+
+  if (strcmp_not_case_sensitive(instru, "BEQ")) return "R_MIPS_32";
+  if (strcmp_not_case_sensitive(instru, "BNE")) return "R_MIPS_32";
 
 
   if (strcmp_not_case_sensitive(instru, "J")) return "R_MIPS_26";
   if (strcmp_not_case_sensitive(instru, "JAL")) return "R_MIPS_26";
 
   if (strcmp(type, "R") == 0) return "R_MIPS_32";
-  if (strcmp(type, "I") == 0) return "R_MIPS_LO16";
+  if (strcmp(type, "I") == 0) return "R_MIPS_32";
 
   return "[UNDEFINED]";
 }
@@ -80,11 +83,14 @@ void relocation(Coll_INSTRU_t * head_coll_instru, Relocation_t * list_relocation
 
     /* RELOCATION OF TYPE R_MIPS_32 */
     else if (strcmp(type_relocation, "R_MIPS_32") == 0) {
-      new_address = address_etiquette;
-      if (relocate_symbole(head_coll_instru, address_instru, symbole, new_address)) {
-        message_relocation(address_instru, symbole, new_address, get_section_from_list_relocation(current_relocation));
+      if ((address_etiquette - address_instru - 4) % 4 == 0) {
+        new_address = (address_etiquette - address_instru - 4) / 4;
+        if (relocate_symbole(head_coll_instru, address_instru, symbole, new_address)) {
+          message_relocation(address_instru, symbole, new_address, get_section_from_list_relocation(current_relocation));
+        }
+        else ERROR_MSG("Error of relocation in function relocation in file analyse_relocation.c");
       }
-      else ERROR_MSG("Error of relocation in function relocation in file analyse_relocation.c");
+      else ERROR_MSG("ERROR IN relocation. NUMBER NOT DIVISIBLE BY 4");
     }
 
     /* RELOCATION OF TYPE R_MIPS_HI16 */
@@ -94,14 +100,11 @@ void relocation(Coll_INSTRU_t * head_coll_instru, Relocation_t * list_relocation
 
     /* RELOCATION OF TYPE R_MIPS_LO16 */
     else if (strcmp(type_relocation, "R_MIPS_LO16") == 0) {
-      if ((address_etiquette - address_instru - 4) % 4 == 0) {
-        new_address = (address_etiquette - address_instru - 4) / 4;
-        if (relocate_symbole(head_coll_instru, address_instru, symbole, new_address)) {
-          message_relocation(address_instru, symbole, new_address, get_section_from_list_relocation(current_relocation));
-        }
-        else ERROR_MSG("Error of relocation in function relocation in file analyse_relocation.c");
+      new_address = address_etiquette;
+      if (relocate_symbole(head_coll_instru, address_instru, symbole, new_address)) {
+        message_relocation(address_instru, symbole, new_address, get_section_from_list_relocation(current_relocation));
       }
-      else ERROR_MSG("ERROR IN relocation. NUMBER NOT DIVISIBLE BY 4");
+      else ERROR_MSG("Error of relocation in function relocation in file analyse_relocation.c");
     }
 
     /* CASE UNDEFINED */

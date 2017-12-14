@@ -68,6 +68,10 @@ int get_address_instru_from_list_relocation(Relocation_t * relocation) {
   return relocation->address_instru;
 }
 
+char * get_section_from_list_relocation(Relocation_t * relocation) {
+  return relocation->section;
+}
+
 char * get_symbole_from_list_relocation(Relocation_t * relocation) {
   return relocation->symbole;
 }

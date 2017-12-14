@@ -14,15 +14,23 @@
 #include "../structures/list_relocation.h"
 
 char * get_type_relocation(char * instru) {
-  if (strcmp(instru, "LW") == 0) return "R_MIPS_LO16";
-  if (strcmp(instru, "SW") == 0) return "R_MIPS_LO16";
+  if (strcmp_not_case_sensitive(instru, "LW")) return "R_MIPS_LO16";
+  if (strcmp_not_case_sensitive(instru, "SW")) return "R_MIPS_LO16";
 
-  if (strcmp(instru, "LUI") == 0) return "R_MIPS_HI16";
+  if (strcmp_not_case_sensitive(instru, "LUI")) return "R_MIPS_HI16";
 
-  if (strcmp(instru, "J") == 0) return "R_MIPS_26";
-  if (strcmp(instru, "JAL") == 0) return "R_MIPS_26";
+  if (strcmp_not_case_sensitive(instru, "J")) return "R_MIPS_26";
+  if (strcmp_not_case_sensitive(instru, "JAL")) return "R_MIPS_26";
 
   return "[UNDEFINED]";
+}
+void message_relocation(int address_text, char * symbole, int new_address, char * section) {
+  if (section == NULL) {
+    printf("Relocation %s not done. Symbole not declared\n", symbole);
+  }
+  else {
+    printf("Relocation 0x%08X -> %s -> %d\n", address_text, symbole, new_address);
+  }
 }
 
 void relocation(Coll_INSTRU_t * head_coll_instru, Relocation_t * list_relocation) {
@@ -31,6 +39,7 @@ void relocation(Coll_INSTRU_t * head_coll_instru, Relocation_t * list_relocation
   int address_etiquette = 0;
   int address_instru = 0;
   int new_address = 0;
+  char * type_relocation = NULL;
   char * symbole = NULL;
 
   if (next_relocation(current_relocation) == NULL) {
@@ -39,17 +48,21 @@ void relocation(Coll_INSTRU_t * head_coll_instru, Relocation_t * list_relocation
 
   while (next_relocation(current_relocation) != NULL) {
     current_relocation = next_relocation(current_relocation);
+    address_etiquette = get_address_etiquette_from_list_relocation(current_relocation);
+    address_instru = get_address_instru_from_list_relocation(current_relocation);
+    symbole = get_symbole_from_list_relocation(current_relocation);
+    type_relocation = get_type_relocation_from_list(current_relocation);
 
+    if (get_section_from_list_relocation(current_relocation) == NULL) {
+      message_relocation(address_instru, symbole, 0, NULL);
+    }
 
     /* RELOCATION OF TYPE R_MIPS_26 */
-    if (strcmp(get_type_relocation_from_list(current_relocation), "R_MIPS_26") == 0) {
-      address_etiquette = get_address_etiquette_from_list_relocation(current_relocation);
-      address_instru = get_address_instru_from_list_relocation(current_relocation);
-      symbole = get_symbole_from_list_relocation(current_relocation);
-
+    else if (strcmp(type_relocation, "R_MIPS_26") == 0) {
       if (address_etiquette % 4 == 0) { /* check if is divisible by 4 with no rest */
         new_address = address_etiquette/4;
         if (relocate_symbole(head_coll_instru, address_instru, symbole, new_address)) {
+          message_relocation(address_instru, symbole, new_address, get_section_from_list_relocation(current_relocation));
         }
         else {
           ERROR_MSG("Error of relocation in function relocation in file analyse_relocation.c");
@@ -58,6 +71,26 @@ void relocation(Coll_INSTRU_t * head_coll_instru, Relocation_t * list_relocation
       else {
         ERROR_MSG("ERROR IN relocation. NUMBER NOT DIVISIBLE BY 4");
       }
+    }
+
+    /* RELOCATION OF TYPE R_MIPS_32 */
+    else if (strcmp(type_relocation, "R_MIPS_32") == 0) {
+      WARNING_MSG("RELOCATION OF TYPE R_MIPS_32 for symbole %s in address 0x%08X not available yet\n", symbole, address_instru);
+    }
+
+    /* RELOCATION OF TYPE R_MIPS_HI16 */
+    else if (strcmp(type_relocation, "R_MIPS_HI16") == 0) {
+      WARNING_MSG("RELOCATION OF TYPE R_MIPS_HI16 for symbole %s in address 0x%08X not available yet\n", symbole, address_instru);
+    }
+
+    /* RELOCATION OF TYPE R_MIPS_LO16 */
+    else if (strcmp(type_relocation, "R_MIPS_LO16") == 0) {
+      WARNING_MSG("RELOCATION OF TYPE R_MIPS_LO16 for symbole %s in address 0x%08X not available yet\n", symbole, address_instru);
+    }
+
+    /* CASE UNDEFINED */
+    else if (strcmp(type_relocation, "UNDEFINED") == 0) {
+      WARNING_MSG("TYPE OF RELOCATION NOT DEFINED for symbole %s in address 0x%08X\n", symbole, address_instru);
     }
   }
 

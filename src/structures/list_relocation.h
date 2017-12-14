@@ -23,5 +23,6 @@ char * get_type_relocation_from_list(Relocation_t * relocation);
 int get_address_etiquette_from_list_relocation(Relocation_t * relocation);
 int get_address_instru_from_list_relocation(Relocation_t * relocation);
 char * get_symbole_from_list_relocation(Relocation_t * relocation);
+char * get_section_from_list_relocation(Relocation_t * relocation);
 
 #endif

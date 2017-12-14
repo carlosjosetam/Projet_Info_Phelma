@@ -70,11 +70,14 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   print_list_relocation(reloc_data);
 
   /* RELOCATION */
+  printf("RELOCATION IN PROCESS...\n");
+  printf("FOR .text\n");
   relocation(coll_instru, reloc_text);
-  printf("Relocation is completed with no errors\n");
+  printf("FOR .data\n");
+  printf("RELOCATION COMPLETED.\n\n");
 
   // CREATION OF CODE BINAIRE
-  printf("Starting generation of code...\n");
+  printf("STARTING GENERATION OF CODE...\n");
   create_code_binaire(coll_instru, dicio_instru);
   print_Coll_INSTRU_with_code(coll_instru);
 

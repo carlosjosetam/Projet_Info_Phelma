@@ -6,6 +6,17 @@
 #include <stdlib.h>
 #include "global.h"
 
+bool strcmp_not_case_sensitive(char * cmp1, char * cmp2) {
+  if (strlen(cmp1) != strlen(cmp2)) return false;
+
+  /* else */
+  int i = 0;
+  for (i = 0; i<strlen(cmp1); i++) {
+    if (toupper(cmp1[i]) != toupper(cmp2[i])) return false;
+  }
+  return true;
+}
+
 char* strupr(char* s)
 {
     char* tmp = s;

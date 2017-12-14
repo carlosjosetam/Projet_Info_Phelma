@@ -11,3 +11,5 @@ char * to_uppercase(char * word);
 char* strupr(char* s);
 int octa2int(char * number);
 void showbits(unsigned int x);
+
+bool strcmp_not_case_sensitive(char * cmp1, char * cmp2);

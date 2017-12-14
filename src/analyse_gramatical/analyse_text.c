@@ -70,7 +70,7 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
 
             if (n_op == 0) { /* CASE NOP */
               if (!is_next_same_line(current)) {
-                if (strcmp(instru, "NOP") == 0) { /* case NOP -> SLL $0, $0, 0 */
+                if (strcmp_not_case_sensitive(instru, "NOP")) { /* case NOP -> SLL $0, $0, 0 */
                   push_Coll_INSTRU(coll_instru, "SLL", 3, ligne_lexeme(current), decalage, "$0", "$0", "0", 9, 9, 2);
                   S = START_TEXT; break;
                 }
@@ -195,23 +195,23 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
               /* PUSH TO COLL */
 
               /* CASE PSEUDO */
-              if (strcmp(instru, "MOVE") == 0) {
+              if (strcmp_not_case_sensitive(instru, "MOVE")) {
                 push_Coll_INSTRU(coll_instru, "ADD", 3, ligne_lexeme(current), decalage, op1, op2, "$zero", 9, 9, 9);
                 S = START_TEXT; break;
               }
 
-              if (strcmp(instru, "NEG") == 0) {
+              if (strcmp_not_case_sensitive(instru, "NEG")) {
                 push_Coll_INSTRU(coll_instru, "SUB", 3, ligne_lexeme(current), decalage, op1, "$zero", op2, 9, 9, 9);
                 S = START_TEXT; break;
               }
 
-              if (strcmp(instru, "LI") == 0) {
+              if (strcmp_not_case_sensitive(instru, "LI")) {
                 push_Coll_INSTRU(coll_instru, "ADDI", 3, ligne_lexeme(current), decalage, op1, "$zero", op2, 9, 9, 2);
                 S = START_TEXT; break;
               }
 
               /* CASE LW and SW with SYMBOLE */
-              if (strcmp(instru, "LW") == 0 && type_op2 == 1) {
+              if (strcmp_not_case_sensitive(instru, "LW") && type_op2 == 1) {
                 push_Coll_INSTRU(coll_instru, "LUI", 2, ligne_lexeme(current), decalage, "$at", op2, NULL, 9, 1, -1);
                 decalage = decalage + 4;
                 /* push_Coll_INSTRU(coll_instru, "LW", 2, ligne_lexeme(current), decalage, op1, "0x0($at)", NULL, 9, 18, -1); */
@@ -219,7 +219,7 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
                 S = START_TEXT; break;
               }
 
-              if (strcmp(instru, "SW") == 0 && type_op2 == 1) {
+              if (strcmp_not_case_sensitive(instru, "SW") && type_op2 == 1) {
                 push_Coll_INSTRU(coll_instru, "LUI", 2, ligne_lexeme(current), decalage, "$at", op2, NULL, 9, 1, -1);
                 decalage = decalage + 4;
                 /* push_Coll_INSTRU(coll_instru, "SW", 2, ligne_lexeme(current), decalage, op1, "0x0($at)", NULL, 9, 18, -1); */
@@ -291,7 +291,7 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
               /* PUSH TO COLL */
 
               /*PSEUDO INSTRUCTIONS */
-              if (strcmp(instru, "BLT") == 0) {
+              if (strcmp_not_case_sensitive(instru, "BLT")) {
                 push_Coll_INSTRU(coll_instru, "SLT", 3, ligne_lexeme(current), decalage, "$1", op1, op2, 9, 9, 9);
                 decalage = decalage + 4;
                 push_Coll_INSTRU(coll_instru, "BNE", 3, ligne_lexeme(current), decalage, "$1", "$zero", op3, 9, 9, 1);

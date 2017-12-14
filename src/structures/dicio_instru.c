@@ -29,7 +29,7 @@ int n_op_Dicio_Instru(Dicio_Instru_t * head, char * word) {
   if (current->next == NULL) return false; /* case EMPTY list */
   while (current->next != NULL) {
     current = current->next;
-    if (strcmp(strdup(word), strdup(current->word)) == 0) {
+    if (strcmp_not_case_sensitive(strdup(word), strdup(current->word))) {
       return current->n_op;
     }
   }
@@ -44,7 +44,7 @@ bool is_Instru_Dicio_Instru(Dicio_Instru_t * head, char * word) {
   if (current->next == NULL) return false; /* case EMPTY list */
   while (current->next != NULL) {
     current = current->next;
-    if (strcmp(strdup(word), strdup(current->word)) == 0) {
+    if (strcmp_not_case_sensitive(strdup(word), strdup(current->word))) {
       return true;
     }
   }
@@ -59,7 +59,7 @@ char * get_section_bin(Dicio_Instru_t * head, char * word, int index) {
   if (current->next == NULL) return false; /* case EMPTY list */
   while (current->next != NULL) {
     current = current->next;
-    if (strcmp(strdup(word), strdup(current->word)) == 0) {
+    if (strcmp_not_case_sensitive(strdup(word), strdup(current->word))) {
       if (index == 1) return current->bin->sec1;
       if (index == 2) return current->bin->sec2;
       if (index == 3) return current->bin->sec3;
@@ -82,7 +82,7 @@ int get_code_instru_bin(Dicio_Instru_t * head, char * word) {
   if (current->next == NULL) return false; /* case EMPTY list */
   while (current->next != NULL) {
     current = current->next;
-    if (strcmp(strdup(word), strdup(current->word)) == 0) {
+    if (strcmp_not_case_sensitive(strdup(word), strdup(current->word))) {
       return current->bin->code_binaire;
     }
   }
@@ -196,7 +196,7 @@ char * get_addressing_type(Dicio_Instru_t * dicionaire, char * word, int index) 
   if (current->next == NULL) return NULL; /* case EMPTY list */
   while (current->next != NULL) {
     current = current->next;
-    if (strcmp(strdup(word), strdup(current->word)) == 0) {
+    if (strcmp_not_case_sensitive(strdup(word), strdup(current->word))) {
       if(index == 1) return current->op1;
       if(index == 2) return current->op2;
       if(index == 3) return current->op3;

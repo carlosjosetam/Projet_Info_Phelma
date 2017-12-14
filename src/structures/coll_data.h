@@ -11,6 +11,7 @@ typedef struct Coll_DATA{
     int decalage; /* 0 */
     char * valeur; /* ? */
     int type;
+    int code_binaire;
     struct Coll_DATA * next;
 } Coll_DATA_t;
 
@@ -23,5 +24,8 @@ int get_address_directive(Coll_DATA_t * directive);
 Coll_DATA_t * get_next_directive(Coll_DATA_t * directive);
 char * get_operand_directive(Coll_DATA_t * directive);
 int get_line_directive(Coll_DATA_t * directive);
+void push_code_binaire_data(Coll_DATA_t * directive, int code_binaire);
+int get_value_int_operand_directive(Coll_DATA_t * directive);
+void print_Coll_DATA_with_code(Coll_DATA_t * head);
 
 #endif

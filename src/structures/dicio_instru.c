@@ -156,7 +156,7 @@ Dicio_Instru_t * new_Dicio_Instru() {
   bin = new_Binaire(4, 0b001111, "INSTRU", "5zero", "rt", "ime16", NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "LUI", 2, "I", "REG", "IME", NULL, bin);
 
-  bin = new_Binaire(4, 0b000100, "INSTRU", "5op1", "5op2", "offset", NULL, NULL, NULL, NULL);
+  bin = new_Binaire(4, 0b000100, "INSTRU", "5op1", "5op2", "16op3", NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "BEQ", 3, "I", "REG", "REG", "OFF", bin);
   push_Dicio_Instru(head, "MFHI", 1, "R", "REG", NULL, NULL, bin);
 
@@ -203,4 +203,16 @@ char * get_addressing_type(Dicio_Instru_t * dicionaire, char * word, int index) 
     }
   }
   ERROR_MSG("Invalid index for get_addressing_type");
+}
+
+char * get_type_instruction_type(Dicio_Instru_t * dicionaire, char * word) {
+  Dicio_Instru_t * current = dicionaire;
+  if (current->next == NULL) return NULL; /* case EMPTY list */
+  while (current->next != NULL) {
+    current = current->next;
+    if (strcmp_not_case_sensitive(strdup(word), strdup(current->word))) {
+      return current->type;
+    }
+  }
+  return NULL;
 }

@@ -15,7 +15,24 @@ void print_Coll_DATA(Coll_DATA_t * head) {
   printf("\nCOLLECTION DATA ==>>\n");
 
   while (current != NULL) {
-    printf("%2d | 0x%02X | %s %s | type: %d\n", current->ligne, current->decalage, current->directive, current->valeur, current->type);
+    printf("%2d | 0x%08X | %s %s | type: %d\n", current->ligne, current->decalage, current->directive, current->valeur, current->type);
+    current = current->next;
+  }
+  printf("\n");
+}
+
+void print_Coll_DATA_with_code(Coll_DATA_t * head) {
+  /* Print all elements on list */
+  if (head->next == NULL) {
+    return;
+  }
+
+  Coll_DATA_t * current = head->next;
+
+  printf("\nCOLLECTION DATA ==>>\n");
+
+  while (current != NULL) {
+    printf("%2d | 0x%08X | 0x%08X | %s %s | type: %d\n", current->ligne, current->decalage, current->code_binaire, current->directive, current->valeur, current->type);
     current = current->next;
   }
   printf("\n");
@@ -37,6 +54,11 @@ void push_Coll_DATA(Coll_DATA_t * head, char* directive, int n_op, int ligne, in
   current->next->valeur = valeur;
   current->next->type = type;
   current->next->next = NULL;
+  current->next->code_binaire = 0;
+}
+
+void push_code_binaire_data(Coll_DATA_t * directive, int code_binaire) {
+  directive->code_binaire = code_binaire;
 }
 
 Coll_DATA_t * new_Coll_DATA() {
@@ -84,6 +106,34 @@ Coll_DATA_t * get_next_directive(Coll_DATA_t * directive) {
 
 char * get_operand_directive(Coll_DATA_t * directive) {
   return directive->valeur;
+}
+
+int get_value_int_operand_directive(Coll_DATA_t * directive) {
+  int type_operand = get_type_operand_directive(directive);
+  char * operand = get_operand_directive(directive);
+
+  int value = 0;
+  if (type_operand == 6) { /* HEXA */
+    value = hex2int(operand);
+    DEBUG_MSG("operando HEXA %s, %d\n", operand, value);
+  }
+  if (type_operand == 2) {
+    value = atoi(operand);
+    DEBUG_MSG("operando DECIMAL %s, %d\n", operand, value);
+  }
+  if (type_operand == 5) {
+    value = 0;
+    DEBUG_MSG("operando ZERO %s, %d\n", operand, value);
+  }
+  if (type_operand == 7) { /* OCTA */
+    value = octa2int(operand);
+    DEBUG_MSG("operando OCTA %s, %d\n", operand, value);
+  }
+  if (type_operand == 1) {
+    WARNING_MSG("operand => %s <= not relocated. Value replaced by 0", operand);
+  }
+
+  return value;
 }
 
 int get_line_directive(Coll_DATA_t * directive) {

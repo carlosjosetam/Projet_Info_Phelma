@@ -174,6 +174,10 @@ int get_offset_from_base_offset(Coll_INSTRU_t * instruction) {
         j++; i++;
     }
     offset[j] = '\0';
+    if (isalpha(offset[0])) {
+      WARNING_MSG("line %d: FUNCTION not ready. Decoding operand %s from instruction %s. Set %s as 0", instruction->ligne, base_offset, instruction->instruction, offset);
+      return 0;
+    }
     return hex2int(offset);
     }
 }
@@ -221,7 +225,7 @@ int get_address_by_line_text(Coll_INSTRU_t * head, int line) {
   return -1;
 }
 
-void push_code_binaire_instru(Coll_INSTRU_t * instru, code_binaire_instru) {
+void push_code_binaire_instru(Coll_INSTRU_t * instru, int code_binaire_instru) {
   instru->code_binaire_instru = code_binaire_instru;
 }
 

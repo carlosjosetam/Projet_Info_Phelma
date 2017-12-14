@@ -13,7 +13,7 @@
 #include "../../include/notify.h"
 #include "../structures/list_relocation.h"
 
-char * get_type_relocation(char * instru) {
+char * get_type_relocation(char * instru, char * type) {
   if (strcmp_not_case_sensitive(instru, "LW")) return "R_MIPS_LO16";
   if (strcmp_not_case_sensitive(instru, "SW")) return "R_MIPS_LO16";
 
@@ -21,6 +21,9 @@ char * get_type_relocation(char * instru) {
 
   if (strcmp_not_case_sensitive(instru, "J")) return "R_MIPS_26";
   if (strcmp_not_case_sensitive(instru, "JAL")) return "R_MIPS_26";
+
+  if (strcmp(type, "R") == 0) return "R_MIPS_32";
+  if (strcmp(type, "I") == 0) return "R_MIPS_LO16";
 
   return "[UNDEFINED]";
 }
@@ -69,8 +72,7 @@ void relocation(Coll_INSTRU_t * head_coll_instru, Relocation_t * list_relocation
         }
       }
       else {
-        ERROR_MSG("ERROR IN relocation. NUMBER NOT DIVISIBLE BY 4");
-      }
+        ERROR_MSG("ERROR IN relocation. NUMBER NOT DIVISIBLE BY 4");      }
     }
 
     /* RELOCATION OF TYPE R_MIPS_32 */
@@ -85,7 +87,14 @@ void relocation(Coll_INSTRU_t * head_coll_instru, Relocation_t * list_relocation
 
     /* RELOCATION OF TYPE R_MIPS_LO16 */
     else if (strcmp(type_relocation, "R_MIPS_LO16") == 0) {
-      WARNING_MSG("RELOCATION OF TYPE R_MIPS_LO16 for symbole %s in address 0x%08X not available yet\n", symbole, address_instru);
+      if ((address_etiquette - address_instru - 4) % 4 == 0) {
+        new_address = (address_etiquette - address_instru - 4) / 4;
+        if (relocate_symbole(head_coll_instru, address_instru, symbole, new_address)) {
+          message_relocation(address_instru, symbole, new_address, get_section_from_list_relocation(current_relocation));
+        }
+        else ERROR_MSG("Error of relocation in function relocation in file analyse_relocation.c");
+      }
+      else ERROR_MSG("ERROR IN relocation. NUMBER NOT DIVISIBLE BY 4");
     }
 
     /* CASE UNDEFINED */
@@ -99,11 +108,13 @@ void relocation(Coll_INSTRU_t * head_coll_instru, Relocation_t * list_relocation
 Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquette_t * list_etiquettes) {
   Relocation_t * list_relocation = new_Relocation();
   Coll_INSTRU_t * current = head_coll_instru;
+  Dicio_Instru_t * dicionaire = new_Dicio_Instru();
 
   char * section = NULL;
   int address_etiquette = -1;
   int address_instru = -1;
   char * instru = NULL;
+  char * type_instruction = NULL;
   Etiquette_t * etiquette = NULL;
 
   if (next_instru(current) == NULL) { /* EXIT, NO .text TERMS */
@@ -113,6 +124,7 @@ Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquet
   while (next_instru(current) != NULL) {
     current = next_instru(current);
     instru = get_name_instruction(current);
+    type_instruction = get_type_instruction_type(dicionaire, instru);
 
     /* if there's no operand i, we have NULL */
     int i = 1;
@@ -124,11 +136,11 @@ Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquet
           address_etiquette = get_address_etiquette(etiquette);
           address_instru = get_address_instru(current);
 
-          push_Relocation(list_relocation, address_instru, address_etiquette, section, get_type_relocation(instru), get_operand(current, i));
+          push_Relocation(list_relocation, address_instru, address_etiquette, section, get_type_relocation(instru, type_instruction), get_operand(current, i));
         }
         else {
           address_instru = get_address_instru(current);
-          push_Relocation(list_relocation, address_instru, 0, NULL, get_type_relocation(instru), get_operand(current, i));
+          push_Relocation(list_relocation, address_instru, 0, NULL, get_type_relocation(instru, type_instruction), get_operand(current, i));
           WARNING_MSG("line %d: SYMBOLE => %s <= not declared in this file", get_line(current), get_operand(current, i));
         }
       }

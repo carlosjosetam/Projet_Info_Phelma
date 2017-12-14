@@ -42,5 +42,6 @@ void push_Dicio_Instru(Dicio_Instru_t * head, char * word, int n_op, char * type
 Dicio_Instru_t * new_Dicio_Instru();
 Binaire_t * new_Binaire(char n_sections, char code_binaire, char * sec1, char * sec2, char * sec3, char * sec4, char * sec5, char * sec6, char * sec7, char * sec8);
 char * get_addressing_type(Dicio_Instru_t * dicionaire, char * word, int index);
+char * get_type_instruction_type(Dicio_Instru_t * dicionaire, char * word);
 
 #endif

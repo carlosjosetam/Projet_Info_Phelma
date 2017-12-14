@@ -18,6 +18,19 @@
 #include "create_code_binaire.h"
 
 
+void create_code_binaire_data(Coll_DATA_t * directives, Dicio_Directives_t * dicio_directives) {
+  Coll_DATA_t * current = directives;
+  if (get_next_directive(current) == NULL) { /* EXIT, NO .text TERMS */
+    return;
+  }
+
+
+  while (get_next_directive(current) != NULL) {
+    current = get_next_directive(current);
+    push_code_binaire_data(current, get_value_int_operand_directive(current));
+  }
+}
+
 void create_code_binaire(Coll_INSTRU_t * instructions, Dicio_Instru_t * dicio_instru) {
   Coll_INSTRU_t * current = instructions;
   if (next_instru(current) == NULL) { /* EXIT, NO .text TERMS */
@@ -62,6 +75,21 @@ void create_code_binaire(Coll_INSTRU_t * instructions, Dicio_Instru_t * dicio_in
 
       if (strcmp(section, "5op3") == 0) {
         bin = bin << 5 | get_value_operand(current, 3);
+        cmpt_operands++;
+      }
+
+      if (strcmp(section, "16op1") == 0) {
+        bin = bin << 16 | get_value_operand(current, 1);
+        cmpt_operands++;
+      }
+
+      if (strcmp(section, "16op2") == 0) {
+        bin = bin << 16 | get_value_operand(current, 2);
+        cmpt_operands++;
+      }
+
+      if (strcmp(section, "16op3") == 0) {
+        bin = bin << 16 | get_value_operand(current, 3);
         cmpt_operands++;
       }
 

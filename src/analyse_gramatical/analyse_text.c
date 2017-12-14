@@ -215,7 +215,8 @@ Coll_INSTRU_t * analyse_text(Lexeme_t * head_text, Dicio_Instru_t * dicio_instru
                 push_Coll_INSTRU(coll_instru, "LUI", 2, ligne_lexeme(current), decalage, "$at", op2, NULL, 9, 1, -1);
                 decalage = decalage + 4;
                 /* push_Coll_INSTRU(coll_instru, "LW", 2, ligne_lexeme(current), decalage, op1, "0x0($at)", NULL, 9, 18, -1); */
-                push_Coll_INSTRU(coll_instru, "LW", 2, ligne_lexeme(current), decalage, op1, op2, NULL, 9, 1, -1);
+                printf("%s\n", op2);
+                push_Coll_INSTRU(coll_instru, "LW", 2, ligne_lexeme(current), decalage, op1, strcat(strdup(op2), "($at)"), NULL, 9, 18, -1);
                 S = START_TEXT; break;
               }
 

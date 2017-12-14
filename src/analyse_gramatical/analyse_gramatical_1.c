@@ -81,4 +81,17 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   create_code_binaire(coll_instru, dicio_instru);
   print_Coll_INSTRU_with_code(coll_instru);
 
+  create_code_binaire_data(coll_data, dicio_directives);
+  print_Coll_DATA_with_code(coll_data);
+
+  /* LIST D'ASSEMBLAGE */
+  FILE* fichier = NULL;
+  fichier = fopen("file.l", "w");
+  if (fichier != NULL) {
+    fputs("Salut les Zér0s\nComment allez-vous ?", fichier);
+    fclose(fichier);
+  }
+
+
+
 }

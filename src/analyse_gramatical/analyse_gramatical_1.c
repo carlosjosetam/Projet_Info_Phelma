@@ -15,6 +15,7 @@
 #include "analyse_type_instruction.h"
 #include "analyse_relocation.h"
 #include "create_code_binaire.h"
+#include "write_file.h"
 
 
 void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_t * head_data, Lexeme_t * head_bss, Etiquette_t * list_etiquettes, Dicio_Instru_t * dicio_instru, Dicio_Directives_t * dicio_directives) {
@@ -86,9 +87,9 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
 
   /* LIST D'ASSEMBLAGE */
   FILE* fichier = NULL;
-  fichier = fopen("file.l", "w");
+  fichier = fopen("outputs/file.l", "w");
   if (fichier != NULL) {
-    fputs("Salut les Zér0s\nComment allez-vous ?", fichier);
+    write_file(coll_instru, coll_data, coll_bss, list_etiquettes, reloc_text, reloc_data, fichier);
     fclose(fichier);
   }
 

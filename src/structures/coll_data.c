@@ -38,6 +38,22 @@ void print_Coll_DATA_with_code(Coll_DATA_t * head) {
   printf("\n");
 }
 
+int get_max_lines_data(Coll_DATA_t * head) {
+  Coll_DATA_t * current = head;
+  int max_line = 0;
+
+  while (current->next != NULL) {
+    if (max_line < current->ligne) {
+      max_line = current->ligne;
+    }
+    current = current->next;
+  }
+  if (max_line < current->ligne) {
+    max_line = current->ligne;
+  }
+  return max_line;
+}
+
 
 void push_Coll_DATA(Coll_DATA_t * head, char* directive, int n_op, int ligne, int decalage, char * valeur, int type) {
   /* ADD element on top of the linked list */

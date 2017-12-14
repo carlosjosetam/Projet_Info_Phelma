@@ -27,5 +27,6 @@ int get_line_directive(Coll_DATA_t * directive);
 void push_code_binaire_data(Coll_DATA_t * directive, int code_binaire);
 int get_value_int_operand_directive(Coll_DATA_t * directive);
 void print_Coll_DATA_with_code(Coll_DATA_t * head);
+int get_max_lines_data(Coll_DATA_t * head);
 
 #endif

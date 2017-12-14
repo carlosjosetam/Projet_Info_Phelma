@@ -55,6 +55,22 @@ void print_Coll_INSTRU_with_code(Coll_INSTRU_t * head) {
   printf("\n");
 }
 
+int get_max_lines_instru(Coll_INSTRU_t * head) {
+  Coll_INSTRU_t * current = head;
+  int max_line = 0;
+
+  while (current->next != NULL) {
+    if (max_line < current->ligne) {
+      max_line = current->ligne;
+    }
+    current = current->next;
+  }
+  if (max_line < current->ligne) {
+    max_line = current->ligne;
+  }
+  return max_line;
+}
+
 
 void push_Coll_INSTRU(Coll_INSTRU_t * head, char * instruction, int n_op, int ligne, int decalage, char * op1, char * op2, char * op3, int type_op1, int type_op2, int type_op3) {
   /* ADD element on top of the linked list */

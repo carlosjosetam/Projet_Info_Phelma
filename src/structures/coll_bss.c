@@ -36,6 +36,7 @@ void push_Coll_BSS(Coll_BSS_t * head, char* directive, int n_op, int ligne, int 
   current->next->decalage = decalage;
   current->next->valeur = valeur;
   current->next->next = NULL;
+  current->next->code_binaire = 0;
 }
 
 Coll_BSS_t * new_Coll_BSS() {
@@ -50,6 +51,26 @@ Coll_BSS_t * new_Coll_BSS() {
   head->next = NULL;
 
   return head;
+}
+
+int get_max_lines_bss(Coll_BSS_t * head) {
+  Coll_BSS_t * current = head;
+  int max_line = 0;
+
+  if (current->next == NULL) {
+    max_line = current->ligne;
+  }
+
+  while (current->next != NULL) {
+    if (max_line < current->ligne) {
+      max_line = current->ligne;
+    }
+    current = current->next;
+  }
+  if (max_line < current->ligne) {
+    max_line = current->ligne;
+  }
+  return max_line;
 }
 
 int get_address_by_line_bss(Coll_BSS_t * head, int line) {

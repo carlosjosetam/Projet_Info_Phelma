@@ -63,6 +63,10 @@ clean_release_run : $(OBJ_RLS)
 	make clean
 	make release_run
 
+all_open : $(OBJ_RLS)
+	make clean_release_run
+	open outputs/file.l
+
 run :
 	./as-mips tests/miam.s
 

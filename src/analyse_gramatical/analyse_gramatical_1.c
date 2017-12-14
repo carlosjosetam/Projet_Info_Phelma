@@ -86,12 +86,14 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   print_Coll_DATA_with_code(coll_data);
 
   /* LIST D'ASSEMBLAGE */
+  printf("CREATING LIST D'ASSEMBLAGE file.l\n");
   FILE* fichier = NULL;
   fichier = fopen("outputs/file.l", "w");
   if (fichier != NULL) {
     write_file(coll_instru, coll_data, coll_bss, list_etiquettes, reloc_text, reloc_data, fichier);
     fclose(fichier);
   }
+  printf("LIST CREATED in outputs/file.l\n");
 
 
 

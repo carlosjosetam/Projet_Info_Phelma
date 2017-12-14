@@ -86,11 +86,8 @@ int find_number_lines(Coll_INSTRU_t * head_coll_instru, Coll_DATA_t * head_coll_
   int max_lines = 0;
 
   if (get_max_lines_bss(head_coll_bss) > max_lines) max_lines = get_max_lines_bss(head_coll_bss);
-  printf("%d\n", max_lines);
   if (get_max_lines_data(head_coll_data) > max_lines) max_lines = get_max_lines_data(head_coll_data);
-  printf("%d\n", max_lines);
   if (get_max_lines_instru(head_coll_instru) > max_lines) max_lines = get_max_lines_instru(head_coll_instru);
-  printf("%d\n", max_lines);
 
   return max_lines;
 }

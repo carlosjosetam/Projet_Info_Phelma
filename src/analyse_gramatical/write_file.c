@@ -37,7 +37,6 @@ bool write_file_Coll_INSTRU_with_code(Coll_INSTRU_t * head, FILE * file, int lin
       }
       else if (current->n_op == 2) {
         fprintf(file, "%3u %08X %08X %s %s, %s\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction, current->op1, current-> op2);
-        printf("%08X\n", current->code_binaire_instru);
         wrote = true;
       }
       else {

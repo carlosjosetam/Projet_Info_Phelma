@@ -153,7 +153,19 @@ Dicio_Instru_t * new_Dicio_Instru() {
   bin = new_Binaire(4, 0b100011, "INSTRU", "base", "5op1", "offset", NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "LW", 2, "I", "REG", "OFF", NULL, bin);
 
+  bin = new_Binaire(6, 0b100100, "SPECIAL", "5op2", "5op3", "5op1", "5zeros", "INSTRU", NULL, NULL);
+  push_Dicio_Instru(head, "AND", 3, "R", "REG", "REG", "REG", bin);
 
+  bin = new_Binaire(6, 0b100101, "SPECIAL", "5op2", "5op3", "5op1", "5zeros", "INSTRU", NULL, NULL);
+  push_Dicio_Instru(head, "OR", 3, "R", "REG", "REG", "REG", bin);
+
+  bin = new_Binaire(4, 0b000111, "INSTRU", "5op1", "5zeros", "16op2", NULL, NULL, NULL, NULL);
+  push_Dicio_Instru(head, "BGTZ", 2, "I", "REG", "IME", NULL, bin);
+
+  bin = new_Binaire(4, 0b000110, "INSTRU", "5op1", "5zeros", "16op2", NULL, NULL, NULL, NULL);
+  push_Dicio_Instru(head, "BLEZ", 2, "I", "REG", "IME", NULL, bin);
+
+  bin = new_Binaire(4, 0b101011, "INSTRU", "base", "5op1", "offset", NULL, NULL, NULL, NULL);
   push_Dicio_Instru(head, "SW", 2, "I", "REG", "OFF", NULL, bin);
 
   bin = new_Binaire(5, 0b011010, "SPECIAL", "5op1", "5op2", "10zero", "INSTRU", NULL, NULL, NULL);
@@ -176,6 +188,9 @@ Dicio_Instru_t * new_Dicio_Instru() {
 
   bin = new_Binaire(6, 0b000000, "SPECIAL", "5zero", "5op2", "5op1", "5op3", "SPECIAL", NULL, NULL);
   push_Dicio_Instru(head, "SLL", 3, "R", "REG", "REG", "SA", bin);
+
+  bin = new_Binaire(6, 0b000010, "SPECIAL", "5zero", "5op2", "5op1", "5op3", "INSTRU", NULL, NULL);
+  push_Dicio_Instru(head, "SRL", 3, "R", "REG", "REG", "SA", bin);
 
   bin = new_Binaire(6, 0b101010, "SPECIAL", "5op2", "5op3", "5op1", "5zero", "INSTRU", NULL, NULL);
   push_Dicio_Instru(head, "SLT", 3, "R", "REG", "REG", "REG", bin);

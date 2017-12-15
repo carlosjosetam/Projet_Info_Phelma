@@ -77,7 +77,7 @@ void analyse_gramatical_1(Lexeme_t * head_lexemes, Lexeme_t * head_text, Lexeme_
   printf("FOR .data\n");
   printf("RELOCATION COMPLETED.\n\n");
 
-  // CREATION OF CODE BINAIRE
+  /* CREATION OF CODE BINAIRE */
   printf("STARTING GENERATION OF CODE...\n");
   create_code_binaire(coll_instru, dicio_instru);
   print_Coll_INSTRU_with_code(coll_instru);

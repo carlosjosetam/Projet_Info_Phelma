@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "coll_data.h"
+#include "../global.h"
 
 void print_Coll_DATA(Coll_DATA_t * head) {
   /* Print all elements on list */

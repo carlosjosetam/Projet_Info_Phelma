@@ -44,7 +44,6 @@ void message_relocation(int address_text, char * symbole, int new_address, char 
 
 void relocation(Coll_INSTRU_t * head_coll_instru, Relocation_t * list_relocation) {
   Relocation_t * current_relocation = list_relocation;
-  Coll_INSTRU_t * current = head_coll_instru;
   int address_etiquette = 0;
   int address_instru = 0;
   int new_address = 0;
@@ -138,7 +137,7 @@ Relocation_t * analyse_relocation_text(Coll_INSTRU_t * head_coll_instru, Etiquet
 
     /* if there's no operand i, we have NULL */
     int i = 1;
-    for (i; i <= 3; i++) {
+    for (i = 1; i <= 3; i++) {
       if (get_type_operand(current, i) == 1) { /* IF WE HAVE SYMBOLE */
         etiquette = is_in_list_current(list_etiquettes, get_operand(current, i));
         if (etiquette != NULL) {

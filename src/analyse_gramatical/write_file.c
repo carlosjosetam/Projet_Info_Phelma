@@ -132,7 +132,8 @@ void write_file(Coll_INSTRU_t * head_coll_instru, Coll_DATA_t * head_coll_data, 
     }
 
     else {
-      fprintf(file, "%3u\n");    }
+      fprintf(file, "%3u\n", i);
+    }
   }
 
   write_file_list_etiquette(head_etiquettes, file);

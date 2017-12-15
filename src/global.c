@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "global.h"
+#include <math.h>
+
 
 bool strcmp_not_case_sensitive(char * cmp1, char * cmp2) {
   if (strlen(cmp1) != strlen(cmp2)) return false;
@@ -63,15 +65,6 @@ void write_bits(unsigned int x, FILE * file)
     }
 }
 
-
-char * to_uppercase(char * word) {
-  char * new;
-  int i = 0;
-  for (i; i <= strlen(word); i++) {
-    new[i] = toupper(word[i]);
-  }
-  return new;
-}
 
 int hex2int(char * hex) {
 

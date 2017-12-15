@@ -50,7 +50,7 @@ void create_code_binaire(Coll_INSTRU_t * instructions, Dicio_Instru_t * dicio_in
     cmpt_operands = 1;
 
     int i = 1;
-    for(i; i <= 8; i++) {
+    for(i = 1; i <= 8; i++) {
       section = get_section_bin(dicio_instru, instruction, i);
       DEBUG_MSG("%s\n", section);
 
@@ -135,7 +135,7 @@ void create_code_binaire(Coll_INSTRU_t * instructions, Dicio_Instru_t * dicio_in
       if (strcmp(section, "INSTRU") == 0) {
         bin = bin << 6 | get_code_instru_bin(dicio_instru, instruction);
       }
-      
+
       /* CASE BASE */
       if (strcmp(section, "base") == 0) {
         int base = get_base_from_base_offset(current);

@@ -2,8 +2,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <ctype.h>
 #include "coll_instru.h"
 #include "table_registers.h"
+#include "../global.h"
 
 void print_Coll_INSTRU(Coll_INSTRU_t * head) {
   /* Print all elements on list */
@@ -162,7 +164,7 @@ int get_base_from_base_offset(Coll_INSTRU_t * instruction) {
 
   int i = 0;
   int j = 0;
-  for (i; i<strlen(base_offset); i++) {
+  for (i = 0; i<strlen(base_offset); i++) {
     if (base_offset[i] == '(') {
       i++;
       while (base_offset[i] != ')') {
@@ -173,6 +175,7 @@ int get_base_from_base_offset(Coll_INSTRU_t * instruction) {
       return get_number_Reg_in_table(table_registers, registre);
     }
   }
+  return 0;
 }
 
 int get_offset_from_base_offset(Coll_INSTRU_t * instruction) {
@@ -190,7 +193,7 @@ int get_offset_from_base_offset(Coll_INSTRU_t * instruction) {
 
   int i = 0;
   int j = 0;
-  for (i; i<strlen(base_offset); i++) {
+  for (i = 0; i<strlen(base_offset); i++) {
     while (base_offset[i] != '(') {
         offset[j] = base_offset[i];
         j++; i++;
@@ -202,6 +205,7 @@ int get_offset_from_base_offset(Coll_INSTRU_t * instruction) {
     }
     return hex2int(offset);
     }
+  return 0;
 }
 
 int get_value_operand(Coll_INSTRU_t * instruction, int index) {

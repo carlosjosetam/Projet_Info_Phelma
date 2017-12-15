@@ -46,9 +46,8 @@ int main (int argc, char ** argv ) {
 
   analyse_gramatical_1(list_complet, list_text, list_data, list_bss, etiq1, dicio_instru, dicio_directives);
 
-  int bin = 0x0000;
-  bin = bin << 16 | (65536-43);
-  showbits(bin);
+  int bin = 63;
+  printf("%d\n", bin % 64);
 
   return 0;
 }

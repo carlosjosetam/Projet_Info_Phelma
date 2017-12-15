@@ -66,7 +66,7 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
 
   /* BASE OFFSET */
   if (strcmp(addressing_type, "OFF") == 0) {
-    WARNING_MSG("line %d: OFFSET value verification NOT IMPLEMENTED YET", line);
+    WARNING_MSG("line %d: Verfication of base_offset => %s <= will be done in relocation", line, operand);
   }
 
   /* SHIFT ADDRESS */
@@ -74,7 +74,7 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
   if (strcmp(addressing_type, "SA") == 0) {
     if (type_operand == 1) { /* If its SYMBOLE */
       DEBUG_MSG("Symbole %s valide\n", operand);
-      WARNING_MSG("line %d: ATTENTION! RELOCATION NOT READY YET! RESULTS MAY BE WRONG", line);
+      WARNING_MSG("line %d: Relocation not tested exautivement. RESULTS MAY BE WRONG for => %s <= relocation", line, operand);
       /* faire choses */
     }
     else { /* HEXA, DECIMAL, OCTA, ZERO */
@@ -93,7 +93,7 @@ bool check_value_operand(char * addressing_type, int type_operand, int line, cha
   if (strcmp(addressing_type, "TAR") == 0) {
     if (type_operand == 1) { /* If its SYMBOLE */
       DEBUG_MSG("Symbole %s valide\n", operand);
-      WARNING_MSG("line %d: ATTENTION! RELOCATION NOT READY YET! RESULTS MAY BE WRONG", line);
+      WARNING_MSG("line %d: Relocation not tested exautivement. RESULTS MAY BE WRONG for => %s <= relocation", line, operand);
       /* faire choses */
     }
     else { /* HEXA, DECIMAL, OCTA, ZERO */

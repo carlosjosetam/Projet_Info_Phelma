@@ -65,32 +65,42 @@ void create_code_binaire(Coll_INSTRU_t * instructions, Dicio_Instru_t * dicio_in
       /* CASE OPERANDS REGISTER */
       if (strcmp(section, "5op1") == 0) {
         bin = bin << 5 | get_value_operand(current, 1);
-        cmpt_operands++;
       }
 
       if (strcmp(section, "5op2") == 0) {
         bin = bin << 5 | get_value_operand(current, 2);
-        cmpt_operands++;
       }
 
       if (strcmp(section, "5op3") == 0) {
         bin = bin << 5 | get_value_operand(current, 3);
-        cmpt_operands++;
       }
 
+      /* CASE IMEDIATE 16 bits */
       if (strcmp(section, "16op1") == 0) {
-        bin = bin << 16 | get_value_operand(current, 1);
-        cmpt_operands++;
+        int value_ime16 = get_value_operand(current, 1);
+        if (value_ime16 < 0) {
+          value_ime16 = 65536 + value_ime16;
+        }
+
+        bin = bin << 16 | value_ime16;
       }
 
       if (strcmp(section, "16op2") == 0) {
-        bin = bin << 16 | get_value_operand(current, 2);
-        cmpt_operands++;
+        int value_ime16 = get_value_operand(current, 2);
+        if (value_ime16 < 0) {
+          value_ime16 = 65536 + value_ime16;
+        }
+
+        bin = bin << 16 | value_ime16;
       }
 
       if (strcmp(section, "16op3") == 0) {
-        bin = bin << 16 | get_value_operand(current, 3);
-        cmpt_operands++;
+        int value_ime16 = get_value_operand(current, 3);
+        if (value_ime16 < 0) {
+          value_ime16 = 65536 + value_ime16;
+        }
+
+        bin = bin << 16 | value_ime16;
       }
 
       /* CASE instr_index TARGET */
@@ -100,16 +110,12 @@ void create_code_binaire(Coll_INSTRU_t * instructions, Dicio_Instru_t * dicio_in
 
       if (strcmp(section, "rs") == 0) {
         bin = bin << 5 | get_value_operand(current, cmpt_operands);
-        DEBUG_MSG("operand: %d\n", get_value_operand(current, cmpt_operands));
-        cmpt_operands++;
       }
       if (strcmp(section, "rt") == 0) {
         bin = bin << 5 | get_value_operand(current, cmpt_operands);
-        cmpt_operands++;
       }
       if (strcmp(section, "rd") == 0) {
         bin = bin << 5 | get_value_operand(current, cmpt_operands);
-        cmpt_operands++;
       }
 
       /* CASE ZEROS */
@@ -129,17 +135,7 @@ void create_code_binaire(Coll_INSTRU_t * instructions, Dicio_Instru_t * dicio_in
       if (strcmp(section, "INSTRU") == 0) {
         bin = bin << 6 | get_code_instru_bin(dicio_instru, instruction);
       }
-
-      /* CASE IMEDIATE 16 bits */
-      if (strcmp(section, "ime16") == 0) {
-        int value_ime16 = get_value_operand(current, cmpt_operands);
-        if (value_ime16 < 0) {
-          value_ime16 = 65536 + value_ime16;
-        }
-
-        bin = bin << 16 | value_ime16;
-      }
-
+      
       /* CASE BASE */
       if (strcmp(section, "base") == 0) {
         int base = get_base_from_base_offset(current);

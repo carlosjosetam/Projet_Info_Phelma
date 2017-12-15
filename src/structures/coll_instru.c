@@ -19,7 +19,7 @@ void print_Coll_INSTRU(Coll_INSTRU_t * head) {
     if (current->n_op == 0) {
       printf("%2d | 0x%08X | %s \n", current->ligne, current->decalage, current->instruction);
     }
-    if (current->n_op == 1) {
+    else if (current->n_op == 1) {
       printf("%2d | 0x%08X | %s %s (%d) | type: %d\n", current->ligne, current->decalage, current->instruction, current->op1, current->value_int_op1, current->type_op1);
     }
     else if (current->n_op == 2) {
@@ -47,7 +47,7 @@ void print_Coll_INSTRU_with_code(Coll_INSTRU_t * head) {
     if (current->n_op == 0) {
       printf("%2d | 0x%08X | 0x%08X | %s\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction);
     }
-    if (current->n_op == 1) {
+    else if (current->n_op == 1) {
       printf("%2d | 0x%08X | 0x%08X | %s %s (%d)\n", current->ligne, current->decalage, current->code_binaire_instru, current->instruction, current->op1, current->value_int_op1);
     }
     else if (current->n_op == 2) {
